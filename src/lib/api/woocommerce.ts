@@ -3,7 +3,7 @@
  * Uses wc/store/v1 endpoints to fetch products and categories.
  */
 
-const STORE_API_URL = "https://kilogrammes.com/wp-json/wc/store/v1";
+const STORE_API_URL = "https://kilogramme-shop.com/wp-json/wc/store/v1";
 
 /* ------------------------------------------------------------------ */
 /*  Types – normalised to match v3-like shapes used across the site   */

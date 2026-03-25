@@ -1,7 +1,7 @@
 # Kilogrammes SEO / GEO / AEO / E-E-A-T Growth Plan
 
 Date: 2026-03-23
-Website: https://kilogrammes.com/
+Website: https://kilogramme-shop.com/
 Keyword source: /home/ivan/kilogrammez/keywords_fr.txt
 
 ## Executive Summary
@@ -166,7 +166,7 @@ The right approach is not one page per raw keyword. It is one page per coherent 
 
 ### Cluster 1: Brand / Navigational
 
-- Example keywords: kilogrammes, kilogrammes.com, kilogramme shop, kilogram website
+- Example keywords: kilogrammes, kilogramme-shop.com, kilogramme shop, kilogram website
 - Intent type: Navigational
 - User question: Where is the official Kilogrammes website or shop?
 - Recommended target: /

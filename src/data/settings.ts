@@ -1,6 +1,6 @@
 export const siteConfig = {
   name: "Kilogrammes",
-  url: "https://kilogrammes.com",
+  url: "https://kilogramme-shop.com",
   locale: "fr_FR",
   language: "fr-FR",
   currency: "EUR",

@@ -22,7 +22,7 @@ export const mainNav = [
   { label: "Abonnements", href: getCategoryUrl({ slug: "abonnements", name: "Abonnements" }) },
   { label: "Blog", href: "/blog/" },
   { label: "Contact", href: `/${staticPageSlugs.contact}/` },
-  { label: "Pro", href: "https://b2b.kilogrammes.com/", external: true },
+  { label: "Pro", href: "https://b2b.kilogramme-shop.com/", external: true },
   { label: "Franchise", href: "/franchise-cbd/" },
 ] as const;
 

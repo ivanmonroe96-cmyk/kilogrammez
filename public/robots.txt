@@ -1,11 +1,23 @@
 User-agent: *
 Allow: /
 
-Disallow: /panier/
+Disallow: /affiliation/
 Disallow: /commander/
+Disallow: /contact/
+Disallow: /finaliser-commande-cbd/
+Disallow: /grossiste-cbd/
+Disallow: /kilogramme-shop/
 Disallow: /mon-compte/
+Disallow: /panier/
+Disallow: /processus-editorial/
+Disallow: /rgpd/
+Disallow: /safety/
+Disallow: /support/
 Disallow: /wp-admin/
 Disallow: /?s=
 Disallow: /page/
 
-Sitemap: https://kilogrammes.com/sitemap-index.xml
+Sitemap: https://kilogramme-shop.com/sitemap.xml
+
+# Canonical machine-readable guidance
+# https://kilogramme-shop.com/llms.txt

@@ -13,7 +13,7 @@ export interface SiteMetadata {
 }
 
 const SITE_NAME = "Kilogrammes";
-const SITE_URL = "https://kilogrammes.com";
+const SITE_URL = "https://kilogramme-shop.com";
 const DEFAULT_OG_IMAGE = `${SITE_URL}/images/og-default.jpg`;
 
 export function buildTitle(pageTitle?: string): string {

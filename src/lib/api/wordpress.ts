@@ -5,7 +5,7 @@
  */
 
 const WP_API_URL =
-  import.meta.env.WP_API_URL ?? "https://kilogrammes.com/wp-json/wp/v2";
+  import.meta.env.WP_API_URL ?? "https://kilogramme-shop.com/wp-json/wp/v2";
 
 export interface WPPost {
   id: number;

@@ -19,12 +19,12 @@ const NON_CANONICAL_SITEMAP_PATHS = new Set([
 ]);
 
 export default defineConfig({
-  site: "https://kilogrammes.com",
+  site: "https://kilogramme-shop.com",
   integrations: [
     tailwind(),
     sitemap({
       filter: (page) => {
-        const pathname = new URL(page, "https://kilogrammes.com").pathname;
+        const pathname = new URL(page, "https://kilogramme-shop.com").pathname;
         const normalizedPath = pathname.endsWith("/") ? pathname : `${pathname}/`;
 
         return (
@@ -41,7 +41,7 @@ export default defineConfig({
     locales: ["fr"],
   },
   image: {
-    domains: ["kilogrammes.com"],
+    domains: ["kilogramme-shop.com"],
   },
   vite: {
     build: {

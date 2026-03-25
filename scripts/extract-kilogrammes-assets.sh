@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-BASE_URL="https://kilogrammes.com"
+BASE_URL="https://kilogramme-shop.com"
 OUTPUT_DIR="${1:-./archive/kilogrammes}"
 WORK_DIR="$OUTPUT_DIR/work"
 HTML_DIR="$OUTPUT_DIR/html"
@@ -64,7 +64,7 @@ extract_assets() {
           while($set =~ /(https?:\/\/[^ ,]+\.(?:avif|gif|jpe?g|png|svg|webp))(?:\?[^ ,]*)?/g){print "$1\n"}
         }
       ' \
-    | grep '^https://kilogrammes.com/' \
+    | grep '^https://kilogramme-shop.com/' \
     | grep -vE '/wp-content/uploads/.*-[0-9]+x[0-9]+\.' \
     | sort -u > "$ASSET_URLS_FILE"
 }

@@ -1,4 +1,4 @@
-const SITE_URL = "https://kilogrammes.com";
+const SITE_URL = "https://kilogramme-shop.com";
 const SITE_NAME = "Kilogrammes";
 const LOGO_URL = `${SITE_URL}/images/logo-kilogrammes.svg`;
 
