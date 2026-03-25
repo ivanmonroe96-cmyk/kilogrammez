@@ -12,11 +12,44 @@ function pageUrl(page: number): string {
   return `${baseUrl}${baseUrl.endsWith("/") ? "" : "/"}page/${page}/`;
 }
 
-const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
+function buildVisiblePages(): Array<number | string> {
+  if (totalPages <= 7) {
+    return Array.from({ length: totalPages }, (_, i) => i + 1);
+  }
+
+  const visible = new Set<number>([1, totalPages, currentPage, currentPage - 1, currentPage + 1]);
+  if (currentPage <= 3) {
+    visible.add(2);
+    visible.add(3);
+    visible.add(4);
+  }
+  if (currentPage >= totalPages - 2) {
+    visible.add(totalPages - 1);
+    visible.add(totalPages - 2);
+    visible.add(totalPages - 3);
+  }
+
+  const sorted = [...visible]
+    .filter((page) => page >= 1 && page <= totalPages)
+    .sort((left, right) => left - right);
+
+  const output: Array<number | string> = [];
+  for (const page of sorted) {
+    const last = output[output.length - 1];
+    if (typeof last === "number" && page - last > 1) {
+      output.push(`ellipsis-${last}-${page}`);
+    }
+    output.push(page);
+  }
+
+  return output;
+}
+
+const pages = buildVisiblePages();
 ---
 
 {totalPages > 1 && (
-  <nav aria-label="Pagination" class="flex flex-wrap items-center justify-center gap-2 mt-12">
+  <nav aria-label="Pagination" class="mt-12 flex flex-wrap items-center justify-center gap-2 px-2 sm:px-0">
     {currentPage > 1 && (
       <a href={pageUrl(currentPage - 1)} class="btn-secondary text-xs" aria-label="Page précédente">
         ← Précédent
@@ -24,19 +57,23 @@ const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
     )}
 
     {pages.map((p) => (
-      <a
-        href={pageUrl(p)}
-        class:list={[
-          "w-9 h-9 flex items-center justify-center rounded-full text-sm font-medium transition-colors",
-          p === currentPage
-            ? "bg-brand-green text-brand-black"
-            : "text-brand-gray-400 hover:text-brand-white hover:bg-brand-gray-800",
-        ]}
-        aria-current={p === currentPage ? "page" : undefined}
-        aria-label={`Page ${p}`}
-      >
-        {p}
-      </a>
+      typeof p === "number" ? (
+        <a
+          href={pageUrl(p)}
+          class:list={[
+            "flex h-9 min-w-9 items-center justify-center rounded-full px-2 text-sm font-medium transition-colors",
+            p === currentPage
+              ? "bg-brand-green text-brand-black"
+              : "text-brand-gray-400 hover:text-brand-white hover:bg-brand-gray-800",
+          ]}
+          aria-current={p === currentPage ? "page" : undefined}
+          aria-label={`Page ${p}`}
+        >
+          {p}
+        </a>
+      ) : (
+        <span class="flex h-9 min-w-9 items-center justify-center px-1 text-sm text-brand-gray-400" aria-hidden="true">…</span>
+      )
     ))}
 
     {currentPage < totalPages && (

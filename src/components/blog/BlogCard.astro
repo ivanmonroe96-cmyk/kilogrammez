@@ -15,7 +15,7 @@ const formattedDate = date
   : null;
 ---
 
-<article class="group border border-brand-black rounded-lg overflow-hidden bg-white hover:shadow-lg transition-all duration-300">
+<article class="group flex h-full flex-col border border-brand-black rounded-lg overflow-hidden bg-white hover:shadow-lg transition-all duration-300">
   <a href={`/blog/${slug}/`} class="block">
     <div class="relative aspect-[16/10] overflow-hidden bg-gray-50">
       {image ? (
@@ -33,16 +33,16 @@ const formattedDate = date
       )}
     </div>
 
-    <div class="p-5">
+    <div class="p-4 sm:p-5">
       {formattedDate && (
         <time class="text-xs text-brand-gray-400 uppercase tracking-wider mb-2 block" datetime={date}>{formattedDate}</time>
       )}
 
-      <h3 class="text-lg font-title font-bold text-brand-black uppercase leading-tight group-hover:text-brand-yellow transition-colors line-clamp-2 mb-2">
+      <h3 class="text-base sm:text-lg font-title font-bold text-brand-black uppercase leading-tight group-hover:text-brand-yellow transition-colors line-clamp-3 mb-2 break-words">
         {title}
       </h3>
 
-      <p class="text-sm text-brand-gray-400 line-clamp-3 leading-relaxed">{excerpt}</p>
+      <p class="text-sm text-brand-gray-400 line-clamp-4 leading-relaxed break-words">{excerpt}</p>
     </div>
   </a>
 </article>

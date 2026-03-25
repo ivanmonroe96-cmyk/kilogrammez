@@ -5,12 +5,12 @@ import { getCategoryUrl, staticPageSlugs } from "@lib/seo/focusKeywords";
 
 <!-- Footer with white bg matching original -->
 <footer class="bg-brand-white text-brand-black rounded-t-[30px] lg:rounded-t-[50px] relative">
-  <div class="max-w-[1440px] mx-auto px-6 lg:px-10 py-12 lg:py-20">
+  <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-10 py-12 lg:py-20">
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 mb-12">
 
       <!-- Left Part: Brand tagline + Instagram -->
       <div>
-        <div class="text-brand-black font-bold text-2xl lg:text-4xl leading-tight tracking-tight mb-8 uppercase font-title">
+        <div class="text-brand-black font-bold text-2xl sm:text-3xl lg:text-4xl leading-tight tracking-tight mb-8 uppercase font-title">
           THE FAVORITE<br />DISPENSARY OF<br />YOUR FAVORITE<br />DISPENSARY
         </div>
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
@@ -80,15 +80,15 @@ import { getCategoryUrl, staticPageSlugs } from "@lib/seo/focusKeywords";
           <p class="text-brand-gray-500 text-sm mb-4">
             Inscrivez-vous à la Gazette: 5€ offerts sur votre première commande - Restez informé.e.s sur les nouveautés et ventes flash.
           </p>
-          <form class="flex gap-0" onsubmit="return false;">
+          <form class="flex flex-col gap-3 sm:flex-row sm:gap-0" onsubmit="return false;">
             <input
               type="email"
               placeholder="Votre adresse email..."
-              class="flex-1 bg-transparent border border-brand-gray-300 rounded-l-full px-5 py-3 text-sm text-brand-black placeholder-brand-gray-400 focus:outline-none focus:border-brand-black"
+              class="flex-1 bg-transparent border border-brand-gray-300 rounded-full sm:rounded-l-full sm:rounded-r-none px-5 py-3 text-sm text-brand-black placeholder-brand-gray-400 focus:outline-none focus:border-brand-black"
             />
             <button
               type="submit"
-              class="bg-brand-black text-brand-white rounded-r-full px-6 py-3 text-sm font-medium hover:bg-brand-gray-800 transition-colors"
+              class="bg-brand-black text-brand-white rounded-full sm:rounded-r-full sm:rounded-l-none px-6 py-3 text-sm font-medium hover:bg-brand-gray-800 transition-colors"
             >
               <span class="hidden lg:inline">Je m'inscris</span>
               <svg class="w-5 h-5 lg:hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -103,15 +103,15 @@ import { getCategoryUrl, staticPageSlugs } from "@lib/seo/focusKeywords";
     <!-- Bottom bar: Copyright + Legal + Currency -->
     <div class="flex flex-wrap items-center justify-between gap-4 text-xs text-brand-gray-500">
       <div class="flex flex-wrap items-center gap-x-6 gap-y-2">
-      <span>&copy;{new Date().getFullYear()} – Kilogrammes</span>
-      <a href={`/${staticPageSlugs.terms}/`} class="hover:text-brand-black transition-colors">
-        <span class="hidden lg:inline">Conditions générales de vente</span>
-        <span class="lg:hidden">CGV</span>
-      </a>
-      <a href={`/${staticPageSlugs.privacy}/`} class="hover:text-brand-black transition-colors">GDPR</a>
-      <a href={`/${staticPageSlugs.editorial}/`} class="hover:text-brand-black transition-colors">Éditorial</a>
-      <a href={`/${staticPageSlugs.support}/`} class="hover:text-brand-black transition-colors">Support</a>
-      <a href={getCategoryUrl({ slug: "best-sellers", name: "Best Sellers" })} class="hover:text-brand-black transition-colors">Best Sellers</a>
+        <span>&copy;{new Date().getFullYear()} – Kilogrammes</span>
+        <a href={`/${staticPageSlugs.terms}/`} class="hover:text-brand-black transition-colors">
+          <span class="hidden lg:inline">Conditions générales de vente</span>
+          <span class="lg:hidden">CGV</span>
+        </a>
+        <a href={`/${staticPageSlugs.privacy}/`} class="hover:text-brand-black transition-colors">GDPR</a>
+        <a href={`/${staticPageSlugs.editorial}/`} class="hover:text-brand-black transition-colors">Éditorial</a>
+        <a href={`/${staticPageSlugs.support}/`} class="hover:text-brand-black transition-colors">Support</a>
+        <a href={getCategoryUrl({ slug: "best-sellers", name: "Best Sellers" })} class="hover:text-brand-black transition-colors">Best Sellers</a>
       </div>
 
     </div>

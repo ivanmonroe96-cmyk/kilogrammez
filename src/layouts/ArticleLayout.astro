@@ -16,11 +16,11 @@ const { metadata, jsonLd, breadcrumbs } = Astro.props;
 
 <BaseLayout metadata={metadata} jsonLd={jsonLd}>
   <article class="bg-brand-white">
-    <div class="container-site py-12">
+    <div class="container-site py-10 sm:py-12">
     {breadcrumbs && breadcrumbs.length > 0 && (
       <Breadcrumbs items={breadcrumbs} />
     )}
-    <div class="prose-article max-w-3xl mx-auto mt-6">
+    <div class="prose-article max-w-3xl mx-auto mt-6 overflow-hidden">
       <slot />
 
       <section class="not-prose mt-12 rounded-[28px] border border-brand-gray-200 bg-gray-50 p-6 lg:p-8">

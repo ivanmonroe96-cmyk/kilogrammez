@@ -26,12 +26,12 @@ const locationsByCountry = deliveryCountries.map((country) => ({
 
 <MarketingLayout metadata={metadata} jsonLd={jsonLd}>
   <!-- Hero -->
-  <section class="bg-brand-black py-16">
+  <section class="bg-brand-black py-12 sm:py-16">
     <div class="container-site">
-    <h1 class="text-4xl sm:text-5xl font-bold text-brand-white mb-4 text-center font-title uppercase">
+    <h1 class="text-3xl sm:text-5xl font-bold text-brand-white mb-4 text-center font-title uppercase break-words">
       Livraison CBD en Europe
     </h1>
-    <p class="text-lg text-brand-gray-400 text-center max-w-2xl mx-auto mb-6">
+    <p class="text-base sm:text-lg text-brand-gray-400 text-center max-w-2xl mx-auto mb-6 leading-relaxed">
       Nous livrons vos produits CBD premium dans 6 pays européens. Livraison rapide, discrète et offerte dès 100€.
     </p>
 
@@ -48,7 +48,7 @@ const locationsByCountry = deliveryCountries.map((country) => ({
   </section>
 
   <!-- Locations -->
-  <section class="bg-brand-white py-16">
+  <section class="bg-brand-white py-12 sm:py-16">
     <div class="container-site">
     {locationsByCountry.map((country) => (
       <div class="mb-12">
@@ -86,7 +86,7 @@ const locationsByCountry = deliveryCountries.map((country) => ({
   <section class="bg-gray-50 border-t border-gray-100 py-12 lg:py-16">
     <div class="container-site">
       <div class="max-w-3xl">
-        <h2 class="text-2xl lg:text-4xl font-title font-bold uppercase text-brand-black">Guides utiles avant de commander</h2>
+        <h2 class="text-2xl lg:text-4xl font-title font-bold uppercase text-brand-black break-words">Guides utiles avant de commander</h2>
         <p class="mt-4 text-sm lg:text-base leading-relaxed text-brand-black/70">
           Les pages de livraison répondent à l'intention locale, mais les visiteurs ont aussi besoin de repères sur la réglementation, les catégories et les formats. Voici les guides les plus utiles pour compléter une recherche géographique par une vraie lecture d'achat.
         </p>

@@ -7,7 +7,10 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "check": "astro check"
+    "check": "astro check",
+    "catalog:snapshot": "node ./scripts/snapshot-kilogrammes-catalog.mjs",
+    "content:snapshot": "node ./scripts/snapshot-kilogrammes-content.mjs",
+    "snapshot:all": "npm run catalog:snapshot && npm run content:snapshot"
   },
   "dependencies": {
     "astro": "^5.5.0",

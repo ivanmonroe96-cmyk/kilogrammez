@@ -49,9 +49,9 @@ const jsonLd = buildJsonLd([
 
 <MarketingLayout metadata={metadata} jsonLd={jsonLd}>
   <section class="bg-brand-white">
-    <div class="container-site py-16 max-w-3xl mx-auto">
-    <h1 class="text-4xl sm:text-5xl font-bold text-brand-black mb-4 font-title uppercase">Support</h1>
-    <p class="text-lg text-brand-black/60 mb-12">
+    <div class="container-site py-12 sm:py-16 max-w-3xl mx-auto">
+    <h1 class="text-3xl sm:text-5xl font-bold text-brand-black mb-4 font-title uppercase break-words">Support</h1>
+    <p class="text-base sm:text-lg text-brand-black/60 mb-10 sm:mb-12 leading-relaxed">
       Nous sommes là pour vous aider. Retrouvez les réponses essentielles sur les commandes, la livraison, les paiements et la conformité de nos produits CBD.
     </p>
 
@@ -63,18 +63,18 @@ const jsonLd = buildJsonLd([
 
     <div class="space-y-6">
       {supportFaq.map((faq) => (
-        <details class="bg-white border border-brand-gray-200 rounded-xl group">
-          <summary class="px-6 py-4 cursor-pointer text-brand-black font-medium flex items-center justify-between">
+        <details class="bg-white border border-brand-gray-200 rounded-xl group overflow-hidden">
+          <summary class="px-5 sm:px-6 py-4 cursor-pointer text-brand-black font-medium flex items-center justify-between gap-3 text-sm sm:text-base">
             {faq.question}
             <span class="text-brand-gray-400 group-open:rotate-45 transition-transform text-xl">+</span>
           </summary>
-          <div class="px-6 pb-4 text-sm text-brand-black/70">{faq.answer}</div>
+          <div class="px-5 sm:px-6 pb-4 text-sm leading-relaxed text-brand-black/70">{faq.answer}</div>
         </details>
       ))}
     </div>
 
-    <div class="mt-12 p-8 bg-gray-50 border border-brand-gray-200 rounded-2xl text-center">
-      <h2 class="text-xl font-bold text-brand-black mb-2 font-title uppercase">Vous n'avez pas trouvé votre réponse ?</h2>
+    <div class="mt-12 p-6 sm:p-8 bg-gray-50 border border-brand-gray-200 rounded-2xl text-center">
+      <h2 class="text-lg sm:text-xl font-bold text-brand-black mb-2 font-title uppercase break-words">Vous n'avez pas trouvé votre réponse ?</h2>
       <p class="text-sm text-brand-black/60 mb-4">Notre équipe est disponible pour vous aider.</p>
       <a href="/contact/" class="btn-primary">Nous contacter</a>
     </div>

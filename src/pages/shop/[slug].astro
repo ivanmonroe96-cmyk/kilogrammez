@@ -55,7 +55,7 @@ const featuredProducts = await getProducts(1, 8).catch(() => []);
 
 <MarketingLayout metadata={metadata} jsonLd={jsonLd}>
   <!-- Hero -->
-  <section class="bg-brand-black py-16">
+  <section class="bg-brand-black py-12 sm:py-16">
     <div class="container-site max-w-5xl mx-auto">
     <nav aria-label="Fil d'Ariane" class="mb-6 text-sm text-brand-gray-400">
       <a href="/" class="hover:text-brand-white transition-colors">Accueil</a>
@@ -66,9 +66,9 @@ const featuredProducts = await getProducts(1, 8).catch(() => []);
     </nav>
 
 
-    <div class="mb-16 grid grid-cols-1 lg:grid-cols-[1.2fr_0.8fr] gap-10 items-start">
+    <div class="mb-12 sm:mb-16 grid grid-cols-1 lg:grid-cols-[1.2fr_0.8fr] gap-8 sm:gap-10 items-start">
       <div>
-        <h2 class="text-2xl font-bold text-brand-black mb-4 font-title uppercase">Commander du CBD à {location.name}</h2>
+        <h2 class="text-xl sm:text-2xl font-bold text-brand-black mb-4 font-title uppercase break-words">Commander du CBD à {location.name}</h2>
         <div class="space-y-4 text-sm leading-relaxed text-brand-black/70">
           <p>
             Cette page a été pensée pour les visiteurs qui recherchent une <strong>livraison CBD à {location.name}</strong> avec un parcours de commande simple, une lecture claire des catégories et des repères de confiance visibles avant achat. L'objectif n'est pas seulement de livrer, mais d'aider à comparer les bons formats selon votre intention réelle.
@@ -82,7 +82,7 @@ const featuredProducts = await getProducts(1, 8).catch(() => []);
         </div>
       </div>
 
-      <aside class="rounded-[28px] border border-brand-gray-200 bg-gray-50 p-6">
+      <aside class="rounded-[28px] border border-brand-gray-200 bg-gray-50 p-5 sm:p-6">
         <h2 class="text-xl font-title font-bold uppercase text-brand-black">Repères utiles</h2>
         <ul class="mt-4 space-y-3 text-sm text-brand-black/70">
           <li><strong class="text-brand-black">Livraison rapide</strong> : expédition sous 24h et délai indicatif de 2 à 4 jours ouvrés.</li>
@@ -97,20 +97,20 @@ const featuredProducts = await getProducts(1, 8).catch(() => []);
       </aside>
     </div>
 
-    <h1 class="text-4xl sm:text-5xl font-bold text-brand-white mb-4 font-title uppercase">
+    <h1 class="text-3xl sm:text-5xl font-bold text-brand-white mb-4 font-title uppercase break-words">
       CBD {location.name}
     </h1>
-    <p class="text-lg text-brand-gray-400 max-w-2xl">
+    <p class="text-base sm:text-lg text-brand-gray-400 max-w-2xl leading-relaxed">
       {location.description}
     </p>
     </div>
   </section>
 
   <!-- Content -->
-  <section class="bg-brand-white py-16">
+  <section class="bg-brand-white py-12 sm:py-16">
     <div class="container-site max-w-5xl mx-auto">
     <!-- Delivery info -->
-    <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-16">
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 mb-12 sm:mb-16">
       <div class="bg-white border border-brand-gray-200 rounded-2xl p-6">
         <div class="text-2xl mb-3">🚚</div>
         <h3 class="text-brand-black font-bold mb-1">Livraison rapide</h3>
@@ -131,8 +131,8 @@ const featuredProducts = await getProducts(1, 8).catch(() => []);
     <!-- Featured products -->
     {featuredProducts.length > 0 && (
       <div class="mb-12">
-        <h2 class="text-2xl font-bold text-brand-black mb-6 font-title uppercase">Nos produits populaires</h2>
-        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+        <h2 class="text-2xl font-bold text-brand-black mb-6 font-title uppercase break-words">Nos produits populaires</h2>
+        <div class="grid grid-cols-1 min-[480px]:grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
           {featuredProducts.map((product: any) => (
             <ProductCard
               id={product.id}
@@ -158,7 +158,7 @@ const featuredProducts = await getProducts(1, 8).catch(() => []);
     </div>
 
     <div class="mt-16">
-      <h2 class="text-2xl font-bold text-brand-black mb-6 font-title uppercase">Questions fréquentes sur la livraison CBD à {location.name}</h2>
+      <h2 class="text-2xl font-bold text-brand-black mb-6 font-title uppercase break-words">Questions fréquentes sur la livraison CBD à {location.name}</h2>
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
         {geoFaq.map((item) => (
           <details class="group rounded-2xl border border-brand-gray-200 bg-gray-50 overflow-hidden">

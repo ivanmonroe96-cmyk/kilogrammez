@@ -76,17 +76,17 @@ const jsonLd = buildJsonLd([
     {categoryImage && (
       <img src={categoryImage} alt="" class="absolute inset-0 w-full h-full object-cover opacity-20" loading="eager" />
     )}
-    <div class="relative max-w-[1440px] mx-auto px-6 lg:px-10">
-      <h1 class="text-4xl sm:text-5xl lg:text-7xl font-title font-bold text-white uppercase">{category.name}</h1>
+    <div class="relative max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-10">
+      <h1 class="text-3xl sm:text-5xl lg:text-7xl font-title font-bold text-white uppercase break-words">{category.name}</h1>
       {category.description && (
-        <div class="text-white/80 max-w-3xl mt-4 text-base lg:text-lg" set:html={category.description} />
+        <div class="text-white/80 max-w-3xl mt-4 text-sm sm:text-base lg:text-lg leading-relaxed [&_p]:mb-3 [&_a]:underline [&_a]:underline-offset-2" set:html={category.description} />
       )}
     </div>
   </section>
 
   {/* White product grid section */}
   <section class="bg-white py-10 lg:py-16">
-    <div class="max-w-[1440px] mx-auto px-6 lg:px-10">
+    <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-10">
       {products.length > 0 ? (
         <ProductGrid products={products} />
       ) : (

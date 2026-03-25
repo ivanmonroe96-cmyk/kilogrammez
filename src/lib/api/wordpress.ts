@@ -1,94 +1,82 @@
 /**
- * WordPress REST API client
- * Fetches posts, pages, and media from the existing WordPress backend.
- * Set WP_API_URL in your environment or .env file.
+ * Local WordPress content accessor.
+ * Posts, pages, categories, and comments are snapshotted into src/data/content.
  */
 
-const WP_API_URL =
-  import.meta.env.WP_API_URL ?? "https://kilogramme-shop.com/wp-json/wp/v2";
+import { getLocalContent } from "./localContent";
+import { getLocalCatalog } from "./localCatalog";
+import type { WPComment } from "./localCatalog";
+import type { WPPost } from "./localContent";
 
-export interface WPPost {
-  id: number;
-  slug: string;
-  title: { rendered: string };
-  excerpt: { rendered: string };
-  content: { rendered: string };
-  date: string;
-  modified: string;
-  featured_media: number;
-  categories: number[];
-  _embedded?: {
-    "wp:featuredmedia"?: Array<{ source_url: string; alt_text: string }>;
-    "wp:term"?: Array<Array<{ id: number; name: string; slug: string }>>;
-  };
+export type { WPCategory, WPPage, WPPost } from "./localContent";
+
+const commentCache = new Map<number, Promise<WPComment[]>>();
+
+export async function getPosts(page = 1, perPage = 100) {
+  const { posts } = await getLocalContent();
+  const startIndex = Math.max(page - 1, 0) * perPage;
+  return posts.slice(startIndex, startIndex + perPage);
 }
 
-export interface WPPage {
-  id: number;
-  slug: string;
-  title: { rendered: string };
-  content: { rendered: string };
-  date: string;
-  modified: string;
-}
-
-export interface WPCategory {
-  id: number;
-  slug: string;
-  name: string;
-  description: string;
-  count: number;
-  parent: number;
-}
-
-async function fetchWP<T>(endpoint: string, params: Record<string, string> = {}): Promise<T> {
-  const url = new URL(`${WP_API_URL}/${endpoint}`);
-  for (const [key, value] of Object.entries(params)) {
-    url.searchParams.set(key, value);
-  }
-  const res = await fetch(url.toString());
-  if (!res.ok) {
-    throw new Error(`WP API error ${res.status}: ${endpoint}`);
-  }
-  return res.json() as Promise<T>;
-}
-
-export async function getPosts(page = 1, perPage = 100): Promise<WPPost[]> {
-  return fetchWP<WPPost[]>("posts", {
-    page: String(page),
-    per_page: String(perPage),
-    _embed: "true",
-  });
-}
-
-export async function getAllPosts(): Promise<WPPost[]> {
-  const posts: WPPost[] = [];
-  let page = 1;
-  let batch: WPPost[];
-  do {
-    batch = await getPosts(page, 100);
-    posts.push(...batch);
-    page++;
-  } while (batch.length === 100);
+export async function getAllPosts() {
+  const { posts } = await getLocalContent();
   return posts;
 }
 
-export async function getPostBySlug(slug: string): Promise<WPPost | null> {
-  const posts = await fetchWP<WPPost[]>("posts", { slug, _embed: "true" });
-  return posts[0] ?? null;
+export async function getPostBySlug(slug: string) {
+  const { posts } = await getLocalContent();
+  return posts.find((post) => post.slug === slug) ?? null;
 }
 
-export async function getPages(): Promise<WPPage[]> {
-  return fetchWP<WPPage[]>("pages", { per_page: "100" });
+export async function getPages() {
+  const { pages } = await getLocalContent();
+  return pages;
 }
 
-export async function getPageBySlug(slug: string): Promise<WPPage | null> {
-  const pages = await fetchWP<WPPage[]>("pages", { slug });
-  return pages[0] ?? null;
+export async function getPageBySlug(slug: string) {
+  const { pages } = await getLocalContent();
+  return pages.find((page) => page.slug === slug) ?? null;
 }
 
-export async function getCategories(): Promise<WPCategory[]> {
-  return fetchWP<WPCategory[]>("categories", { per_page: "100" });
+export async function getCategories() {
+  const { categories } = await getLocalContent();
+  return categories;
+}
+
+async function getLocalProductComments(postId: number): Promise<WPComment[] | null> {
+  const catalog = await getLocalCatalog();
+  const isProductPost = catalog.products.some((product) => product.id === postId);
+  if (!isProductPost) {
+    return null;
+  }
+
+  return (catalog.commentsByPostId[String(postId)] ?? []).slice().sort(
+    (left, right) => new Date(right.date).getTime() - new Date(left.date).getTime(),
+  );
+}
+
+async function getLocalContentComments(postId: number): Promise<WPComment[]> {
+  const { commentsByPostId } = await getLocalContent();
+  return (commentsByPostId[String(postId)] ?? []).slice().sort(
+    (left, right) => new Date(right.date).getTime() - new Date(left.date).getTime(),
+  );
+}
+
+async function fetchCommentsByPostId(postId: number): Promise<WPComment[]> {
+  const localComments = await getLocalProductComments(postId);
+  if (localComments) {
+    return localComments;
+  }
+
+  return getLocalContentComments(postId);
+}
+
+export async function getCommentsByPostId(postId: number): Promise<WPComment[]> {
+  if (!postId) return [];
+  if (!commentCache.has(postId)) {
+    commentCache.set(postId, fetchCommentsByPostId(postId).catch(() => []));
+  }
+  return commentCache.get(postId) ?? Promise.resolve([]);
 }
 
 export function getFeaturedImage(post: WPPost): string | undefined {

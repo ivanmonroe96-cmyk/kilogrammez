@@ -20,9 +20,9 @@ const jsonLd = buildJsonLd([
 
 <MarketingLayout metadata={metadata} jsonLd={jsonLd}>
   <section class="bg-brand-white">
-    <div class="container-site py-16 max-w-3xl mx-auto">
-    <h1 class="text-4xl sm:text-5xl font-bold text-brand-black mb-4 font-title uppercase">Contact</h1>
-    <p class="text-lg text-brand-black/60 mb-10">
+    <div class="container-site py-12 sm:py-16 max-w-3xl mx-auto">
+    <h1 class="text-3xl sm:text-5xl font-bold text-brand-black mb-4 font-title uppercase break-words">Contact</h1>
+    <p class="text-base sm:text-lg text-brand-black/60 mb-10 leading-relaxed">
       Une question ? Notre équipe vous répond sous 24h.
     </p>
 
@@ -31,7 +31,7 @@ const jsonLd = buildJsonLd([
       method="POST"
       class="space-y-6"
     >
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-6">
         <div>
           <label for="name" class="block text-sm font-medium text-brand-black mb-2">Nom</label>
           <input
@@ -80,7 +80,7 @@ const jsonLd = buildJsonLd([
         ></textarea>
       </div>
 
-      <button type="submit" class="btn-primary">Envoyer le message</button>
+      <button type="submit" class="btn-primary w-full sm:w-auto">Envoyer le message</button>
     </form>
     </div>
   </section>

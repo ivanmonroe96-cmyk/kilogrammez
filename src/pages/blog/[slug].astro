@@ -63,9 +63,9 @@ const jsonLd = buildJsonLd([
 ---
 
 <ArticleLayout metadata={metadata} jsonLd={jsonLd} breadcrumbs={breadcrumbs}>
-  <div class="bg-white rounded-lg p-6 lg:p-10">
+  <div class="bg-white rounded-lg p-4 sm:p-6 lg:p-10 overflow-hidden">
     <header class="mb-8">
-      <h1 class="text-3xl sm:text-4xl lg:text-5xl font-title font-bold text-brand-black uppercase leading-tight mb-4">
+      <h1 class="text-2xl sm:text-4xl lg:text-5xl font-title font-bold text-brand-black uppercase leading-tight mb-4 break-words">
         {post.title.rendered}
       </h1>
       <div class="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-brand-gray-400">
@@ -84,7 +84,7 @@ const jsonLd = buildJsonLd([
             year: "numeric",
           })}
         </time>
-        <span>•</span>
+        <span class="hidden sm:inline">•</span>
         <span>Revue éditoriale : Équipe Kilogrammes</span>
       </div>
     </header>
@@ -99,6 +99,6 @@ const jsonLd = buildJsonLd([
       />
     )}
 
-    <div class="text-brand-black/80 leading-relaxed [&_h2]:font-title [&_h2]:uppercase [&_h2]:text-2xl [&_h2]:font-bold [&_h2]:text-brand-black [&_h2]:mt-8 [&_h2]:mb-4 [&_h3]:font-title [&_h3]:uppercase [&_h3]:text-xl [&_h3]:font-bold [&_h3]:mt-6 [&_h3]:mb-3 [&_p]:mb-4 [&_a]:text-brand-black [&_a]:underline [&_a]:underline-offset-2 [&_img]:rounded-lg [&_img]:my-6 [&_img]:max-w-full [&_img]:h-auto" set:html={post.content.rendered} />
+    <div class="text-brand-black/80 leading-relaxed break-words [&_h2]:font-title [&_h2]:uppercase [&_h2]:text-xl sm:[&_h2]:text-2xl [&_h2]:font-bold [&_h2]:text-brand-black [&_h2]:mt-8 [&_h2]:mb-4 [&_h3]:font-title [&_h3]:uppercase [&_h3]:text-lg sm:[&_h3]:text-xl [&_h3]:font-bold [&_h3]:mt-6 [&_h3]:mb-3 [&_p]:mb-4 [&_a]:text-brand-black [&_a]:underline [&_a]:underline-offset-2 [&_img]:rounded-lg [&_img]:my-6 [&_img]:max-w-full [&_img]:h-auto [&_table]:block [&_table]:w-full [&_table]:overflow-x-auto [&_table]:text-sm [&_pre]:overflow-x-auto [&_pre]:rounded-xl [&_pre]:bg-brand-black [&_pre]:p-4 [&_iframe]:w-full" set:html={post.content.rendered} />
   </div>
 </ArticleLayout>

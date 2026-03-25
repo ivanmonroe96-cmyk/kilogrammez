@@ -1,4 +1,6 @@
 ---
+import { sortWeightOptions } from "@lib/utils/helpers";
+
 interface Props {
   id: number;
   name: string;
@@ -23,18 +25,7 @@ const displayPrice = salePrice && salePrice !== "" ? salePrice : price;
 // Extract weight options from attributes — show max 4 most common sizes
 const weightAttr = attributes?.find((a) => a.name.toLowerCase() === "poids" || a.name.toLowerCase() === "pa_poids");
 const allWeights = weightAttr?.options ?? [];
-
-// Sort weights by numeric value (ascending) and cap at 4
-function parseWeight(w: string): number {
-  const match = w.match(/([\d.]+)\s*(kg|g|gr)?/i);
-  if (!match) return Infinity;
-  const num = parseFloat(match[1]);
-  const unit = (match[2] || "g").toLowerCase();
-  return unit === "kg" ? num * 1000 : num;
-}
-const weights = [...allWeights]
-  .sort((a, b) => parseWeight(a) - parseWeight(b))
-  .slice(0, 4);
+const weights = sortWeightOptions(allWeights).slice(0, 4);
 
 // Star rating
 const rating = parseFloat(averageRating ?? "0");

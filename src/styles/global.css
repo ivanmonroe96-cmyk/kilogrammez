@@ -64,20 +64,45 @@
     scroll-behavior: smooth;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
   }
 
   body {
     @apply bg-brand-black text-brand-white font-mdio;
     min-height: 100dvh;
+    overflow-x: hidden;
   }
 
   h1, h2, h3, h4, h5, h6 {
     @apply font-title;
+    overflow-wrap: anywhere;
+  }
+
+  img,
+  video,
+  canvas,
+  iframe {
+    max-width: 100%;
+  }
+
+  input,
+  select,
+  textarea,
+  button {
+    font: inherit;
   }
 
   ::selection {
     background-color: var(--color-brand-green);
     color: #2D2926;
+  }
+}
+
+@media (max-width: 640px) {
+  input,
+  select,
+  textarea {
+    font-size: 16px;
   }
 }
 
@@ -138,6 +163,28 @@
 
   .prose-article img {
     @apply rounded-lg my-6;
+  }
+
+  .prose-article table {
+    @apply block w-full overflow-x-auto border-collapse;
+  }
+
+  .prose-article th,
+  .prose-article td {
+    @apply border border-brand-gray-200 px-3 py-2 text-left align-top;
+  }
+
+  .prose-article pre {
+    @apply overflow-x-auto rounded-xl bg-brand-black p-4 text-brand-white;
+  }
+
+  .prose-article code {
+    overflow-wrap: anywhere;
+  }
+
+  .prose-article iframe,
+  .prose-article embed {
+    @apply w-full max-w-full rounded-lg;
   }
 
   .prose-article blockquote {

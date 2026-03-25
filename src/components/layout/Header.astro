@@ -9,7 +9,7 @@ const shopCategories = shopItem && "children" in shopItem ? shopItem.children : 
 
 <header class="mainHeader sticky top-0 z-50 w-full bg-brand-black" id="site-header">
   <!-- Main Header Bar -->
-  <div class="h-[110px] lg:h-[130px] flex items-center justify-between px-4 lg:px-10 max-w-[1440px] mx-auto transition-[height] duration-300">
+  <div class="h-[110px] lg:h-[130px] flex items-center justify-between px-3 sm:px-4 lg:px-10 max-w-[1440px] mx-auto transition-[height] duration-300">
 
     <!-- Left: Logo -->
     <a href="/" class="shrink-0" aria-label="Kilogrammes - Accueil">
@@ -115,7 +115,7 @@ const shopCategories = shopItem && "children" in shopItem ? shopItem.children : 
 </header>
 
 <!-- Marquee Announcement Bar -->
-<div class="marquee-bar border border-brand-white border-t-0 rounded-[8px] mx-4 lg:mx-10 overflow-hidden bg-brand-black">
+<div class="marquee-bar border border-brand-white border-t-0 rounded-[8px] mx-3 sm:mx-4 lg:mx-10 overflow-hidden bg-brand-black">
   <div class="marquee-track flex items-center whitespace-nowrap py-2 text-sm text-brand-white font-mdio uppercase tracking-wider">
     {[...Array(12)].map(() => (
       <span class="inline-flex items-center gap-4 mx-4 shrink-0">
@@ -132,7 +132,7 @@ const shopCategories = shopItem && "children" in shopItem ? shopItem.children : 
 <div
   id="mega-menu"
   class="mega-menu fixed left-0 right-0 z-40 bg-brand-black border-t border-brand-gray-800 hidden"
-  style="top: 112px;"
+  style="top: var(--header-offset, 112px);"
 >
   <div class="max-w-[1440px] mx-auto px-6 lg:px-10 py-10">
     <div class="grid grid-cols-12 gap-8">
@@ -178,7 +178,7 @@ const shopCategories = shopItem && "children" in shopItem ? shopItem.children : 
 <div
   id="mobile-menu"
   class="mobile-menu fixed inset-x-0 bottom-0 z-[60] bg-brand-black hidden overflow-y-auto"
-  style="top: 112px;"
+  style="top: var(--header-offset, 112px);"
 >
   <nav class="px-6 py-8 space-y-1 font-mdio" aria-label="Navigation mobile">
     {mainNav.map((item) => {
@@ -264,7 +264,7 @@ const shopCategories = shopItem && "children" in shopItem ? shopItem.children : 
   </div>
 
   <!-- Drawer Body (scrollable) -->
-  <div id="cart-drawer-body" class="flex-1 overflow-y-auto px-6 py-4">
+  <div id="cart-drawer-body" class="flex-1 overflow-y-auto px-4 sm:px-6 py-4">
     <!-- Empty state -->
     <div id="cart-drawer-empty" class="flex flex-col items-center justify-center h-full text-center">
       <svg class="w-16 h-16 text-brand-gray-700 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1">
@@ -278,7 +278,7 @@ const shopCategories = shopItem && "children" in shopItem ? shopItem.children : 
   </div>
 
   <!-- Drawer Footer -->
-  <div id="cart-drawer-footer" class="border-t border-brand-gray-800 px-6 py-5 hidden">
+  <div id="cart-drawer-footer" class="border-t border-brand-gray-800 px-4 sm:px-6 py-5 hidden">
     <div class="flex items-center justify-between mb-4">
       <span class="text-brand-gray-400 text-sm uppercase tracking-wider">Total</span>
       <span id="cart-drawer-total" class="text-brand-white font-bold text-xl">0,00&nbsp;€</span>
@@ -320,24 +320,30 @@ const shopCategories = shopItem && "children" in shopItem ? shopItem.children : 
     .mainHeader.is-condensed + .marquee-bar {
       margin-top: 0;
     }
-
-    #mega-menu {
-      top: 92px !important;
-    }
   }
 </style>
 
 <script>
   const siteHeader = document.getElementById('site-header');
+  const marqueeBar = document.querySelector<HTMLElement>('.marquee-bar');
+
+  function syncHeaderOffsets() {
+    const headerHeight = siteHeader?.offsetHeight ?? 0;
+    const marqueeHeight = marqueeBar?.offsetHeight ?? 0;
+    const totalOffset = headerHeight + marqueeHeight;
+    document.documentElement.style.setProperty('--header-offset', `${totalOffset}px`);
+  }
 
   function syncHeaderState() {
     if (!siteHeader) return;
     const condensed = window.scrollY > 20;
     siteHeader.classList.toggle('is-condensed', condensed);
+    syncHeaderOffsets();
   }
 
   syncHeaderState();
   window.addEventListener('scroll', syncHeaderState, { passive: true });
+  window.addEventListener('resize', syncHeaderOffsets, { passive: true });
 
   // --- Mega Menu (Shop dropdown) ---
   const megaMenuBtn = document.querySelector<HTMLButtonElement>('[data-toggle="mega-menu"]');
@@ -447,6 +453,8 @@ const shopCategories = shopItem && "children" in shopItem ? shopItem.children : 
       link.addEventListener('click', () => closeMobileMenu());
     });
   }
+
+  syncHeaderOffsets();
 
   // --- Mobile Submenu Toggles ---
   document.querySelectorAll('.mobile-submenu-toggle').forEach((btn) => {

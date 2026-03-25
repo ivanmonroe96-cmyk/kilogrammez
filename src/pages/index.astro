@@ -130,13 +130,13 @@ const shopLocations = [
           ]}
           data-slide={index}
         >
-          <div class="max-w-[1440px] mx-auto px-6 lg:px-10 py-12 lg:py-20">
+          <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-10 py-12 lg:py-20">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-0 items-center min-h-[400px] lg:min-h-[520px]">
               <div class="relative z-10">
-                <h2 class="text-[2.5rem] sm:text-[3.5rem] lg:text-[4.5rem] xl:text-[5.5rem] font-bold text-brand-white leading-[0.9] uppercase font-title mb-5 lg:mb-7">
+                <h2 class="text-[2rem] min-[380px]:text-[2.5rem] sm:text-[3.5rem] lg:text-[4.5rem] xl:text-[5.5rem] font-bold text-brand-white leading-[0.9] uppercase font-title mb-5 lg:mb-7">
                     {drop.title}
                 </h2>
-                <p class="text-brand-gray-300 text-sm lg:text-base max-w-lg leading-relaxed font-mono">
+                <p class="text-brand-gray-300 text-sm lg:text-base max-w-lg leading-relaxed font-mono pr-2 sm:pr-0">
                   {drop.description}
                 </p>
               </div>
@@ -261,20 +261,20 @@ const shopLocations = [
        NOS SIMILI-THC — Product Section
   ═══════════════════════════════════════════ -->
   {(similiProducts.length > 0 || featuredProducts.length > 0) && (
-    <section class="bg-brand-black py-16 lg:py-24">
-      <div class="max-w-[1440px] mx-auto px-6 lg:px-10">
+    <section class="bg-brand-black py-12 sm:py-16 lg:py-24">
+      <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-10">
         <div class="mb-10">
-          <h2 class="text-3xl lg:text-5xl font-bold text-brand-white uppercase font-title mb-3">NOS SIMILI-THC</h2>
-          <p class="text-brand-gray-400 max-w-2xl">
+          <h2 class="text-2xl sm:text-3xl lg:text-5xl font-bold text-brand-white uppercase font-title mb-3 break-words">NOS SIMILI-THC</h2>
+          <p class="text-sm sm:text-base text-brand-gray-400 max-w-2xl leading-relaxed">
             La gamme équivalente au THC : retrouvez enfin les effets que vous recherchez, légalement, et livrés chez vous en 48 à 72 h pour un maximum de détente !
           </p>
         </div>
 
         <!-- Horizontal scrolling product carousel -->
-        <div class="overflow-x-auto scrollbar-hide -mx-6 px-6 lg:-mx-10 lg:px-10">
+        <div class="overflow-x-auto scrollbar-hide -mx-4 px-4 sm:-mx-6 sm:px-6 lg:-mx-10 lg:px-10">
           <div class="flex gap-5" style="width: max-content;">
             {(similiProducts.length > 0 ? similiProducts : featuredProducts).slice(0, 8).map((product: any) => (
-              <div class="w-[260px] shrink-0">
+              <div class="w-[220px] min-[380px]:w-[240px] sm:w-[260px] shrink-0">
                 <ProductCard                  id={product.id}                  name={product.name}
                   slug={getProductRouteSlug(product)}
                   price={product.price}
@@ -306,18 +306,18 @@ const shopLocations = [
   ═══════════════════════════════════════════ -->
   {(flowerProducts.length > 0 || featuredProducts.length > 0) && (
     <section class="bg-brand-white pt-0 pb-8 lg:pb-14">
-      <div class="max-w-[1440px] mx-auto px-6 lg:px-10">
+      <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-10">
         <div class="mb-10 pt-16 lg:pt-20">
-          <h2 class="text-3xl lg:text-5xl font-bold text-brand-black uppercase font-title mb-3">Fleurs de Cannabis</h2>
-          <p class="text-brand-black/60 max-w-3xl">
+          <h2 class="text-2xl sm:text-3xl lg:text-5xl font-bold text-brand-black uppercase font-title mb-3 break-words">Fleurs de Cannabis</h2>
+          <p class="text-sm sm:text-base text-brand-black/60 max-w-3xl leading-relaxed">
             Des variétés sélectionnées pour leurs qualités terpéniques et un curing bien effectué pour faire ressortir tout leur potentiel : goûtez à du cannabis de qualité, cultivé avec le knowledge nécessaire.
           </p>
         </div>
 
-        <div class="overflow-x-auto scrollbar-hide -mx-6 px-6 lg:-mx-10 lg:px-10">
+        <div class="overflow-x-auto scrollbar-hide -mx-4 px-4 sm:-mx-6 sm:px-6 lg:-mx-10 lg:px-10">
           <div class="flex gap-5" style="width: max-content;">
             {(flowerProducts.length > 0 ? flowerProducts : featuredProducts).slice(0, 10).map((product: any) => (
-              <div class="w-[260px] shrink-0">
+              <div class="w-[220px] min-[380px]:w-[240px] sm:w-[260px] shrink-0">
                 <ProductCard
                   id={product.id}
                   name={product.name}
@@ -348,18 +348,18 @@ const shopLocations = [
   <!-- ═══════════════════════════════════════════
        HASHS & EXTRACTS
   ═══════════════════════════════════════════ -->
-  <section class="bg-brand-black py-16 lg:py-20">
-    <div class="max-w-[1440px] mx-auto px-6 lg:px-10">
-      <h2 class="text-3xl lg:text-5xl font-bold text-brand-white uppercase font-title mb-4">HASHS &amp; EXTRACTS</h2>
-      <p class="text-brand-gray-400 max-w-4xl text-base lg:text-lg">
+  <section class="bg-brand-black py-12 sm:py-16 lg:py-20">
+    <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-10">
+      <h2 class="text-2xl sm:text-3xl lg:text-5xl font-bold text-brand-white uppercase font-title mb-4 break-words">HASHS &amp; EXTRACTS</h2>
+      <p class="text-brand-gray-400 max-w-4xl text-sm sm:text-base lg:text-lg leading-relaxed">
         Fabriqués à partir de fleurs CBD / CBG rigoureusement sélectionnées, nos hashs &amp; extracts CBD / CBG sont travaillés sans aucun solvant mais avec beaucoup d'amour. De quoi oublier tous les mauvais hashs que vous avez croisés jusqu'à maintenant.
       </p>
 
       {(hashExtractProducts.length > 0 || featuredProducts.length > 0) && (
-        <div class="mt-10 overflow-x-auto scrollbar-hide -mx-6 px-6 lg:-mx-10 lg:px-10">
+        <div class="mt-10 overflow-x-auto scrollbar-hide -mx-4 px-4 sm:-mx-6 sm:px-6 lg:-mx-10 lg:px-10">
           <div class="flex gap-5" style="width: max-content;">
             {(hashExtractProducts.length > 0 ? hashExtractProducts : featuredProducts).slice(0, 10).map((product: any) => (
-              <div class="w-[260px] shrink-0">
+              <div class="w-[220px] min-[380px]:w-[240px] sm:w-[260px] shrink-0">
                 <ProductCard
                   id={product.id}
                   name={product.name}
@@ -390,8 +390,8 @@ const shopLocations = [
        BRAND STORY — Terpsquad / About section
   ═══════════════════════════════════════════ -->
   <section class="bg-brand-black border-t border-brand-gray-900">
-    <div class="max-w-[1440px] mx-auto px-6 lg:px-10 py-16 lg:py-24">
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+    <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-10 py-12 sm:py-16 lg:py-24">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 items-center">
         <div class="rounded-2xl overflow-hidden bg-brand-gray-900 aspect-video">
           <img
             src="/images/homepage/terpsquad-bg.jpg"
@@ -407,7 +407,7 @@ const shopLocations = [
             class="h-14 lg:h-20 w-auto mb-6"
             loading="lazy"
           />
-          <h2 class="text-3xl lg:text-4xl font-bold text-brand-white uppercase font-title mb-6">
+          <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-brand-white uppercase font-title mb-6 break-words">
             De cannabis connaisseurs à cannabis entrepreneurs
           </h2>
           <p class="text-brand-gray-400 leading-relaxed mb-4">
@@ -419,7 +419,7 @@ const shopLocations = [
           <a href="/categorie-produit/fleurs-cbd/" class="inline-flex items-center gap-2 border border-brand-white text-brand-white rounded-full px-8 py-3 text-sm uppercase tracking-wider font-bold hover:bg-brand-white hover:text-brand-black transition-colors">
             Fleurs CBD
           </a>
-          <a href="/categorie-produit/resine-cbd-hash-cbg-pollen/" class="inline-flex items-center gap-2 border border-brand-white text-brand-white rounded-full px-8 py-3 text-sm uppercase tracking-wider font-bold hover:bg-brand-white hover:text-brand-black transition-colors ml-3">
+          <a href="/categorie-produit/resine-cbd-hash-cbg-pollen/" class="inline-flex items-center gap-2 border border-brand-white text-brand-white rounded-full px-8 py-3 text-sm uppercase tracking-wider font-bold hover:bg-brand-white hover:text-brand-black transition-colors mt-3 sm:mt-0 sm:ml-3">
             Hash
           </a>
         </div>
@@ -431,8 +431,8 @@ const shopLocations = [
        CATEGORIES GRID
   ═══════════════════════════════════════════ -->
   <section class="bg-brand-black py-14 lg:py-22">
-    <div class="max-w-[1440px] mx-auto px-4 lg:px-10">
-      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 lg:gap-5">
+    <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-10">
+      <div class="grid grid-cols-1 min-[420px]:grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 lg:gap-5">
         {enrichedCategories.map((cat) => (
           <a
             href={cat.href}
@@ -447,7 +447,7 @@ const shopLocations = [
               />
             )}
             <div class="absolute inset-0 bg-black/30 group-hover:bg-black/40 transition-colors"></div>
-            <span class="relative text-brand-white font-bold uppercase tracking-wider text-base lg:text-[2rem] font-title text-center drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)] px-2">
+              <span class="relative text-brand-white font-bold uppercase tracking-wider text-sm sm:text-base lg:text-[2rem] font-title text-center drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)] px-2 break-words">
               {cat.name}
             </span>
           </a>
@@ -460,11 +460,11 @@ const shopLocations = [
        PASSEZ À LA VAPORISATION
   ═══════════════════════════════════════════ -->
   <section class="bg-brand-black border-t border-brand-gray-900">
-    <div class="max-w-[1440px] mx-auto px-6 lg:px-10 py-16 lg:py-24">
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+    <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-10 py-12 sm:py-16 lg:py-24">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 items-center">
         <div>
-          <h2 class="text-3xl lg:text-5xl font-bold text-brand-white uppercase font-title mb-6">PASSEZ À LA VAPORISATION</h2>
-          <p class="text-brand-gray-400 leading-relaxed mb-8 max-w-lg">
+          <h2 class="text-2xl sm:text-3xl lg:text-5xl font-bold text-brand-white uppercase font-title mb-6 break-words">PASSEZ À LA VAPORISATION</h2>
+          <p class="text-brand-gray-400 leading-relaxed mb-8 max-w-lg text-sm sm:text-base">
             Consommez plus sainement : passez à la vaporisation ! Kilogrammes a pensé à vous et vous a conçu un vaporisateur de poche simple, efficace et nomade. À glisser partout, pour une consommation plus saine, plus responsable, sans fumée ni compromis.
           </p>
           <a href="/produit/vaporisateur-cbd/" class="inline-flex items-center gap-2 bg-brand-green text-brand-black font-bold uppercase tracking-wider px-8 py-4 rounded-full text-sm hover:bg-brand-green-dark transition-colors">
@@ -487,8 +487,8 @@ const shopLocations = [
        TESTEZ NOS CHAMPIGNONS!
   ═══════════════════════════════════════════ -->
   <section class="bg-brand-black border-t border-brand-gray-900">
-    <div class="max-w-[1440px] mx-auto px-6 lg:px-10 py-16 lg:py-24">
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+    <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-10 py-12 sm:py-16 lg:py-24">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 items-center">
         <div class="flex justify-center order-2 lg:order-1">
           <img
             src="/images/homepage/shrmz.png"
@@ -498,8 +498,8 @@ const shopLocations = [
           />
         </div>
         <div class="order-1 lg:order-2">
-          <h2 class="text-3xl lg:text-5xl font-bold text-brand-white uppercase font-title mb-6">TESTEZ NOS CHAMPIGNONS!</h2>
-          <p class="text-brand-gray-400 leading-relaxed mb-8 max-w-lg">
+          <h2 class="text-2xl sm:text-3xl lg:text-5xl font-bold text-brand-white uppercase font-title mb-6 break-words">TESTEZ NOS CHAMPIGNONS!</h2>
+          <p class="text-brand-gray-400 leading-relaxed mb-8 max-w-lg text-sm sm:text-base">
             L'Amanita Muscaria débarque en format 2,5g pour les esprits les plus curieux ! Champi' mythique, look iconique, effets subtils et introspectifs : un produit singulier pour se reconnecter à d'autres dimensions... ou à soi-même.
           </p>
           <a href="/produit/shroomz-2-5g-amanita-muscaria/" class="inline-flex items-center gap-2 bg-brand-green text-brand-black font-bold uppercase tracking-wider px-8 py-4 rounded-full text-sm hover:bg-brand-green-dark transition-colors">
@@ -514,17 +514,17 @@ const shopLocations = [
        MORE PRODUCTS (all products section)
   ═══════════════════════════════════════════ -->
   {(accessoriesProducts.length > 0 || featuredProducts.length > 4) && (
-    <section class="bg-brand-white py-16 lg:py-24">
-      <div class="max-w-[1440px] mx-auto px-6 lg:px-10">
-        <h2 class="text-3xl lg:text-5xl font-bold text-brand-black uppercase font-title mb-10">NOS ACCESSOIRES</h2>
-        <p class="text-brand-black/60 max-w-2xl mb-10">
+    <section class="bg-brand-white py-12 sm:py-16 lg:py-24">
+      <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-10">
+        <h2 class="text-2xl sm:text-3xl lg:text-5xl font-bold text-brand-black uppercase font-title mb-10 break-words">NOS ACCESSOIRES</h2>
+        <p class="text-sm sm:text-base text-brand-black/60 max-w-2xl mb-10 leading-relaxed">
           Découvrez ci-dessous nos accessoires préférés et validés par la commu' Kilogrammes !
         </p>
 
-        <div class="overflow-x-auto scrollbar-hide -mx-6 px-6 lg:-mx-10 lg:px-10">
+        <div class="overflow-x-auto scrollbar-hide -mx-4 px-4 sm:-mx-6 sm:px-6 lg:-mx-10 lg:px-10">
           <div class="flex gap-5" style="width: max-content;">
             {(accessoriesProducts.length > 0 ? accessoriesProducts : featuredProducts.slice(4, 12)).slice(0, 8).map((product: any) => (
-              <div class="w-[260px] shrink-0">
+              <div class="w-[220px] min-[380px]:w-[240px] sm:w-[260px] shrink-0">
                 <ProductCard
                   id={product.id}
                   name={product.name}
@@ -556,10 +556,10 @@ const shopLocations = [
   <!-- ═══════════════════════════════════════════
        RETROUVEZ-NOUS AUSSI PRÈS DE CHEZ VOUS !
   ═══════════════════════════════════════════ -->
-  <section class="bg-brand-black border-t border-brand-gray-900 py-16 lg:py-24">
-    <div class="max-w-[1440px] mx-auto px-6 lg:px-10">
+  <section class="bg-brand-black border-t border-brand-gray-900 py-12 sm:py-16 lg:py-24">
+    <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-10">
       <div class="mb-10">
-        <h2 class="text-3xl lg:text-5xl font-bold text-brand-white uppercase font-title mb-4">
+        <h2 class="text-2xl sm:text-3xl lg:text-5xl font-bold text-brand-white uppercase font-title mb-4 break-words">
           NOS BOUTIQUES
         </h2>
         <p class="text-brand-gray-400 max-w-3xl text-sm lg:text-base leading-relaxed">
@@ -567,7 +567,7 @@ const shopLocations = [
         </p>
       </div>
 
-      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 lg:gap-5">
+      <div class="grid grid-cols-1 min-[420px]:grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 lg:gap-5">
         {shopLocations.map((shop) => (
           <a
             href={shop.href}
@@ -598,9 +598,9 @@ const shopLocations = [
        NOS DERNIERS ARTICLES
   ═══════════════════════════════════════════ -->
   {postsWithImages.length > 0 && (
-    <section class="bg-brand-black py-16 lg:py-24">
-      <div class="max-w-[1440px] mx-auto px-6 lg:px-10">
-        <h2 class="text-3xl lg:text-5xl font-bold text-brand-white uppercase font-title mb-10">NOS DERNIERS ARTICLES</h2>
+    <section class="bg-brand-black py-12 sm:py-16 lg:py-24">
+      <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-10">
+        <h2 class="text-2xl sm:text-3xl lg:text-5xl font-bold text-brand-white uppercase font-title mb-10 break-words">NOS DERNIERS ARTICLES</h2>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {postsWithImages.map((post: any) => (
@@ -626,11 +626,11 @@ const shopLocations = [
   <!-- ═══════════════════════════════════════════
        AVIS CLIENTS — Reviews Carousel
   ═══════════════════════════════════════════ -->
-  <section class="bg-brand-black border-t border-brand-gray-900 py-16 lg:py-24 overflow-hidden">
-    <div class="max-w-[1440px] mx-auto px-6 lg:px-10">
-      <div class="flex items-end justify-between mb-10">
+  <section class="bg-brand-black border-t border-brand-gray-900 py-12 sm:py-16 lg:py-24 overflow-hidden">
+    <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-10">
+      <div class="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between mb-10">
         <div>
-          <h2 class="text-3xl lg:text-5xl font-bold text-brand-white uppercase font-title mb-3">CE QUE NOS CLIENTS DISENT</h2>
+          <h2 class="text-2xl sm:text-3xl lg:text-5xl font-bold text-brand-white uppercase font-title mb-3 break-words">CE QUE NOS CLIENTS DISENT</h2>
           <p class="text-brand-gray-400 max-w-2xl text-sm lg:text-base">Plus de 50 000 commandes livrées et des milliers de clients satisfaits à travers l'Europe.</p>
         </div>
         <div class="hidden sm:flex items-center gap-2">
@@ -644,22 +644,22 @@ const shopLocations = [
       </div>
     </div>
     <div class="relative">
-      <div id="reviews-track" class="flex gap-5 pl-6 lg:pl-[max(1.5rem,calc((100vw-1440px)/2+2.5rem))] transition-transform duration-500 ease-out cursor-grab active:cursor-grabbing">
+      <div id="reviews-track" class="flex gap-5 pl-4 sm:pl-6 lg:pl-[max(1.5rem,calc((100vw-1440px)/2+2.5rem))] transition-transform duration-500 ease-out cursor-grab active:cursor-grabbing">
         {[
           { name: "Cassandre", rating: 5, text: "Les gummies en eux même sont parfaits, bons, efficaces (voir trop, un demi me suffit personnellement) mais comme vu dans les précédents avis, certains sont secs à l'ouverture.", productName: "Death Kubes : Gummies THC 15mg", productSlug: "gummies-thc-15mg" },
-          { name: "Le P.", rating: 5, text: "J'avais goûté la première Lemon Haze que vous aviez sorti et franchement on voit l'évolution. Bravo, on sent la recherche de qualité !", productName: "Lemon Haze", productSlug: "lemon-haze-cbd" },
+          { name: "Le P.", rating: 5, text: "J'avais goûté la première Lemon Haze que vous aviez sorti et franchement on voit l'évolution. Bravo, on sent la recherche de qualité !", productName: "Lemon Haze", productSlug: "lemon-haze" },
           { name: "BenoitL", rating: 5, text: "Cette Amnesia Haze et son bouquet de terpènes citronnés c'est une expérience hors du commun. Clairement qu'elle plie tout ce que j'ai pu tester ailleurs.", productName: "Amnesia Haze #696", productSlug: "amnesia-haze-cbd" },
           { name: "Michel", rating: 5, text: "Comme l'Amnesia Haze est l'une de mes variétés préférées, j'avais un peu peur d'être déçu, mais ça n'a pas été du tout le cas ! Dès l'ouverture du sachet, l'odeur est incroyable.", productName: "Amnesia Haze #696", productSlug: "amnesia-haze-cbd" },
-          { name: "Amandine P.", rating: 5, text: "J'avais jamais testé une Lemon Haze, je suis plus du genre souche classique, et wow la belle surprise : son odeur et son goût de citron frais sont top !", productName: "Lemon Haze", productSlug: "lemon-haze-cbd" },
+          { name: "Amandine P.", rating: 5, text: "J'avais jamais testé une Lemon Haze, je suis plus du genre souche classique, et wow la belle surprise : son odeur et son goût de citron frais sont top !", productName: "Lemon Haze", productSlug: "lemon-haze" },
           { name: "boulaysimon2", rating: 5, text: "Franchement pas mal, perso au bout 30min j'ai commencé à sentir un effet de détente qui a duré une petite heure, un peu comme si j'avais pris du CBD.", productName: "Death Kubes : Gummies THC 15mg", productSlug: "gummies-thc-15mg" },
           { name: "Clémentine D.", rating: 5, text: "Cette Amnesia Haze est un festival pour les papilles ! Explosion de saveurs citronnées avec une touche de noisette en fin de bouche comme promis.", productName: "Amnesia Haze #696", productSlug: "amnesia-haze-cbd" },
-          { name: "Vincent", rating: 5, text: "Goût et odeur au top, les buds sont belles, un vrai plaisir. Rien à voir avec ce qu'on peut trouver ailleurs. Avec vous, dire stop au THC devient facile.", productName: "Lemon Haze", productSlug: "lemon-haze-cbd" },
+          { name: "Vincent", rating: 5, text: "Goût et odeur au top, les buds sont belles, un vrai plaisir. Rien à voir avec ce qu'on peut trouver ailleurs. Avec vous, dire stop au THC devient facile.", productName: "Lemon Haze", productSlug: "lemon-haze" },
           { name: "LucasEM", rating: 5, text: "Je viens de tester l'Amnesia Haze et je suis bluffé ! Son goût agrume est un pur délice et pour moi qui fume pour contrer le stress, elle fait des merveilles.", productName: "Amnesia Haze #696", productSlug: "amnesia-haze-cbd" },
           { name: "Maxime L.", rating: 5, text: "Pour le prix, cette Haze est une trouvaille ! Qualité au rdv, goût exceptionnel et effets satisfaisants. Excellent rapport qualité-prix.", productName: "Amnesia Haze #696", productSlug: "amnesia-haze-cbd" },
-          { name: "NathanFC", rating: 5, text: "La Lemon Haze me détend sans m'assommer. Ses effets apaisants et qui durent un bon moment sont parfaits pour mes journées stressantes au travail.", productName: "Lemon Haze", productSlug: "lemon-haze-cbd" },
-          { name: "Medhi K.", rating: 5, text: "Une fleur à l'effluve légère, tout comme son effet. Je la consomme dès le matin, ce qui me permet de me poser tout au long de ma journée.", productName: "Lemon Haze", productSlug: "lemon-haze-cbd" },
+          { name: "NathanFC", rating: 5, text: "La Lemon Haze me détend sans m'assommer. Ses effets apaisants et qui durent un bon moment sont parfaits pour mes journées stressantes au travail.", productName: "Lemon Haze", productSlug: "lemon-haze" },
+          { name: "Medhi K.", rating: 5, text: "Une fleur à l'effluve légère, tout comme son effet. Je la consomme dès le matin, ce qui me permet de me poser tout au long de ma journée.", productName: "Lemon Haze", productSlug: "lemon-haze" },
         ].map((review) => (
-          <div class="review-card flex-shrink-0 w-[300px] sm:w-[340px] lg:w-[380px] bg-brand-gray-950 border border-brand-gray-800 rounded-2xl p-6 flex flex-col">
+          <div class="review-card flex-shrink-0 w-[260px] min-[380px]:w-[300px] sm:w-[340px] lg:w-[380px] bg-brand-gray-950 border border-brand-gray-800 rounded-2xl p-5 sm:p-6 flex flex-col">
             <div class="flex items-center gap-1 mb-3">
               {[...Array(5)].map((_, i) => (
                 <svg class:list={["w-4 h-4", i < review.rating ? "text-brand-yellow" : "text-brand-gray-700"]} viewBox="0 0 20 20" fill="currentColor">
@@ -759,10 +759,10 @@ const shopLocations = [
        KILO FAM
   ═══════════════════════════════════════════ -->
   <section class="bg-brand-black border-t border-brand-gray-900 py-16 lg:py-24">
-    <div class="max-w-[1440px] mx-auto px-6 lg:px-10">
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+    <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-10">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 items-center">
         <div>
-          <h2 class="text-3xl lg:text-5xl font-bold text-brand-white uppercase font-title mb-6">KILO FAM</h2>
+          <h2 class="text-2xl sm:text-3xl lg:text-5xl font-bold text-brand-white uppercase font-title mb-6 break-words">KILO FAM</h2>
           <p class="text-brand-gray-400 leading-relaxed mb-4">
             Depuis le début de l'aventure Kilogrammes, nous avons eu la chance de rencontrer des artistes avec qui on partage les mêmes valeurs, de collaborer avec des collectifs animés par la même passion du cannabis, de nous entretenir avec des médias curieux d'en savoir plus sur nos méthodes.
           </p>
@@ -773,7 +773,7 @@ const shopLocations = [
             Let's collab
           </a>
         </div>
-        <div class="grid grid-cols-2 gap-4">
+        <div class="grid grid-cols-1 min-[420px]:grid-cols-2 gap-4">
           <img
             src="/images/homepage/kilofam-08.jpg"
             alt="Kilo Fam"
@@ -795,9 +795,9 @@ const shopLocations = [
        SEO CONTENT BLOCK
   ═══════════════════════════════════════════ -->
   <section class="bg-brand-black border-t border-brand-gray-900 py-16 lg:py-24">
-    <div class="max-w-[1440px] mx-auto px-6 lg:px-10">
-      <h2 class="text-3xl lg:text-5xl font-bold text-brand-white uppercase font-title mb-6">THE FAVORITE DISPENSARY OF YOUR FAVORITE DISPENSARY</h2>
-      <div class="text-brand-gray-400 leading-relaxed max-w-4xl space-y-4 text-sm lg:text-base">
+    <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-10">
+      <h2 class="text-2xl sm:text-3xl lg:text-5xl font-bold text-brand-white uppercase font-title mb-6 break-words">THE FAVORITE DISPENSARY OF YOUR FAVORITE DISPENSARY</h2>
+      <div class="text-brand-gray-400 leading-relaxed max-w-4xl space-y-4 text-sm lg:text-base break-words">
         <p>Kilogrammes, c'est votre dispensaire en ligne préféré. Depuis 2016, on sélectionne, on teste et on distribue les meilleurs produits CBD et cannabinoïdes du marché, directement depuis nos ateliers.</p>
         <p>Fleurs CBD, résines, extracts, edibles, cosmétiques, huiles, vaporisateurs : tout est sourcé avec amour, testé en labo et livré partout en Europe en 48-72h. Pas de blabla, que du bon.</p>
 
@@ -818,12 +818,12 @@ const shopLocations = [
        FAQ SECTION — AEO / Featured Snippet optimized
   ═══════════════════════════════════════════ -->
   <section class="bg-brand-black border-t border-brand-gray-900 py-16 lg:py-24">
-    <div class="max-w-[1440px] mx-auto px-6 lg:px-10 max-w-3xl">
-      <h2 class="text-3xl lg:text-4xl font-bold text-brand-white uppercase font-title mb-10">Questions fréquentes</h2>
+    <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-10 max-w-3xl">
+      <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-brand-white uppercase font-title mb-10 break-words">Questions fréquentes</h2>
       <div class="space-y-4" id="faq-accordion">
         {homeFaq.map((item) => (
           <details class="group bg-brand-gray-900/50 border border-brand-gray-800 rounded-xl overflow-hidden">
-            <summary class="flex items-center justify-between cursor-pointer p-5 text-brand-white font-medium hover:bg-brand-gray-800/50 transition-colors list-none [&::-webkit-details-marker]:hidden">
+            <summary class="flex items-center justify-between gap-3 cursor-pointer p-4 sm:p-5 text-brand-white font-medium hover:bg-brand-gray-800/50 transition-colors list-none [&::-webkit-details-marker]:hidden">
               <span class="pr-4">{item.question}</span>
               <svg class="w-5 h-5 shrink-0 text-brand-gray-400 group-open:rotate-180 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
             </summary>

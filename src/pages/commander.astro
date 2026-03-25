@@ -13,13 +13,13 @@ const metadata = buildMetadata({
 
 <BaseLayout metadata={metadata}>
   <section class="bg-brand-white min-h-[60vh]">
-    <div class="max-w-[1440px] mx-auto px-6 lg:px-10 py-12 lg:py-16">
+    <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-10 py-12 lg:py-16">
       <a href={`/${staticPageSlugs.cart}/`} class="inline-flex items-center gap-2 text-sm text-brand-black/60 hover:text-brand-black transition-colors mb-6">
         <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
         Retour au panier
       </a>
 
-      <h1 class="text-4xl font-bold text-brand-black mb-10 font-title uppercase">Commander</h1>
+      <h1 class="text-3xl sm:text-4xl font-bold text-brand-black mb-10 font-title uppercase">Commander</h1>
 
       <!-- Empty state -->
       <div id="checkout-empty">
@@ -31,13 +31,13 @@ const metadata = buildMetadata({
 
       <!-- Checkout content -->
       <div id="checkout-content" class="hidden">
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
 
           <!-- LEFT: Forms -->
           <div class="lg:col-span-2 space-y-8">
 
             <!-- Step indicator -->
-            <div class="flex items-center gap-2 text-sm font-medium text-brand-black/50">
+            <div class="flex flex-wrap items-center gap-2 text-sm font-medium text-brand-black/50">
               <span class="flex items-center gap-1.5"><span class="w-6 h-6 rounded-full bg-brand-black text-white text-xs flex items-center justify-center font-bold">1</span> Livraison</span>
               <span class="w-8 h-px bg-brand-gray-200"></span>
               <span class="flex items-center gap-1.5" id="step-2-label"><span class="w-6 h-6 rounded-full bg-brand-gray-200 text-brand-black/40 text-xs flex items-center justify-center font-bold">2</span> Paiement</span>
@@ -100,7 +100,7 @@ const metadata = buildMetadata({
               <div class="rounded-2xl border border-brand-gray-200 bg-white p-6">
                 <h2 class="text-xl font-title font-bold uppercase text-brand-black mb-5">Mode de livraison</h2>
                 <div class="space-y-3" id="delivery-options">
-                  <label class="flex items-center gap-4 p-4 rounded-xl border-2 border-brand-black bg-gray-50 cursor-pointer transition-colors delivery-option">
+                  <label class="flex flex-col items-start gap-3 p-4 rounded-xl border-2 border-brand-black bg-gray-50 cursor-pointer transition-colors sm:flex-row sm:items-center sm:gap-4 delivery-option">
                     <input type="radio" name="delivery" value="standard" checked class="w-4 h-4 accent-brand-black" />
                     <div class="flex-1">
                       <p class="font-semibold text-brand-black">Livraison Standard</p>
@@ -108,7 +108,7 @@ const metadata = buildMetadata({
                     </div>
                     <span class="font-bold text-brand-black" id="shipping-standard">4,90 €</span>
                   </label>
-                  <label class="flex items-center gap-4 p-4 rounded-xl border-2 border-brand-gray-200 bg-white cursor-pointer transition-colors delivery-option">
+                  <label class="flex flex-col items-start gap-3 p-4 rounded-xl border-2 border-brand-gray-200 bg-white cursor-pointer transition-colors sm:flex-row sm:items-center sm:gap-4 delivery-option">
                     <input type="radio" name="delivery" value="express" class="w-4 h-4 accent-brand-black" />
                     <div class="flex-1">
                       <p class="font-semibold text-brand-black">Livraison Express</p>
@@ -116,7 +116,7 @@ const metadata = buildMetadata({
                     </div>
                     <span class="font-bold text-brand-black">9,90 €</span>
                   </label>
-                  <label class="flex items-center gap-4 p-4 rounded-xl border-2 border-brand-gray-200 bg-white cursor-pointer transition-colors delivery-option">
+                  <label class="flex flex-col items-start gap-3 p-4 rounded-xl border-2 border-brand-gray-200 bg-white cursor-pointer transition-colors sm:flex-row sm:items-center sm:gap-4 delivery-option">
                     <input type="radio" name="delivery" value="relay" class="w-4 h-4 accent-brand-black" />
                     <div class="flex-1">
                       <p class="font-semibold text-brand-black">Point Relais</p>
@@ -140,7 +140,7 @@ const metadata = buildMetadata({
               <div class="rounded-2xl border border-brand-gray-200 bg-white p-6">
                 <h2 class="text-xl font-title font-bold uppercase text-brand-black mb-5">Mode de paiement</h2>
                 <div class="space-y-3" id="payment-options">
-                  <label class="flex items-center gap-4 p-4 rounded-xl border-2 border-brand-black bg-gray-50 cursor-pointer transition-colors payment-option">
+                  <label class="flex flex-col items-start gap-3 p-4 rounded-xl border-2 border-brand-black bg-gray-50 cursor-pointer transition-colors sm:flex-row sm:items-center sm:gap-4 payment-option">
                     <input type="radio" name="payment" value="card" checked class="w-4 h-4 accent-brand-black" />
                     <div class="flex-1">
                       <p class="font-semibold text-brand-black">Carte Bancaire</p>
@@ -151,7 +151,7 @@ const metadata = buildMetadata({
                       <span class="w-8 h-5 rounded bg-red-500 text-white text-[8px] font-bold flex items-center justify-center">MC</span>
                     </div>
                   </label>
-                  <label class="flex items-center gap-4 p-4 rounded-xl border-2 border-brand-gray-200 bg-white cursor-pointer transition-colors payment-option">
+                  <label class="flex flex-col items-start gap-3 p-4 rounded-xl border-2 border-brand-gray-200 bg-white cursor-pointer transition-colors sm:flex-row sm:items-center sm:gap-4 payment-option">
                     <input type="radio" name="payment" value="paypal" class="w-4 h-4 accent-brand-black" />
                     <div class="flex-1">
                       <p class="font-semibold text-brand-black">PayPal</p>
@@ -159,7 +159,7 @@ const metadata = buildMetadata({
                     </div>
                     <span class="text-sm font-bold text-[#003087]">Pay<span class="text-[#009cde]">Pal</span></span>
                   </label>
-                  <label class="flex items-center gap-4 p-4 rounded-xl border-2 border-brand-gray-200 bg-white cursor-pointer transition-colors payment-option">
+                  <label class="flex flex-col items-start gap-3 p-4 rounded-xl border-2 border-brand-gray-200 bg-white cursor-pointer transition-colors sm:flex-row sm:items-center sm:gap-4 payment-option">
                     <input type="radio" name="payment" value="crypto" class="w-4 h-4 accent-brand-black" />
                     <div class="flex-1">
                       <p class="font-semibold text-brand-black">Crypto-monnaie</p>
@@ -167,7 +167,7 @@ const metadata = buildMetadata({
                     </div>
                     <span class="text-sm font-bold text-brand-black/50">₿</span>
                   </label>
-                  <label class="flex items-center gap-4 p-4 rounded-xl border-2 border-brand-gray-200 bg-white cursor-pointer transition-colors payment-option">
+                  <label class="flex flex-col items-start gap-3 p-4 rounded-xl border-2 border-brand-gray-200 bg-white cursor-pointer transition-colors sm:flex-row sm:items-center sm:gap-4 payment-option">
                     <input type="radio" name="payment" value="transfer" class="w-4 h-4 accent-brand-black" />
                     <div class="flex-1">
                       <p class="font-semibold text-brand-black">Virement Bancaire</p>
@@ -198,7 +198,7 @@ const metadata = buildMetadata({
                 </div>
               </div>
 
-              <div class="flex gap-3">
+              <div class="flex flex-col gap-3 sm:flex-row">
                 <button type="button" id="btn-back-delivery" class="border border-brand-black text-brand-black font-bold uppercase tracking-wider text-sm py-4 px-8 rounded-xl hover:bg-brand-black hover:text-white transition-colors">
                   Retour
                 </button>
@@ -232,7 +232,7 @@ const metadata = buildMetadata({
 
           <!-- RIGHT: Order summary -->
           <div class="lg:col-span-1" id="order-summary-wrapper">
-            <div class="sticky top-24 rounded-2xl border border-brand-gray-200 bg-gray-50 p-6">
+            <div class="rounded-2xl border border-brand-gray-200 bg-gray-50 p-6 lg:sticky lg:top-[calc(var(--header-offset,0px)+1.5rem)]">
               <h2 class="text-lg font-title font-bold uppercase text-brand-black mb-4">Récapitulatif</h2>
               <div class="space-y-3" id="summary-items"></div>
               <div class="mt-4 pt-4 border-t border-brand-gray-200 space-y-2">
@@ -261,7 +261,7 @@ const metadata = buildMetadata({
 </BaseLayout>
 
 <script>
-  import { getCart, clearCart, getCartTotal } from "@lib/cart";
+  import { getCart, clearCart, getCartTotal, updateQuantity, removeFromCart } from "@lib/cart";
   import type { CartItem } from "@lib/cart";
   import { formatPrice } from "@lib/currency";
 
@@ -280,6 +280,42 @@ const metadata = buildMetadata({
     return isFreeShipping() ? 0 : (shippingPrices[selectedShipping] || 4.90);
   }
 
+  function clampQuantity(value: number): number {
+    if (!Number.isFinite(value) || value < 1) return 1;
+    return Math.min(99, Math.round(value));
+  }
+
+  function bindSummaryInteractions(summaryItems: HTMLElement) {
+    summaryItems.querySelectorAll<HTMLButtonElement>(".summary-qty-btn").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const id = parseInt(btn.dataset.productId || "0", 10);
+        const variation = btn.dataset.variation || undefined;
+        const direction = btn.dataset.action;
+        const currentItem = getCart().find((item) => item.productId === id && (item.variation || "") === (variation || ""));
+        if (!currentItem) return;
+
+        const nextQty = direction === "increase"
+          ? currentItem.quantity + 1
+          : currentItem.quantity - 1;
+
+        updateQuantity(id, variation, clampQuantity(nextQty));
+        if (nextQty <= 0) {
+          removeFromCart(id, variation);
+        }
+        renderSummary();
+      });
+    });
+
+    summaryItems.querySelectorAll<HTMLButtonElement>(".summary-remove-btn").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const id = parseInt(btn.dataset.productId || "0", 10);
+        const variation = btn.dataset.variation || undefined;
+        removeFromCart(id, variation);
+        renderSummary();
+      });
+    });
+  }
+
   function renderSummary() {
     const cart = getCart();
     const summaryItems = document.getElementById("summary-items");
@@ -291,7 +327,8 @@ const metadata = buildMetadata({
 
     if (summaryItems) {
       summaryItems.innerHTML = cart.map((item: CartItem) => `
-        <div class="flex items-center gap-3">
+        <div class="rounded-2xl border border-brand-gray-200 bg-white p-3 sm:p-4">
+          <div class="flex items-start gap-3">
           <div class="w-12 h-12 rounded-lg overflow-hidden bg-white border border-gray-100 shrink-0">
             ${item.image
               ? `<img src="${item.image}" alt="${item.name}" class="w-full h-full object-cover" loading="lazy" />`
@@ -301,11 +338,23 @@ const metadata = buildMetadata({
           <div class="flex-1 min-w-0">
             <p class="text-sm font-medium text-brand-black truncate">${item.name}</p>
             ${item.variation ? `<p class="text-xs text-brand-black/50">${item.variation}</p>` : ""}
-            <p class="text-xs text-brand-black/50">Qté : ${item.quantity}</p>
+            <p class="text-xs text-brand-black/50 mt-1">Prix unitaire : ${formatPrice(parseFloat(item.price))}</p>
+            <div class="mt-3 flex flex-wrap items-center gap-2">
+              <div class="inline-flex items-center gap-1 rounded-full border border-brand-gray-200 bg-gray-50 p-1">
+                <button type="button" class="summary-qty-btn flex h-8 w-8 items-center justify-center rounded-full text-brand-black transition-colors hover:bg-brand-black hover:text-white" data-action="decrease" data-product-id="${item.productId}" data-variation="${item.variation || ""}" aria-label="Diminuer la quantite de ${item.name}">−</button>
+                <span class="w-8 text-center text-sm font-semibold text-brand-black">${item.quantity}</span>
+                <button type="button" class="summary-qty-btn flex h-8 w-8 items-center justify-center rounded-full text-brand-black transition-colors hover:bg-brand-black hover:text-white" data-action="increase" data-product-id="${item.productId}" data-variation="${item.variation || ""}" aria-label="Augmenter la quantite de ${item.name}">+</button>
+              </div>
+              <button type="button" class="summary-remove-btn text-xs font-medium text-red-500 transition-colors hover:text-red-600" data-product-id="${item.productId}" data-variation="${item.variation || ""}">Supprimer</button>
+            </div>
           </div>
-          <span class="text-sm font-semibold text-brand-black shrink-0">${formatPrice(parseFloat(item.price) * item.quantity)}</span>
+          <div class="ml-3 shrink-0 text-right">
+            <span class="text-sm font-semibold text-brand-black">${formatPrice(parseFloat(item.price) * item.quantity)}</span>
+          </div>
         </div>
       `).join("");
+
+      bindSummaryInteractions(summaryItems);
     }
 
     const subtotal = getSubtotal();
@@ -316,7 +365,7 @@ const metadata = buildMetadata({
     if (shippingEl) shippingEl.textContent = isFreeShipping() ? "Offerte" : formatPrice(shipping);
     if (totalEl) totalEl.textContent = formatPrice(total);
     if (freeNote) freeNote.style.display = isFreeShipping() ? "block" : "none";
-    if (stdLabel && isFreeShipping()) stdLabel.textContent = "Offerte";
+    if (stdLabel) stdLabel.textContent = isFreeShipping() ? "Offerte" : formatPrice(shippingPrices.standard);
   }
 
   function setupDeliveryOptions() {
@@ -377,6 +426,60 @@ const metadata = buildMetadata({
     return valid;
   }
 
+  function formatCardNumber(value: string): string {
+    return value.replace(/\D/g, "").slice(0, 16).replace(/(.{4})/g, "$1 ").trim();
+  }
+
+  function formatExpiry(value: string): string {
+    const digits = value.replace(/\D/g, "").slice(0, 4);
+    if (digits.length < 3) return digits;
+    return `${digits.slice(0, 2)}/${digits.slice(2)}`;
+  }
+
+  function validatePaymentForm(): boolean {
+    const selectedPayment = document.querySelector<HTMLInputElement>('input[name="payment"]:checked')?.value;
+    if (selectedPayment !== "card") return true;
+
+    const numberField = document.getElementById("card-number") as HTMLInputElement | null;
+    const expiryField = document.getElementById("card-expiry") as HTMLInputElement | null;
+    const cvcField = document.getElementById("card-cvc") as HTMLInputElement | null;
+
+    let valid = true;
+
+    if (numberField) {
+      const digits = numberField.value.replace(/\D/g, "");
+      if (digits.length < 13 || digits.length > 16) {
+        numberField.classList.add("border-red-400");
+        valid = false;
+      } else {
+        numberField.classList.remove("border-red-400");
+      }
+    }
+
+    if (expiryField) {
+      const match = expiryField.value.match(/^(\d{2})\/(\d{2})$/);
+      const month = match ? parseInt(match[1], 10) : 0;
+      if (!match || month < 1 || month > 12) {
+        expiryField.classList.add("border-red-400");
+        valid = false;
+      } else {
+        expiryField.classList.remove("border-red-400");
+      }
+    }
+
+    if (cvcField) {
+      const digits = cvcField.value.replace(/\D/g, "");
+      if (digits.length < 3 || digits.length > 4) {
+        cvcField.classList.add("border-red-400");
+        valid = false;
+      } else {
+        cvcField.classList.remove("border-red-400");
+      }
+    }
+
+    return valid;
+  }
+
   function goToStep(step: number) {
     const stepDelivery = document.getElementById("step-delivery");
     const stepPayment = document.getElementById("step-payment");
@@ -393,9 +496,13 @@ const metadata = buildMetadata({
     // Update step indicators
     if (step >= 2 && step2Label) {
       step2Label.innerHTML = `<span class="w-6 h-6 rounded-full bg-brand-black text-white text-xs flex items-center justify-center font-bold">2</span> Paiement`;
+    } else if (step2Label) {
+      step2Label.innerHTML = `<span class="w-6 h-6 rounded-full bg-brand-gray-200 text-brand-black/40 text-xs flex items-center justify-center font-bold">2</span> Paiement`;
     }
     if (step >= 3 && step3Label) {
       step3Label.innerHTML = `<span class="w-6 h-6 rounded-full bg-brand-green text-brand-black text-xs flex items-center justify-center font-bold">3</span> Confirmation`;
+    } else if (step3Label) {
+      step3Label.innerHTML = `<span class="w-6 h-6 rounded-full bg-brand-gray-200 text-brand-black/40 text-xs flex items-center justify-center font-bold">3</span> Confirmation`;
     }
 
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -414,12 +521,38 @@ const metadata = buildMetadata({
       return;
     }
 
+    if (contentEl.dataset.checkoutInit === "1") {
+      renderSummary();
+      return;
+    }
+
+    contentEl.dataset.checkoutInit = "1";
+
     emptyEl.classList.add("hidden");
     contentEl.classList.remove("hidden");
 
     renderSummary();
     setupDeliveryOptions();
     setupPaymentOptions();
+
+    const cardNumber = document.getElementById("card-number") as HTMLInputElement | null;
+    const cardExpiry = document.getElementById("card-expiry") as HTMLInputElement | null;
+    const cardCvc = document.getElementById("card-cvc") as HTMLInputElement | null;
+
+    cardNumber?.addEventListener("input", () => {
+      cardNumber.value = formatCardNumber(cardNumber.value);
+      cardNumber.classList.remove("border-red-400");
+    });
+
+    cardExpiry?.addEventListener("input", () => {
+      cardExpiry.value = formatExpiry(cardExpiry.value);
+      cardExpiry.classList.remove("border-red-400");
+    });
+
+    cardCvc?.addEventListener("input", () => {
+      cardCvc.value = cardCvc.value.replace(/\D/g, "").slice(0, 4);
+      cardCvc.classList.remove("border-red-400");
+    });
 
     // Step navigation
     const btnToPayment = document.getElementById("btn-to-payment");
@@ -437,6 +570,10 @@ const metadata = buildMetadata({
     });
 
     btnConfirm?.addEventListener("click", () => {
+      if (!validateDeliveryForm() || !validatePaymentForm()) {
+        return;
+      }
+
       // Generate pseudo order number
       const orderNum = `KG-${Date.now().toString(36).toUpperCase()}`;
       const orderNumEl = document.getElementById("order-number");
@@ -445,6 +582,9 @@ const metadata = buildMetadata({
       clearCart();
       goToStep(3);
     });
+
+    window.addEventListener("kg:cart-updated", renderSummary);
+    window.addEventListener("kg:currency-changed", renderSummary);
   }
 
   initCheckout();

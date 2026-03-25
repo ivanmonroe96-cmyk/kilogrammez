@@ -98,4 +98,9 @@ export const deliveryLocations: DeliveryLocation[] = [
   { name: "Bologne", slug: "bologne", country: "Italie", countryCode: "IT", description: "Consegna CBD a Bologna. Fiori, hash, oli CBD di qualità consegnati a casa tua." },
   { name: "Luxembourg", slug: "luxembourg", country: "Luxembourg", countryCode: "LU", description: "Livraison CBD à Luxembourg-Ville et au Grand-Duché. Produits CBD premium livrés chez vous." },
   { name: "Monaco", slug: "monaco", country: "Monaco", countryCode: "MC", description: "Livraison CBD à Monaco. Produits CBD de qualité premium livrés directement à votre domicile." },
+  { name: "Amiens", slug: "amiens", country: "France", countryCode: "FR", description: "Livraison CBD à Amiens et dans la Somme. Retrouvez notre boutique au 209 rue Jules Barni ou commandez en ligne." },
+  { name: "Lille", slug: "lille", country: "France", countryCode: "FR", description: "Livraison CBD à Lille et dans le Nord. Retrouvez notre boutique au 64 rue de l'Hôpital Militaire ou commandez en ligne." },
+  { name: "Saint-Étienne", slug: "saint-etienne", country: "France", countryCode: "FR", description: "Livraison CBD à Saint-Étienne et dans la Loire. Retrouvez notre boutique au 26 rue Gambetta ou commandez en ligne." },
+  { name: "Toulouse", slug: "toulouse", country: "France", countryCode: "FR", description: "Livraison CBD à Toulouse et en Haute-Garonne. Retrouvez notre boutique au 14 rue Pharaon ou commandez en ligne." },
+  { name: "Cambrai", slug: "cambrai", country: "France", countryCode: "FR", description: "Livraison CBD à Cambrai et dans le Cambrésis. Retrouvez notre boutique au 50 rue des Rôtisseurs ou commandez en ligne." },
 ];
