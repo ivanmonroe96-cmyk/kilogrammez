@@ -1,0 +1,146 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── MDIO (body / UI font) ── */
+@font-face {
+  font-family: "MDIO";
+  src: url("/fonts/MDIO-Light.woff2") format("woff2");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "MDIO";
+  src: url("/fonts/MDIO-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "MDIO";
+  src: url("/fonts/MDIO-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "MDIO";
+  src: url("/fonts/MDIO-Semibold.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "MDIO";
+  src: url("/fonts/MDIO-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ── Bebas Neue (titles only — via Google Fonts) ── */
+
+@layer base {
+  :root {
+    --color-brand-green: #BEDE18;
+    --color-brand-green-dark: #a8c816;
+    --color-brand-yellow: #F5D93F;
+    --color-bg: #2D2926;
+    --color-bg-elevated: #363330;
+    --color-text: #ffffff;
+    --color-text-muted: #959595;
+    --color-border: #363330;
+    --color-border-hover: #504a45;
+    --color-accent: var(--color-brand-green);
+    --header-height: 130px;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    @apply bg-brand-black text-brand-white font-mdio;
+    min-height: 100dvh;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-title;
+  }
+
+  ::selection {
+    background-color: var(--color-brand-green);
+    color: #2D2926;
+  }
+}
+
+@layer components {
+  .container-site {
+    @apply mx-auto w-full max-w-8xl px-4 sm:px-6 lg:px-8;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center rounded-full
+      px-6 py-3 text-sm font-medium transition-all duration-200
+      focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-green
+      focus-visible:ring-offset-2 focus-visible:ring-offset-brand-black;
+  }
+
+  .btn-primary {
+    @apply btn bg-brand-green text-brand-black hover:bg-brand-green-dark;
+  }
+
+  .btn-secondary {
+    @apply btn border border-brand-gray-400 text-brand-white
+      hover:border-brand-white hover:bg-brand-white hover:text-brand-black;
+  }
+
+  .btn-ghost {
+    @apply btn text-brand-white hover:text-brand-green;
+  }
+
+  .prose-article {
+    @apply text-brand-black/80 leading-relaxed;
+  }
+
+  .prose-article h2 {
+    @apply text-2xl font-bold text-brand-black mt-10 mb-4 font-title uppercase;
+  }
+
+  .prose-article h3 {
+    @apply text-xl font-medium text-brand-black mt-8 mb-3 font-title uppercase;
+  }
+
+  .prose-article p {
+    @apply mb-4;
+  }
+
+  .prose-article a {
+    @apply text-brand-green underline underline-offset-2
+      hover:text-brand-green-dark transition-colors;
+  }
+
+  .prose-article ul,
+  .prose-article ol {
+    @apply mb-4 pl-6;
+  }
+
+  .prose-article li {
+    @apply mb-1;
+  }
+
+  .prose-article img {
+    @apply rounded-lg my-6;
+  }
+
+  .prose-article blockquote {
+    @apply border-l-4 border-brand-green pl-4 italic text-brand-black/60 my-6;
+  }
+}

@@ -1,0 +1,32 @@
+---
+import type { BreadcrumbItem } from "@lib/seo/schema";
+
+interface Props {
+  items: BreadcrumbItem[];
+  dark?: boolean;
+}
+
+const { items, dark = false } = Astro.props;
+const textColor = dark ? "text-brand-gray-400" : "text-brand-black/50";
+const hoverColor = dark ? "hover:text-brand-white" : "hover:text-brand-black";
+const separatorColor = dark ? "text-brand-gray-600" : "text-brand-black/30";
+const activeColor = dark ? "text-brand-gray-300" : "text-brand-black/70";
+---
+
+<nav aria-label="Fil d'Ariane" class="text-sm">
+  <ol class:list={["flex flex-wrap items-center gap-1.5", textColor]}>
+    <li>
+      <a href="/" class:list={[hoverColor, "transition-colors"]}>Accueil</a>
+    </li>
+    {items.map((item, i) => (
+      <li class="flex items-center gap-1.5">
+        <span class={separatorColor}>/</span>
+        {i === items.length - 1 ? (
+          <span class={activeColor}>{item.name}</span>
+        ) : (
+          <a href={item.url} class:list={[hoverColor, "transition-colors"]}>{item.name}</a>
+        )}
+      </li>
+    ))}
+  </ol>
+</nav>

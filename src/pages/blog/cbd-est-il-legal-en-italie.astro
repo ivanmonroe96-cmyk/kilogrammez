@@ -1,0 +1,110 @@
+---
+import ArticleLayout from "@layouts/ArticleLayout.astro";
+import { buildMetadata } from "@lib/seo/metadata";
+import { articleSchema, breadcrumbSchema, faqSchema, buildJsonLd } from "@lib/seo/schema";
+
+export const prerender = true;
+
+const title = "CBD en Italie : est-ce légal ?";
+const description = "Ce qu'il faut vérifier avant d'acheter ou de se faire livrer du CBD en Italie : cadre général, prudence réglementaire et bons réflexes de lecture.";
+const path = "/blog/cbd-est-il-legal-en-italie/";
+const publishedTime = "2026-03-23T10:00:00.000Z";
+const modifiedTime = "2026-03-23T10:00:00.000Z";
+
+const metadata = buildMetadata({
+  title,
+  description,
+  path,
+  ogType: "article",
+  article: { publishedTime, modifiedTime, author: "Équipe Kilogrammes" },
+});
+
+const breadcrumbs = [
+  { name: "Blog", url: "/blog/" },
+  { name: title, url: path },
+];
+
+const faq = [
+  {
+    question: "Le CBD est-il légal en Italie ?",
+    answer:
+      "Le cadre applicable peut évoluer. Avant d'acheter ou de vous faire livrer du CBD en Italie, il faut vérifier la réglementation en vigueur, distinguer la règle générale des cas particuliers et éviter les raccourcis fondés sur des informations obsolètes.",
+  },
+  {
+    question: "Peut-on se faire livrer du CBD en Italie ?",
+    answer:
+      "Oui, sous réserve que le produit, sa présentation et la livraison soient compatibles avec le cadre réglementaire applicable au moment de la commande. Il est toujours préférable de vérifier les conditions actualisées avant achat.",
+  },
+  {
+    question: "Que faut-il vérifier avant de commander du CBD pour l'Italie ?",
+    answer:
+      "Vérifiez la clarté du vendeur, la nature exacte du produit, les informations de conformité, les conditions de livraison et la mise à jour des informations juridiques. Une page sérieuse ne doit pas transformer une situation réglementaire évolutive en promesse simpliste.",
+  },
+];
+
+const jsonLd = buildJsonLd([
+  breadcrumbSchema(breadcrumbs),
+  articleSchema({ title, url: path, description, publishedTime, modifiedTime, author: "Équipe Kilogrammes" }),
+  faqSchema(faq),
+]);
+---
+
+<ArticleLayout metadata={metadata} jsonLd={jsonLd} breadcrumbs={breadcrumbs}>
+  <div class="bg-white rounded-lg p-6 lg:p-10">
+    <header class="mb-8">
+      <h1 class="text-3xl sm:text-4xl lg:text-5xl font-title font-bold text-brand-black uppercase leading-tight mb-4">{title}</h1>
+      <div class="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-brand-gray-400">
+        <time datetime={publishedTime}>Publié le 23 mars 2026</time>
+        <span>•</span>
+        <time datetime={modifiedTime}>Mis à jour le 23 mars 2026</time>
+        <span>•</span>
+        <span>Revue éditoriale : Équipe Kilogrammes</span>
+      </div>
+    </header>
+
+    <div class="text-brand-black/80 leading-relaxed [&_h2]:font-title [&_h2]:uppercase [&_h2]:text-2xl [&_h2]:font-bold [&_h2]:text-brand-black [&_h2]:mt-8 [&_h2]:mb-4 [&_h3]:font-title [&_h3]:uppercase [&_h3]:text-xl [&_h3]:font-bold [&_h3]:mt-6 [&_h3]:mb-3 [&_p]:mb-4 [&_li]:mb-2 [&_a]:text-brand-black [&_a]:underline [&_a]:underline-offset-2">
+      <p>
+        La question <strong>"le CBD est-il légal en Italie ?"</strong> revient souvent chez les clients qui veulent comprendre s'il est possible d'acheter ou de recevoir un produit CBD dans le pays sans se baser sur des informations incomplètes. Le problème est que ce type de sujet change vite, et qu'un contenu sérieux doit rester prudent.
+      </p>
+      <p>
+        Cette page ne remplace pas une source juridique officielle. Son rôle est de vous donner une grille de lecture claire : vérifier le cadre applicable, distinguer information générale et promesse commerciale, puis orienter vers des pages utiles comme notre <a href="/shop/rome/">livraison CBD à Rome</a>, notre <a href="/shop/milan/">livraison CBD à Milan</a> ou notre <a href="/qualite-securite-cbd/">page qualité</a>.
+      </p>
+
+      <h2>Réponse courte</h2>
+      <p>
+        Oui, le sujet du CBD en Italie existe dans un cadre réel, mais il doit toujours être lu avec prudence. Avant de commander, il faut vérifier la réglementation applicable au moment de l'achat, la nature exacte du produit et la qualité des informations fournies par le vendeur.
+      </p>
+
+      <h2>Pourquoi la prudence est indispensable</h2>
+      <p>
+        Les contenus qui affirment qu'un produit est automatiquement autorisé ou automatiquement interdit sans nuance ne sont pas fiables. Les visiteurs ont besoin d'un contenu qui explique les limites : un marché peut exister, mais les règles d'application, les interprétations et les conditions commerciales peuvent évoluer.
+      </p>
+
+      <h2>Les bons réflexes avant de commander</h2>
+      <ul>
+        <li>vérifier la date de mise à jour des informations ;</li>
+        <li>lire la nature exacte du produit et sa catégorie ;</li>
+        <li>contrôler la clarté du vendeur sur la qualité et la conformité ;</li>
+        <li>préférer des pages qui relient réglementation, qualité et livraison au lieu de promettre sans contexte.</li>
+      </ul>
+
+      <h2>Comment évaluer un vendeur avant livraison en Italie</h2>
+      <p>
+        Un vendeur sérieux doit rendre sa logique qualité visible : catégories lisibles, informations de conformité, page support, page qualité et explications sur les conditions de livraison. Ces éléments sont plus utiles qu'un simple slogan commercial. Pour explorer l'offre, vous pouvez aussi revenir vers notre <a href="/boutique-cbd/">boutique CBD</a>.
+      </p>
+
+      <h2>Questions fréquentes</h2>
+      {faq.map((item) => (
+        <div class="border border-brand-gray-200 rounded-xl px-5 py-4 my-4">
+          <h3 class="!mt-0">{item.question}</h3>
+          <p>{item.answer}</p>
+        </div>
+      ))}
+
+      <h2>Conclusion</h2>
+      <p>
+        Le bon réflexe n'est pas de chercher une réponse trop simple à un sujet réglementaire mouvant. Le bon réflexe est de croiser cadre applicable, qualité du vendeur et clarté des pages commerciales. Si vous souhaitez comparer l'offre disponible, poursuivez avec notre <a href="/shop/">hub livraison Europe</a> ou la <a href="/boutique-cbd/">boutique CBD</a>.
+      </p>
+    </div>
+  </div>
+</ArticleLayout>

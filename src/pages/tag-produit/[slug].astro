@@ -1,0 +1,70 @@
+---
+import ShopLayout from "@layouts/ShopLayout.astro";
+import ProductGrid from "@components/product/ProductGrid.astro";
+import { buildMetadata } from "@lib/seo/metadata";
+import { breadcrumbSchema, collectionPageSchema, buildJsonLd } from "@lib/seo/schema";
+import { getProductTags, getProductsByTag } from "@lib/api/woocommerce";
+import { getTagFocusKeyword, getTagRouteAliases, getTagRouteSlug } from "@lib/seo/focusKeywords";
+import type { BreadcrumbItem } from "@lib/seo/schema";
+
+export const prerender = true;
+
+export async function getStaticPaths() {
+  const tags = await getProductTags().catch(() => []);
+  return tags.flatMap((tag: any) => {
+    const canonicalSlug = getTagRouteSlug(tag);
+    return getTagRouteAliases(tag).map((routeSlug) => ({
+      params: { slug: routeSlug },
+      props: { tag, canonicalSlug, focusKeyword: getTagFocusKeyword(tag) },
+    }));
+  });
+}
+
+const { tag, canonicalSlug, focusKeyword } = Astro.props;
+const products = await getProductsByTag(tag.id).catch(() => []);
+
+const metadata = buildMetadata({
+  title: focusKeyword,
+  description: tag.description
+    ? tag.description.replace(/<[^>]*>/g, "").slice(0, 160)
+    : `Découvrez notre sélection ${tag.name} sur Kilogrammes. Produits CBD, catégories liées et livraison rapide.`,
+  path: `/tag-produit/${canonicalSlug}/`,
+});
+
+const breadcrumbs: BreadcrumbItem[] = [
+  { name: "Boutique CBD", url: "/boutique-cbd/" },
+  { name: `Tag ${tag.name}`, url: `/tag-produit/${canonicalSlug}/` },
+];
+
+const jsonLd = buildJsonLd([
+  breadcrumbSchema(breadcrumbs),
+  collectionPageSchema({
+    name: tag.name,
+    url: `/tag-produit/${canonicalSlug}/`,
+    description: tag.description?.replace(/<[^>]*>/g, "").slice(0, 200) || `Sélection de produits reliés au tag ${tag.name}.`,
+    numberOfItems: products.length || undefined,
+  }),
+]);
+---
+
+<ShopLayout metadata={metadata} jsonLd={jsonLd} breadcrumbs={breadcrumbs}>
+  <section class="bg-brand-black py-12 lg:py-16">
+    <div class="max-w-[1440px] mx-auto px-6 lg:px-10">
+      <p class="text-sm uppercase tracking-[0.18em] text-brand-green">Tag produit</p>
+      <h1 class="mt-3 text-4xl sm:text-5xl lg:text-7xl font-title font-bold text-white uppercase">{tag.name}</h1>
+      <p class="mt-4 max-w-3xl text-base lg:text-lg text-white/80">
+        {tag.description ? tag.description.replace(/<[^>]*>/g, "") : `Parcourez les produits Kilogrammes liés au tag ${tag.name} et naviguez par intention de recherche, format et profil produit.`}
+      </p>
+    </div>
+  </section>
+
+  <section class="bg-white py-10 lg:py-16">
+    <div class="max-w-[1440px] mx-auto px-6 lg:px-10">
+      {products.length > 0 ? (
+        <ProductGrid products={products} />
+      ) : (
+        <p class="py-8 text-brand-gray-400">Aucun produit lié à ce tag pour le moment.</p>
+      )}
+    </div>
+  </section>
+</ShopLayout>

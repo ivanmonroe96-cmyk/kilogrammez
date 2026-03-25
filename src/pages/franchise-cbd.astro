@@ -1,0 +1,110 @@
+---
+import MarketingLayout from "@layouts/MarketingLayout.astro";
+import { buildMetadata } from "@lib/seo/metadata";
+import { buildJsonLd, breadcrumbSchema, faqSchema } from "@lib/seo/schema";
+
+export const prerender = true;
+
+const metadata = buildMetadata({
+  title: "Franchise CBD : Ouvrir un CBD Shop",
+  description:
+    "Ouvrez votre franchise CBD Kilogrammes dès 20 000€. Concept clé en main, formation, stock avancé. Leader européen, +250 000 clients.",
+  path: "/franchise-cbd/",
+});
+
+const franchiseFaq = [
+  { question: "Quel est l'apport personnel minimum pour ouvrir une franchise Kilogrammes ?", answer: "L'apport personnel minimum est de 20 000€. Les droits d'entrée sont également de 20 000€. Kilogrammes a conçu ces conditions pour être accessibles au plus grand nombre d'entrepreneurs." },
+  { question: "Mon local doit-il avoir une surface minimum ?", answer: "Oui, votre futur local Kilogrammes doit avoir une surface minimum de 30 m². L'équipe Kilogrammes vous accompagne dans le choix de l'emplacement et la mise en place du concept." },
+  { question: "Kilogrammes fournit-il le premier stock ?", answer: "Oui, lors de l'ouverture de votre shop, le premier stock vous est avancé. Vous le remboursez ensuite mensuellement en fonction de votre chiffre d'affaires." },
+  { question: "Quelle formation est proposée aux franchisés ?", answer: "Avant l'ouverture, une formation de 2 jours couvre l'expertise cannabinoïdes, la vente et la réglementation. Des webinars trimestriels complètent ensuite votre formation continue." },
+  { question: "Quelles sont les redevances à payer ?", answer: "Deux redevances s'appliquent : 5% du chiffre d'affaires HT pour la redevance d'exploitation et 1% du CA HT pour la participation à la communication nationale." },
+];
+
+const jsonLd = buildJsonLd([
+  breadcrumbSchema([{ name: "Franchise CBD", url: "/franchise-cbd/" }]),
+  faqSchema(franchiseFaq),
+]);
+---
+
+<MarketingLayout metadata={metadata} jsonLd={jsonLd}>
+  <!-- Hero -->
+  <section class="bg-brand-black py-24">
+    <div class="container-site text-center">
+      <p class="text-brand-green text-sm font-medium uppercase tracking-widest mb-4">Franchise CBD</p>
+      <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-brand-white leading-tight mb-6 text-balance font-title uppercase">
+        Ouvrez votre shop<br />Kilogrammes
+      </h1>
+      <p class="text-lg text-brand-gray-400 max-w-2xl mx-auto mb-8">
+        Rejoignez un réseau de boutiques CBD en pleine croissance. Accompagnement complet, formation et produits exclusifs.
+      </p>
+      <a href="/contact/" class="btn-primary">Demander des informations</a>
+    </div>
+  </section>
+
+  <!-- Advantages -->
+  <section class="bg-brand-white py-20">
+    <div class="container-site">
+    <h2 class="text-3xl font-bold text-brand-black text-center mb-12 font-title uppercase">Pourquoi Kilogrammes ?</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      {[
+        { icon: "🏪", title: "Concept clé en main", desc: "Agencement, branding, mobilier : tout est prévu pour un lancement rapide." },
+        { icon: "📦", title: "Produits exclusifs", desc: "Accès à notre gamme complète de CBD premium, directement du producteur." },
+        { icon: "📈", title: "Modèle rentable", desc: "Marges optimisées et accompagnement business pour maximiser vos résultats." },
+        { icon: "🎓", title: "Formation complète", desc: "Formation initiale et continue sur les produits, la vente et la réglementation." },
+        { icon: "🤝", title: "Support dédié", desc: "Un interlocuteur dédié et un réseau d'entraide entre franchisés." },
+        { icon: "🌍", title: "Réseau national", desc: "Rejoignez un réseau de boutiques présentes dans toute la France." },
+      ].map((item) => (
+        <div class="bg-white border border-brand-gray-200 rounded-2xl p-6">
+          <div class="text-3xl mb-3">{item.icon}</div>
+          <h3 class="text-lg font-bold text-brand-black mb-2">{item.title}</h3>
+          <p class="text-sm text-brand-black/60">{item.desc}</p>
+        </div>
+      ))}
+    </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="bg-gray-50 border-y border-brand-gray-200">
+    <div class="container-site py-20 text-center">
+      <h2 class="text-3xl font-bold text-brand-black mb-4 font-title uppercase">Prêt à entreprendre dans le CBD ?</h2>
+      <p class="text-lg text-brand-black/60 max-w-xl mx-auto mb-8">
+        Contactez-nous pour recevoir notre dossier de franchise et planifier un rendez-vous.
+      </p>
+      <a href="/contact/" class="btn-primary">Nous contacter</a>
+
+      <div class="mt-10 grid grid-cols-1 md:grid-cols-2 gap-4 text-left max-w-4xl mx-auto">
+        <a href="/blog/comment-choisir-un-grossiste-cbd/" class="rounded-2xl border border-brand-gray-200 bg-white p-5 hover:border-brand-black transition-colors">
+          <p class="text-xs uppercase tracking-[0.18em] text-brand-black/50">Lecture utile</p>
+          <h3 class="mt-2 text-lg font-title font-bold uppercase text-brand-black">Lire notre guide grossiste CBD</h3>
+          <p class="mt-2 text-sm leading-relaxed text-brand-black/70">Pour comprendre la logique qualité, logistique et accompagnement derrière un projet retail ou franchise.</p>
+        </a>
+        <a href="/processus-editorial-cbd/" class="rounded-2xl border border-brand-gray-200 bg-white p-5 hover:border-brand-black transition-colors">
+          <p class="text-xs uppercase tracking-[0.18em] text-brand-black/50">Confiance</p>
+          <h3 class="mt-2 text-lg font-title font-bold uppercase text-brand-black">Notre méthode éditoriale</h3>
+          <p class="mt-2 text-sm leading-relaxed text-brand-black/70">Voir comment nous structurons les informations produit, qualité et conformité sur le site.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="bg-brand-white py-16">
+    <div class="container-site max-w-3xl mx-auto">
+      <h2 class="text-3xl font-bold text-brand-black mb-8 font-title uppercase">Questions fréquentes — Franchise CBD</h2>
+      <div class="space-y-4">
+        {franchiseFaq.map((item) => (
+          <details class="group bg-gray-50 border border-brand-gray-200 rounded-xl overflow-hidden">
+            <summary class="flex items-center justify-between cursor-pointer p-5 text-brand-black font-medium hover:bg-gray-100 transition-colors list-none [&::-webkit-details-marker]:hidden">
+              <span class="pr-4">{item.question}</span>
+              <svg class="w-5 h-5 shrink-0 text-brand-black/40 group-open:rotate-180 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+            </summary>
+            <div class="px-5 pb-5 text-brand-black/60 text-sm leading-relaxed">
+              {item.answer}
+            </div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+</MarketingLayout>

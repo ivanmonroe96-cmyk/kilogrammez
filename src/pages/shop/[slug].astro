@@ -1,0 +1,176 @@
+---
+import MarketingLayout from "@layouts/MarketingLayout.astro";
+import ProductCard from "@components/product/ProductCard.astro";
+import { buildMetadata } from "@lib/seo/metadata";
+import { breadcrumbSchema, faqSchema, buildJsonLd } from "@lib/seo/schema";
+import { deliveryLocations } from "@/data/navigation";
+import { getProducts } from "@lib/api/woocommerce";
+import { getDeliveryFocusKeyword, getDeliveryRouteAliases, getDeliveryRouteSlug, getProductRouteSlug, staticPageSlugs } from "@lib/seo/focusKeywords";
+import type { BreadcrumbItem } from "@lib/seo/schema";
+
+export const prerender = true;
+
+export function getStaticPaths() {
+  return deliveryLocations.flatMap((location) => {
+    const canonicalSlug = getDeliveryRouteSlug(location);
+    return getDeliveryRouteAliases(location).map((routeSlug) => ({
+      params: { slug: routeSlug },
+      props: { location, canonicalSlug, focusKeyword: getDeliveryFocusKeyword(location) },
+    }));
+  });
+}
+
+const { location, canonicalSlug, focusKeyword } = Astro.props;
+
+const metadata = buildMetadata({
+  title: focusKeyword,
+  description: location.description,
+  path: `/shop/${canonicalSlug}/`,
+});
+
+const breadcrumbs: BreadcrumbItem[] = [
+  { name: "Livraison CBD", url: `/${staticPageSlugs.delivery}/` },
+  { name: location.name, url: `/shop/${canonicalSlug}/` },
+];
+
+const geoFaq = [
+  {
+    question: `Livrez-vous des produits CBD à ${location.name} ?`,
+    answer: `Oui. Kilogrammes expédie ses produits CBD à ${location.name} via sa boutique en ligne avec une livraison rapide, discrète et suivie, sous réserve du cadre réglementaire applicable dans ${location.country}.`,
+  },
+  {
+    question: `Quels produits puis-je commander depuis ${location.name} ?`,
+    answer: "Vous pouvez commander des fleurs CBD, résines, huiles, edibles et accessoires selon les disponibilités du catalogue. La boutique en ligne permet de comparer les formats avant achat et d'accéder aux catégories les plus adaptées à votre recherche.",
+  },
+  {
+    question: `Comment vérifier la qualité d'un produit CBD avant livraison à ${location.name} ?`,
+    answer: "Le plus utile est de vérifier la clarté de la fiche produit, la logique qualité du vendeur, la traçabilité annoncée et les informations de conformité. Notre page Safety détaille la manière dont Kilogrammes présente ces repères.",
+  },
+];
+
+const jsonLd = buildJsonLd([breadcrumbSchema(breadcrumbs), faqSchema(geoFaq)]);
+
+const featuredProducts = await getProducts(1, 8).catch(() => []);
+---
+
+<MarketingLayout metadata={metadata} jsonLd={jsonLd}>
+  <!-- Hero -->
+  <section class="bg-brand-black py-16">
+    <div class="container-site max-w-5xl mx-auto">
+    <nav aria-label="Fil d'Ariane" class="mb-6 text-sm text-brand-gray-400">
+      <a href="/" class="hover:text-brand-white transition-colors">Accueil</a>
+      <span class="mx-1.5 text-brand-gray-600">/</span>
+      <a href="/shop/" class="hover:text-brand-white transition-colors">Livraison CBD</a>
+      <span class="mx-1.5 text-brand-gray-600">/</span>
+      <span class="text-brand-gray-300">{location.name}</span>
+    </nav>
+
+
+    <div class="mb-16 grid grid-cols-1 lg:grid-cols-[1.2fr_0.8fr] gap-10 items-start">
+      <div>
+        <h2 class="text-2xl font-bold text-brand-black mb-4 font-title uppercase">Commander du CBD à {location.name}</h2>
+        <div class="space-y-4 text-sm leading-relaxed text-brand-black/70">
+          <p>
+            Cette page a été pensée pour les visiteurs qui recherchent une <strong>livraison CBD à {location.name}</strong> avec un parcours de commande simple, une lecture claire des catégories et des repères de confiance visibles avant achat. L'objectif n'est pas seulement de livrer, mais d'aider à comparer les bons formats selon votre intention réelle.
+          </p>
+          <p>
+            Si vous découvrez l'offre Kilogrammes, commencez par notre <a href="/boutique-cbd/" class="font-medium text-brand-black underline underline-offset-2">boutique CBD</a>, puis orientez-vous vers les <a href="/categorie-produit/fleurs-cbd/" class="font-medium text-brand-black underline underline-offset-2">fleurs CBD</a>, les <a href="/categorie-produit/resine-cbd-hash-cbg-pollen/" class="font-medium text-brand-black underline underline-offset-2">résines CBD</a> ou les <a href="/categorie-produit/huiles-cbd/" class="font-medium text-brand-black underline underline-offset-2">huiles CBD</a> selon le format que vous souhaitez comparer. Pour les questions de conformité et de traçabilité, notre page <a href={`/${staticPageSlugs.safety}/`} class="font-medium text-brand-black underline underline-offset-2">Safety</a> complète utilement ce parcours.
+          </p>
+          <p>
+            Nous utilisons ces pages locales pour répondre à une intention simple : savoir si l'on peut recevoir un produit CBD à {location.name}, dans quelles conditions, et avec quels repères qualité. Cette approche améliore à la fois la compréhension de l'offre pour les utilisateurs et la lisibilité de la page pour les moteurs de recherche et les systèmes génératifs.
+          </p>
+        </div>
+      </div>
+
+      <aside class="rounded-[28px] border border-brand-gray-200 bg-gray-50 p-6">
+        <h2 class="text-xl font-title font-bold uppercase text-brand-black">Repères utiles</h2>
+        <ul class="mt-4 space-y-3 text-sm text-brand-black/70">
+          <li><strong class="text-brand-black">Livraison rapide</strong> : expédition sous 24h et délai indicatif de 2 à 4 jours ouvrés.</li>
+          <li><strong class="text-brand-black">Commande discrète</strong> : colis neutre, suivi de livraison et parcours simple.</li>
+          <li><strong class="text-brand-black">Aide avant achat</strong> : comparez les catégories avant de choisir un produit.</li>
+          <li><strong class="text-brand-black">Confiance</strong> : voir notre méthode qualité et notre page support.</li>
+        </ul>
+        <div class="mt-6 flex flex-wrap gap-3 text-sm">
+          <a href={`/${staticPageSlugs.support}/`} class="inline-flex items-center rounded-full border border-brand-gray-300 px-4 py-2 text-brand-black hover:border-brand-black transition-colors">Voir le support</a>
+          <a href={`/${staticPageSlugs.safety}/`} class="inline-flex items-center rounded-full bg-brand-black px-4 py-2 text-brand-white hover:bg-brand-gray-800 transition-colors">Voir la qualité</a>
+        </div>
+      </aside>
+    </div>
+
+    <h1 class="text-4xl sm:text-5xl font-bold text-brand-white mb-4 font-title uppercase">
+      CBD {location.name}
+    </h1>
+    <p class="text-lg text-brand-gray-400 max-w-2xl">
+      {location.description}
+    </p>
+    </div>
+  </section>
+
+  <!-- Content -->
+  <section class="bg-brand-white py-16">
+    <div class="container-site max-w-5xl mx-auto">
+    <!-- Delivery info -->
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-16">
+      <div class="bg-white border border-brand-gray-200 rounded-2xl p-6">
+        <div class="text-2xl mb-3">🚚</div>
+        <h3 class="text-brand-black font-bold mb-1">Livraison rapide</h3>
+        <p class="text-sm text-brand-black/60">Expédition sous 24h, livraison en 2-4 jours ouvrés à {location.name}.</p>
+      </div>
+      <div class="bg-white border border-brand-gray-200 rounded-2xl p-6">
+        <div class="text-2xl mb-3">📦</div>
+        <h3 class="text-brand-black font-bold mb-1">Colis discret</h3>
+        <p class="text-sm text-brand-black/60">Emballage neutre et sécurisé, sans mention du contenu.</p>
+      </div>
+      <div class="bg-white border border-brand-gray-200 rounded-2xl p-6">
+        <div class="text-2xl mb-3">🎁</div>
+        <h3 class="text-brand-black font-bold mb-1">Livraison offerte</h3>
+        <p class="text-sm text-brand-black/60">Frais de port offerts dès 100&euro; d'achat pour {location.country}.</p>
+      </div>
+    </div>
+
+    <!-- Featured products -->
+    {featuredProducts.length > 0 && (
+      <div class="mb-12">
+        <h2 class="text-2xl font-bold text-brand-black mb-6 font-title uppercase">Nos produits populaires</h2>
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+          {featuredProducts.map((product: any) => (
+            <ProductCard
+              id={product.id}
+              name={product.name}
+              slug={getProductRouteSlug(product)}
+              price={product.price}
+              regularPrice={product.regular_price}
+              salePrice={product.sale_price}
+              image={product.images?.[0]?.src}
+              onSale={product.on_sale}
+              stockStatus={product.stock_status}
+              attributes={product.attributes}
+              averageRating={product.average_rating}
+              ratingCount={product.rating_count}
+            />
+          ))}
+        </div>
+      </div>
+    )}
+
+    <div class="text-center">
+      <a href="/boutique-cbd/" class="btn-primary text-base py-3 px-10">Voir tous nos produits</a>
+    </div>
+
+    <div class="mt-16">
+      <h2 class="text-2xl font-bold text-brand-black mb-6 font-title uppercase">Questions fréquentes sur la livraison CBD à {location.name}</h2>
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+        {geoFaq.map((item) => (
+          <details class="group rounded-2xl border border-brand-gray-200 bg-gray-50 overflow-hidden">
+            <summary class="flex cursor-pointer list-none items-center justify-between gap-3 px-5 py-4 text-sm font-medium text-brand-black [&::-webkit-details-marker]:hidden">
+              <span>{item.question}</span>
+              <span class="text-brand-black/40 transition-transform group-open:rotate-45 text-xl">+</span>
+            </summary>
+            <div class="px-5 pb-5 text-sm leading-relaxed text-brand-black/70">{item.answer}</div>
+          </details>
+        ))}
+      </div>
+    </div>
+    </div>
+  </section>
+</MarketingLayout>

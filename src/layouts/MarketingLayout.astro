@@ -1,0 +1,15 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+import type { SiteMetadata } from "@lib/seo/metadata";
+
+interface Props {
+  metadata: SiteMetadata;
+  jsonLd?: string;
+}
+
+const { metadata, jsonLd } = Astro.props;
+---
+
+<BaseLayout metadata={metadata} jsonLd={jsonLd}>
+  <slot />
+</BaseLayout>

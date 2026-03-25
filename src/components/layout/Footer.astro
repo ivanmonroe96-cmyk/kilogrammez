@@ -1,0 +1,122 @@
+---
+import { footerNav } from "@/data/navigation";
+import { getCategoryUrl, staticPageSlugs } from "@lib/seo/focusKeywords";
+---
+
+<!-- Footer with white bg matching original -->
+<footer class="bg-brand-white text-brand-black rounded-t-[30px] lg:rounded-t-[50px] relative">
+  <div class="max-w-[1440px] mx-auto px-6 lg:px-10 py-12 lg:py-20">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 mb-12">
+
+      <!-- Left Part: Brand tagline + Instagram -->
+      <div>
+        <div class="text-brand-black font-bold text-2xl lg:text-4xl leading-tight tracking-tight mb-8 uppercase font-title">
+          THE FAVORITE<br />DISPENSARY OF<br />YOUR FAVORITE<br />DISPENSARY
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+          <a href={`/${staticPageSlugs.safety}/`} class="rounded-2xl border border-brand-gray-200 p-4 hover:border-brand-black transition-colors">
+            <p class="text-xs uppercase tracking-[0.18em] text-brand-black/50">Confiance</p>
+            <p class="mt-2 text-sm text-brand-black">Qualité, traçabilité et contrôles laboratoire.</p>
+          </a>
+          <a href={`/${staticPageSlugs.editorial}/`} class="rounded-2xl border border-brand-gray-200 p-4 hover:border-brand-black transition-colors">
+            <p class="text-xs uppercase tracking-[0.18em] text-brand-black/50">Éditorial</p>
+            <p class="mt-2 text-sm text-brand-black">Comment nous rédigeons, relisons et mettons à jour nos contenus.</p>
+          </a>
+        </div>
+        <a
+          href={footerNav.social.instagram}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-3 group"
+        >
+          <svg class="w-7 h-7 text-brand-black" viewBox="0 0 29 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M22.757 0H6.69c-3.168 0-5.739 2.613-5.739 5.833v16.334C.951 25.387 3.522 28 6.69 28h16.067c3.168 0 5.739-2.613 5.739-5.833V5.833C28.496 2.613 25.925 0 22.757 0Zm3.443 22.167c0 1.925-1.55 3.5-3.443 3.5H6.69c-1.894 0-3.443-1.575-3.443-3.5V5.833c0-1.925 1.55-3.5 3.443-3.5h16.067c1.894 0 3.443 1.575 3.443 3.5v16.334ZM14.723 5.834c-4.43 0-8.034 3.663-8.034 8.166 0 4.504 3.604 8.167 8.034 8.167s8.034-3.663 8.034-8.167-3.604-8.166-8.034-8.166Zm0 14c-3.167 0-5.738-2.613-5.738-5.834 0-3.22 2.571-5.833 5.738-5.833 3.168 0 5.739 2.613 5.739 5.833 0 3.221-2.571 5.834-5.739 5.834Zm9.182-14c0 .645-.514 1.167-1.148 1.167-.633 0-1.147-.522-1.147-1.167 0-.644.514-1.167 1.147-1.167.634 0 1.148.523 1.148 1.167Z" fill="currentColor"/>
+          </svg>
+          <span class="text-brand-black text-sm leading-tight">Suivez-nous pour ne<br />rien louper !</span>
+        </a>
+      </div>
+
+      <!-- Right Part: Links + Newsletter -->
+      <div class="space-y-8">
+        <!-- Menu links row -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6 border-b border-brand-gray-200 pb-6">
+          <div>
+            <div class="text-xs uppercase tracking-[0.18em] text-brand-gray-500 mb-3">Entreprise</div>
+            <div class="space-y-2">
+              {footerNav.company.map((item) => (
+                <a href={item.href} class="block text-brand-black text-sm hover:underline">{item.label}</a>
+              ))}
+            </div>
+          </div>
+          <div>
+            <div class="text-xs uppercase tracking-[0.18em] text-brand-gray-500 mb-3">Confiance</div>
+            <div class="space-y-2">
+              {footerNav.trust.map((item) => (
+                <a href={item.href} class="block text-brand-black text-sm hover:underline">{item.label}</a>
+              ))}
+            </div>
+          </div>
+          <div>
+            <div class="text-xs uppercase tracking-[0.18em] text-brand-gray-500 mb-3">Catégories</div>
+            <div class="space-y-2">
+              {footerNav.categories.map((item) => (
+                <a href={item.href} class="block text-brand-black text-sm hover:underline">{item.label}</a>
+              ))}
+            </div>
+          </div>
+          <div>
+            <div class="text-xs uppercase tracking-[0.18em] text-brand-gray-500 mb-3">Guides utiles</div>
+            <div class="space-y-2">
+              {footerNav.guides.map((item) => (
+                <a href={item.href} class="block text-brand-black text-sm hover:underline">{item.label}</a>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <!-- Newsletter -->
+        <div>
+          <div class="text-brand-black font-bold text-lg uppercase tracking-wider mb-3 font-title">RECEVEZ LA GAZETTE!</div>
+          <p class="text-brand-gray-500 text-sm mb-4">
+            Inscrivez-vous à la Gazette: 5€ offerts sur votre première commande - Restez informé.e.s sur les nouveautés et ventes flash.
+          </p>
+          <form class="flex gap-0" onsubmit="return false;">
+            <input
+              type="email"
+              placeholder="Votre adresse email..."
+              class="flex-1 bg-transparent border border-brand-gray-300 rounded-l-full px-5 py-3 text-sm text-brand-black placeholder-brand-gray-400 focus:outline-none focus:border-brand-black"
+            />
+            <button
+              type="submit"
+              class="bg-brand-black text-brand-white rounded-r-full px-6 py-3 text-sm font-medium hover:bg-brand-gray-800 transition-colors"
+            >
+              <span class="hidden lg:inline">Je m'inscris</span>
+              <svg class="w-5 h-5 lg:hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+              </svg>
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom bar: Copyright + Legal + Currency -->
+    <div class="flex flex-wrap items-center justify-between gap-4 text-xs text-brand-gray-500">
+      <div class="flex flex-wrap items-center gap-x-6 gap-y-2">
+      <span>&copy;{new Date().getFullYear()} – Kilogrammes</span>
+      <a href={`/${staticPageSlugs.terms}/`} class="hover:text-brand-black transition-colors">
+        <span class="hidden lg:inline">Conditions générales de vente</span>
+        <span class="lg:hidden">CGV</span>
+      </a>
+      <a href={`/${staticPageSlugs.privacy}/`} class="hover:text-brand-black transition-colors">GDPR</a>
+      <a href={`/${staticPageSlugs.editorial}/`} class="hover:text-brand-black transition-colors">Éditorial</a>
+      <a href={`/${staticPageSlugs.support}/`} class="hover:text-brand-black transition-colors">Support</a>
+      <a href={getCategoryUrl({ slug: "best-sellers", name: "Best Sellers" })} class="hover:text-brand-black transition-colors">Best Sellers</a>
+      </div>
+
+    </div>
+  </div>
+</footer>
+
+
+

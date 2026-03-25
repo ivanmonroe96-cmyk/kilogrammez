@@ -1,0 +1,142 @@
+---
+import ArticleLayout from "@layouts/ArticleLayout.astro";
+import { buildMetadata } from "@lib/seo/metadata";
+import { articleSchema, breadcrumbSchema, faqSchema, buildJsonLd } from "@lib/seo/schema";
+
+export const prerender = true;
+
+const title = "Comment choisir un grossiste CBD fiable";
+const description = "Critères de sélection, qualité, conformité, logistique et accompagnement : le guide Kilogrammes pour évaluer un grossiste CBD sérieux.";
+const path = "/blog/comment-choisir-un-grossiste-cbd/";
+const publishedTime = "2026-03-23T09:00:00.000Z";
+const modifiedTime = "2026-03-23T09:00:00.000Z";
+
+const metadata = buildMetadata({
+  title,
+  description,
+  path,
+  ogType: "article",
+  article: {
+    publishedTime,
+    modifiedTime,
+    author: "Équipe Kilogrammes",
+  },
+});
+
+const breadcrumbs = [
+  { name: "Blog", url: "/blog/" },
+  { name: title, url: path },
+];
+
+const faq = [
+  {
+    question: "Quels critères vérifier avant de choisir un grossiste CBD ?",
+    answer:
+      "Les critères les plus utiles sont la qualité des lots, la conformité réglementaire, la traçabilité, la stabilité de l'approvisionnement, la clarté logistique et la capacité du fournisseur à répondre précisément aux questions techniques et commerciales.",
+  },
+  {
+    question: "Pourquoi la traçabilité est-elle essentielle en B2B CBD ?",
+    answer:
+      "La traçabilité permet de relier chaque référence à un lot, à un contrôle qualité et à un historique de production. Elle réduit le risque commercial et facilite l'évaluation de la fiabilité du fournisseur.",
+  },
+  {
+    question: "Un prix bas suffit-il pour évaluer un fournisseur CBD ?",
+    answer:
+      "Non. Un prix bas sans information claire sur la qualité, les analyses, la régularité et la logistique peut coûter plus cher à long terme. Il faut comparer prix, sécurité d'approvisionnement et niveau d'accompagnement.",
+  },
+];
+
+const jsonLd = buildJsonLd([
+  breadcrumbSchema(breadcrumbs),
+  articleSchema({
+    title,
+    url: path,
+    description,
+    publishedTime,
+    modifiedTime,
+    author: "Équipe Kilogrammes",
+  }),
+  faqSchema(faq),
+]);
+---
+
+<ArticleLayout metadata={metadata} jsonLd={jsonLd} breadcrumbs={breadcrumbs}>
+  <div class="bg-white rounded-lg p-6 lg:p-10">
+    <header class="mb-8">
+      <h1 class="text-3xl sm:text-4xl lg:text-5xl font-title font-bold text-brand-black uppercase leading-tight mb-4">
+        {title}
+      </h1>
+      <div class="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-brand-gray-400">
+        <time datetime={publishedTime}>Publié le 23 mars 2026</time>
+        <span>•</span>
+        <time datetime={modifiedTime}>Mis à jour le 23 mars 2026</time>
+        <span>•</span>
+        <span>Revue éditoriale : Équipe Kilogrammes</span>
+      </div>
+    </header>
+
+    <div class="text-brand-black/80 leading-relaxed [&_h2]:font-title [&_h2]:uppercase [&_h2]:text-2xl [&_h2]:font-bold [&_h2]:text-brand-black [&_h2]:mt-8 [&_h2]:mb-4 [&_h3]:font-title [&_h3]:uppercase [&_h3]:text-xl [&_h3]:font-bold [&_h3]:mt-6 [&_h3]:mb-3 [&_p]:mb-4 [&_li]:mb-2 [&_a]:text-brand-black [&_a]:underline [&_a]:underline-offset-2">
+      <p>
+        Choisir un <strong>grossiste CBD</strong> ne consiste pas à comparer uniquement des tarifs ou un catalogue. Pour un revendeur, un e-commerçant ou un futur porteur de projet, le vrai sujet est la fiabilité globale du partenaire : qualité constante, conformité, lisibilité des lots, rapidité logistique et capacité à accompagner une activité dans la durée.
+      </p>
+      <p>
+        Un fournisseur peut afficher des prix attractifs tout en restant faible sur la traçabilité, la régularité ou la clarté commerciale. À l'inverse, un bon partenaire B2B permet de construire une offre plus stable, plus crédible et plus simple à défendre auprès des clients finaux. Ce guide détaille les points à vérifier avant de choisir un fournisseur et vous aidera à mieux lire une proposition professionnelle comme celle de notre page <a href="/grossiste-cbd/">grossiste CBD</a>.
+      </p>
+
+      <h2>Les 5 critères essentiels pour évaluer un grossiste CBD</h2>
+      <p>
+        Un grossiste fiable doit réunir plusieurs dimensions à la fois. Si l'une d'elles manque, le risque commercial augmente rapidement.
+      </p>
+      <ol>
+        <li><strong>La qualité produit</strong> : cohérence entre promesse, présentation et réalité du lot.</li>
+        <li><strong>La conformité</strong> : contrôle du taux de THC et information claire sur les références vendues.</li>
+        <li><strong>La traçabilité</strong> : capacité à relier un produit à un lot, à une analyse et à un historique.</li>
+        <li><strong>La logistique</strong> : délais, disponibilité, stabilité d'approvisionnement et lisibilité des minimums de commande.</li>
+        <li><strong>L'accompagnement</strong> : capacité à répondre aux questions commerciales, produit et lancement.</li>
+      </ol>
+
+      <h2>Pourquoi le prix ne doit jamais être votre seul filtre</h2>
+      <p>
+        Un fournisseur moins cher peut sembler plus rentable au premier regard. Pourtant, si la qualité est irrégulière, si les délais changent trop souvent ou si les références manquent de clarté, la baisse de confiance client peut coûter plus cher que l'écart de prix initial.
+      </p>
+      <p>
+        En B2B, le bon calcul ne se limite pas à la marge brute. Il faut intégrer la stabilité de l'offre, la possibilité de réassort, la cohérence du catalogue et le temps gagné grâce à un partenaire lisible. C'est ce qui transforme un achat ponctuel en relation durable.
+      </p>
+
+      <h2>Comment lire la qualité d'un fournisseur</h2>
+      <h3>Regarder au-delà du packaging</h3>
+      <p>
+        La qualité d'un fournisseur ne se juge pas sur une belle fiche ou une promesse de positionnement premium. Il faut comprendre la logique produit : origine, catégories disponibles, méthode de contrôle et niveau de précision dans la documentation.
+      </p>
+
+      <h3>Vérifier la cohérence entre catégories et expertise</h3>
+      <p>
+        Un fournisseur sérieux doit être capable d'expliquer les différences entre <a href="/categorie-produit/fleurs-cbd/">fleurs CBD</a>, <a href="/categorie-produit/resine-cbd-hash-cbg-pollen/">résines CBD</a>, <a href="/categorie-produit/huiles-cbd/">huiles CBD</a> ou <a href="/categorie-produit/trim-cbd/">trim CBD</a>, sans réponses vagues ni descriptions interchangeables.
+      </p>
+
+      <h2>Traçabilité, conformité et logistique</h2>
+      <p>
+        La meilleure relation B2B repose sur des informations simples à vérifier. Vous devez pouvoir identifier le lot, comprendre le cadre qualité appliqué et obtenir une vision claire des conditions de commande. Une logistique rapide est utile, mais elle ne remplace pas la fiabilité documentaire.
+      </p>
+      <p>
+        Pour cette raison, il est souvent pertinent d'évaluer ensemble le produit, la méthode qualité et le fonctionnement commercial. Ce triptyque est plus utile qu'une comparaison purement tarifaire entre catalogues.
+      </p>
+
+      <h2>Questions fréquentes</h2>
+      {faq.map((item) => (
+        <div class="border border-brand-gray-200 rounded-xl px-5 py-4 my-4">
+          <h3 class="!mt-0">{item.question}</h3>
+          <p>{item.answer}</p>
+        </div>
+      ))}
+
+      <h2>Conclusion</h2>
+      <p>
+        Le meilleur grossiste CBD n'est pas celui qui promet le plus. C'est celui qui permet à votre activité de vendre plus sereinement grâce à une offre lisible, une qualité constante et un cadre logistique maîtrisé. Si vous comparez plusieurs options, utilisez ces critères comme grille de lecture et confrontez-les à votre projet réel.
+      </p>
+      <p>
+        Pour aller plus loin, consultez notre page <a href="/grossiste-cbd/">grossiste CBD</a>, puis poursuivez avec <a href="/franchise-cbd/">notre offre franchise</a> si votre objectif est d'ouvrir un point de vente sous enseigne.
+      </p>
+    </div>
+  </div>
+</ArticleLayout>

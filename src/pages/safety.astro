@@ -1,0 +1,105 @@
+---
+import MarketingLayout from "@layouts/MarketingLayout.astro";
+import { buildMetadata } from "@lib/seo/metadata";
+import { buildJsonLd, breadcrumbSchema, faqSchema } from "@lib/seo/schema";
+import { staticPageSlugs } from "@lib/seo/focusKeywords";
+
+export const prerender = true;
+
+const metadata = buildMetadata({
+  title: "Qualité & Sécurité CBD : Tests Laboratoire",
+  description:
+    "Chaque produit CBD Kilogrammes est testé en laboratoire indépendant. Traçabilité, conformité européenne (THC < 0,3%), zéro pesticides.",
+  path: `/${staticPageSlugs.safety}/`,
+});
+
+const safetyFaq = [
+  {
+    question: "Pourquoi les tests en laboratoire sont-ils importants pour le CBD ?",
+    answer:
+      "Ils permettent de vérifier la composition réelle du produit, le niveau de cannabinoïdes, le respect du seuil réglementaire de THC et l'absence de contaminants susceptibles d'altérer la qualité ou la conformité.",
+  },
+  {
+    question: "Comment Kilogrammes garantit-il la traçabilité des produits ?",
+    answer:
+      "Chaque lot suit un parcours documenté, depuis la sélection jusqu'au conditionnement. Cette traçabilité facilite le contrôle qualité et permet de lier chaque produit à ses vérifications techniques.",
+  },
+  {
+    question: "Comment conserver correctement un produit CBD ?",
+    answer:
+      "Un produit CBD doit être conservé à l'abri de la lumière, de l'humidité et des fortes températures. Un emballage bien refermé dans un endroit frais et sec aide à préserver ses arômes et sa stabilité.",
+  },
+];
+
+const jsonLd = buildJsonLd([
+  breadcrumbSchema([{ name: "Safety", url: `/${staticPageSlugs.safety}/` }]),
+  faqSchema(safetyFaq),
+]);
+---
+
+<MarketingLayout metadata={metadata} jsonLd={jsonLd}>
+  <section class="bg-brand-white">
+    <div class="container-site py-16 max-w-3xl mx-auto">
+    <h1 class="text-4xl sm:text-5xl font-bold text-brand-black mb-4 font-title uppercase">Safety</h1>
+    <p class="text-lg text-brand-black/60 mb-10">
+      Notre engagement pour la qualité, la conformité et la lisibilité de tous les produits CBD Kilogrammes.
+    </p>
+
+    <div class="prose-article">
+      <h2>Notre méthode qualité en un coup d'oeil</h2>
+      <p>
+        La qualité d'un produit CBD ne se résume pas à une promesse marketing. Elle repose sur une chaîne cohérente : sélection de la matière première, contrôle du lot, vérification des seuils réglementaires, stabilité du conditionnement et clarté de l'information fournie au client. C'est cette logique qui structure notre page Safety.
+      </p>
+
+      <h2>Tests en laboratoire</h2>
+      <p>
+        Chaque lot de production est analysé par un laboratoire indépendant. Nous testons la teneur en cannabinoïdes, l'absence de
+        métaux lourds, pesticides et solvants résiduels.
+      </p>
+      <p>
+        L'objectif n'est pas seulement de confirmer une composition théorique. Les analyses servent à s'assurer que le produit livré correspond au niveau d'exigence annoncé, et qu'il respecte un cadre réglementaire compatible avec la vente légale de CBD.
+      </p>
+
+      <h2>Traçabilité complète</h2>
+      <p>
+        De la graine à la livraison, chaque étape de production est documentée. Nos produits sont traçables via leur numéro de lot
+        unique.
+      </p>
+      <p>
+        Cette traçabilité améliore autant la transparence client que le pilotage qualité interne. Elle permet de relier une référence, un lot et un contrôle précis au bon moment du cycle produit.
+      </p>
+
+      <h2>Conformité réglementaire</h2>
+      <p>
+        Tous nos produits respectent la réglementation européenne en vigueur avec un taux de THC inférieur à 0.3%.
+        Nous travaillons en étroite collaboration avec des experts juridiques pour garantir la conformité de notre gamme.
+      </p>
+      <p>
+        Sur les sujets sensibles, notre ligne est simple : éviter les raccourcis, rester précis sur ce qui peut être affirmé, et ne pas transformer une description produit en promesse excessive ou floue.
+      </p>
+
+      <h2>Conservation & stockage</h2>
+      <p>
+        Nos produits sont conditionnés dans des emballages opaques et hermétiques pour préserver leurs propriétés.
+        Conservez-les dans un endroit frais, sec et à l'abri de la lumière.
+      </p>
+
+      <h2>Pourquoi cette page compte pour le client</h2>
+      <p>
+        Une boutique CBD sérieuse doit rendre sa logique qualité compréhensible. Cette page existe pour documenter notre méthode, vous aider à mieux évaluer les produits que vous achetez et créer une continuité claire entre la boutique, le support et les pages catégories comme <a href="/categorie-produit/fleurs-cbd/">les fleurs CBD</a>, <a href="/categorie-produit/resine-cbd-hash-cbg-pollen/">les résines CBD</a> ou <a href="/categorie-produit/huiles-cbd/">les huiles CBD</a>.
+      </p>
+
+      <h2>Questions fréquentes</h2>
+      {safetyFaq.map((item) => (
+        <details class="group border border-brand-gray-200 rounded-xl px-0 py-0 not-prose overflow-hidden my-4">
+          <summary class="flex cursor-pointer list-none items-center justify-between px-5 py-4 text-sm font-medium text-brand-black [&::-webkit-details-marker]:hidden">
+            <span>{item.question}</span>
+            <span class="text-brand-black/40 transition-transform group-open:rotate-45 text-xl">+</span>
+          </summary>
+          <div class="px-5 pb-5 text-sm leading-relaxed text-brand-black/70">{item.answer}</div>
+        </details>
+      ))}
+    </div>
+    </div>
+  </section>
+</MarketingLayout>

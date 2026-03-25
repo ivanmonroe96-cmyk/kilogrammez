@@ -1,0 +1,111 @@
+---
+import ArticleLayout from "@layouts/ArticleLayout.astro";
+import { buildMetadata } from "@lib/seo/metadata";
+import { articleSchema, breadcrumbSchema, faqSchema, buildJsonLd } from "@lib/seo/schema";
+
+export const prerender = true;
+
+const title = "Amnesia Haze CBD : Effets et Arômes";
+const description = "Profil aromatique, lecture des effets, points de comparaison et repères utiles pour comprendre Amnesia Haze CBD avant d'acheter.";
+const path = "/blog/amnesia-haze-cbd-effets-aromes-differences/";
+const publishedTime = "2026-03-23T09:30:00.000Z";
+const modifiedTime = "2026-03-23T09:30:00.000Z";
+
+const metadata = buildMetadata({
+  title,
+  description,
+  path,
+  ogType: "article",
+  article: { publishedTime, modifiedTime, author: "Équipe Kilogrammes" },
+});
+
+const breadcrumbs = [
+  { name: "Blog", url: "/blog/" },
+  { name: title, url: path },
+];
+
+const faq = [
+  {
+    question: "Qu'est-ce qu'Amnesia Haze CBD ?",
+    answer:
+      "Amnesia Haze CBD désigne une fleur ou une déclinaison inspirée du profil Amnesia Haze, recherchée pour ses marqueurs aromatiques et son identité reconnue par les amateurs de variétés Haze.",
+  },
+  {
+    question: "Comment lire les effets d'une Amnesia Haze CBD ?",
+    answer:
+      "Il est préférable de parler de profil ressenti ou d'expérience générale plutôt que de promesse absolue. Une bonne page doit expliquer les repères de lecture sans transformer la description en garantie d'effet.",
+  },
+  {
+    question: "Que comparer avant d'acheter une Amnesia Haze CBD ?",
+    answer:
+      "Comparez d'abord la catégorie, la qualité du lot, la clarté de la description, le profil aromatique annoncé et la logique qualité du vendeur, avant de vous arrêter au seul nom de la variété.",
+  },
+];
+
+const jsonLd = buildJsonLd([
+  breadcrumbSchema(breadcrumbs),
+  articleSchema({ title, url: path, description, publishedTime, modifiedTime, author: "Équipe Kilogrammes" }),
+  faqSchema(faq),
+]);
+---
+
+<ArticleLayout metadata={metadata} jsonLd={jsonLd} breadcrumbs={breadcrumbs}>
+  <div class="bg-white rounded-lg p-6 lg:p-10">
+    <header class="mb-8">
+      <h1 class="text-3xl sm:text-4xl lg:text-5xl font-title font-bold text-brand-black uppercase leading-tight mb-4">{title}</h1>
+      <div class="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-brand-gray-400">
+        <time datetime={publishedTime}>Publié le 23 mars 2026</time>
+        <span>•</span>
+        <time datetime={modifiedTime}>Mis à jour le 23 mars 2026</time>
+        <span>•</span>
+        <span>Revue éditoriale : Équipe Kilogrammes</span>
+      </div>
+    </header>
+
+    <div class="text-brand-black/80 leading-relaxed [&_h2]:font-title [&_h2]:uppercase [&_h2]:text-2xl [&_h2]:font-bold [&_h2]:text-brand-black [&_h2]:mt-8 [&_h2]:mb-4 [&_h3]:font-title [&_h3]:uppercase [&_h3]:text-xl [&_h3]:font-bold [&_h3]:mt-6 [&_h3]:mb-3 [&_p]:mb-4 [&_li]:mb-2 [&_a]:text-brand-black [&_a]:underline [&_a]:underline-offset-2">
+      <p>
+        La requête <strong>Amnesia Haze CBD</strong> revient souvent parce qu'elle combine deux signaux puissants : la notoriété d'un nom de variété et l'intention d'achat d'un produit CBD précis. Pourtant, beaucoup de pages se contentent d'empiler des mots-clés sans aider réellement le visiteur à comprendre ce qu'il regarde.
+      </p>
+      <p>
+        Une bonne page sur Amnesia Haze CBD doit clarifier trois points : ce que le nom évoque, comment lire les descriptions d'arômes et d'expérience, et quels critères comparer avant d'acheter une <a href="/categorie-produit/fleurs-cbd/">fleur CBD</a> qui porte ce type de référence.
+      </p>
+
+      <h2>Qu'est-ce qu'Amnesia Haze CBD ?</h2>
+      <p>
+        Amnesia Haze CBD désigne généralement une référence qui reprend les codes aromatiques et l'identité de la famille Haze dans un produit CBD. Pour l'acheteur, l'intérêt du nom est surtout de servir de repère d'univers aromatique et de style de variété, à condition que la fiche produit reste claire et cohérente.
+      </p>
+
+      <h2>Comment comprendre les arômes</h2>
+      <p>
+        Les recherches autour d'Amnesia Haze se concentrent souvent sur le profil olfactif et gustatif. L'enjeu n'est pas seulement de lire un nom de variété, mais de vérifier si la description donne de vrais repères : notes dominantes, cohérence générale et qualité du lot. Un nom connu sans description précise reste une information incomplète.
+      </p>
+
+      <h2>Comment parler des effets sans caricature</h2>
+      <p>
+        Sur les pages sérieuses, il vaut mieux éviter les promesses absolues. Le plus utile consiste à expliquer le type d'expérience généralement recherché par les visiteurs intéressés par cette famille de produit, tout en rappelant qu'une description commerciale ne remplace ni un repère qualité ni une expérience universelle.
+      </p>
+
+      <h2>Les bons critères de comparaison avant achat</h2>
+      <ul>
+        <li>la clarté de la fiche produit ;</li>
+        <li>la cohérence du profil aromatique annoncé ;</li>
+        <li>la qualité du lot et la lisibilité de la catégorie ;</li>
+        <li>la présence d'une logique qualité documentée sur le site ;</li>
+        <li>la capacité du vendeur à présenter d'autres catégories comparables, comme <a href="/categorie-produit/resine-cbd-hash-cbg-pollen/">les résines CBD</a> ou les <a href="/categorie-produit/huiles-cbd/">huiles CBD</a>.</li>
+      </ul>
+
+      <h2>Questions fréquentes</h2>
+      {faq.map((item) => (
+        <div class="border border-brand-gray-200 rounded-xl px-5 py-4 my-4">
+          <h3 class="!mt-0">{item.question}</h3>
+          <p>{item.answer}</p>
+        </div>
+      ))}
+
+      <h2>Conclusion</h2>
+      <p>
+        Amnesia Haze CBD est une requête utile lorsqu'elle débouche sur une meilleure lecture du produit, pas sur une simple reconnaissance de nom. Si vous comparez plusieurs références, partez de la catégorie, de la qualité du lot et du niveau de clarté proposé par la boutique. Pour explorer l'offre, consultez notre <a href="/boutique-cbd/">boutique CBD</a> ou notre catégorie <a href="/categorie-produit/fleurs-cbd/">fleurs CBD</a>.
+      </p>
+    </div>
+  </div>
+</ArticleLayout>

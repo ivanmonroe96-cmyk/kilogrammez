@@ -1,0 +1,116 @@
+---
+import MarketingLayout from "@layouts/MarketingLayout.astro";
+import BlogCard from "@components/blog/BlogCard.astro";
+import { buildMetadata } from "@lib/seo/metadata";
+import { breadcrumbSchema, buildJsonLd } from "@lib/seo/schema";
+import { getPosts, getFeaturedImage, stripHtml } from "@lib/api/wordpress";
+import { getBlogRouteSlug } from "@lib/seo/focusKeywords";
+
+export const prerender = true;
+
+const metadata = buildMetadata({
+  title: "Blog CBD : Guides, Conseils & Actualités",
+  description:
+    "Blog CBD Kilogrammes : actualités cannabis légal, guides d'achat, bienfaits du CBD et réglementation. Contenu vérifié par des experts.",
+  path: "/blog/",
+});
+
+const jsonLd = buildJsonLd([
+  breadcrumbSchema([{ name: "Blog", url: "/blog/" }]),
+]);
+
+const posts = await getPosts(1, 12).catch(() => []);
+
+const postsWithImages = posts.map((post: any) => {
+  const image = getFeaturedImage(post);
+  return { ...post, _image: image };
+});
+
+const featuredGuides = [
+  {
+    title: "Comment choisir un grossiste CBD fiable",
+    href: "/blog/comment-choisir-un-grossiste-cbd/",
+    description: "Le guide décisionnel pour évaluer qualité, traçabilité, logistique et accompagnement B2B.",
+  },
+  {
+    title: "Qu'est-ce que le trim CBD ?",
+    href: "/blog/quest-ce-que-le-trim-cbd/",
+    description: "Comprendre cette catégorie, ses différences avec la fleur CBD et ses vrais critères de lecture.",
+  },
+  {
+    title: "Différence entre THC et THCP",
+    href: "/blog/difference-entre-thc-et-thcp/",
+    description: "Une comparaison claire et prudente pour mieux lire ces notions sans raccourcis marketing.",
+  },
+  {
+    title: "Amnesia Haze CBD : effets, arômes et différences",
+    href: "/blog/amnesia-haze-cbd-effets-aromes-differences/",
+    description: "Un guide pour lire cette référence de variété avec de meilleurs repères avant achat.",
+  },
+  {
+    title: "CBD en Italie : est-ce légal ?",
+    href: "/blog/cbd-est-il-legal-en-italie/",
+    description: "Une lecture prudente et utile pour comprendre achat, livraison et réglementation en Italie.",
+  },
+  {
+    title: "Comment choisir une huile CBD",
+    href: "/blog/comment-choisir-une-huile-cbd/",
+    description: "Les bons repères pour comparer dosage, format, lisibilité et qualité avant achat.",
+  },
+  {
+    title: "Résine CBD vs fleur CBD : comment choisir ?",
+    href: "/blog/resine-cbd-vs-fleur-cbd/",
+    description: "Une comparaison concrète entre deux catégories majeures du catalogue pour mieux décider.",
+  },
+];
+---
+
+<MarketingLayout metadata={metadata} jsonLd={jsonLd}>
+  {/* Dark hero */}
+  <section class="bg-brand-black py-12 lg:py-16">
+    <div class="max-w-[1440px] mx-auto px-6 lg:px-10">
+      <h1 class="text-4xl sm:text-5xl lg:text-7xl font-title font-bold text-white uppercase">Blog</h1>
+      <p class="text-lg text-white/80 max-w-2xl mt-4">
+        Guides, actualités et conseils sur le CBD et le cannabis légal.
+      </p>
+    </div>
+  </section>
+
+  {/* White card grid */}
+  <section class="bg-white py-10 lg:py-16">
+    <div class="max-w-[1440px] mx-auto px-6 lg:px-10">
+      <div class="mb-12 rounded-[28px] border border-brand-gray-200 bg-gray-50 p-6 lg:p-8">
+        <div class="max-w-3xl">
+          <h2 class="text-2xl lg:text-4xl font-title font-bold uppercase text-brand-black">Guides essentiels</h2>
+          <p class="mt-3 text-sm lg:text-base text-brand-black/70 leading-relaxed">
+            Pour renforcer la compréhension des produits, des catégories et des sujets de conformité, nous développons aussi des guides de fond reliés à la boutique, au B2B et aux questions fréquentes des visiteurs.
+          </p>
+        </div>
+        <div class="mt-6 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+          {featuredGuides.map((guide) => (
+            <a href={guide.href} class="rounded-2xl border border-brand-gray-200 bg-white p-5 transition-colors hover:border-brand-black/50">
+              <h3 class="text-lg font-title font-bold uppercase text-brand-black">{guide.title}</h3>
+              <p class="mt-2 text-sm text-brand-black/70 leading-relaxed">{guide.description}</p>
+            </a>
+          ))}
+        </div>
+      </div>
+
+      {postsWithImages.length > 0 ? (
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          {postsWithImages.map((post: any) => (
+            <BlogCard
+              title={post.title.rendered}
+              excerpt={stripHtml(post.excerpt.rendered)}
+              slug={getBlogRouteSlug(post)}
+              image={post._image}
+              date={post.date}
+            />
+          ))}
+        </div>
+      ) : (
+        <p class="text-brand-gray-400">Aucun article disponible pour le moment.</p>
+      )}
+    </div>
+  </section>
+</MarketingLayout>

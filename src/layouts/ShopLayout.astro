@@ -1,0 +1,23 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+import Breadcrumbs from "@components/ui/Breadcrumbs.astro";
+import type { SiteMetadata } from "@lib/seo/metadata";
+import type { BreadcrumbItem } from "@lib/seo/schema";
+
+interface Props {
+  metadata: SiteMetadata;
+  jsonLd?: string;
+  breadcrumbs?: BreadcrumbItem[];
+}
+
+const { metadata, jsonLd, breadcrumbs } = Astro.props;
+---
+
+<BaseLayout metadata={metadata} jsonLd={jsonLd}>
+  {breadcrumbs && breadcrumbs.length > 0 && (
+    <div class="container-site mt-4">
+      <Breadcrumbs items={breadcrumbs} dark={true} />
+    </div>
+  )}
+  <slot />
+</BaseLayout>

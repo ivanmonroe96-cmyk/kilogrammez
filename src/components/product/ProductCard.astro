@@ -1,0 +1,179 @@
+---
+interface Props {
+  id: number;
+  name: string;
+  slug: string;
+  price: string;
+  regularPrice?: string;
+  salePrice?: string;
+  image?: string;
+  category?: string;
+  onSale?: boolean;
+  stockStatus?: string;
+  isNew?: boolean;
+  attributes?: Array<{ name: string; options: string[] }>;
+  averageRating?: string;
+  ratingCount?: number;
+}
+
+const { id, name, slug, price, salePrice, image, onSale, isNew, attributes, averageRating, ratingCount } = Astro.props;
+const isOnSale = onSale || (salePrice && salePrice !== "" && salePrice !== price);
+const displayPrice = salePrice && salePrice !== "" ? salePrice : price;
+
+// Extract weight options from attributes — show max 4 most common sizes
+const weightAttr = attributes?.find((a) => a.name.toLowerCase() === "poids" || a.name.toLowerCase() === "pa_poids");
+const allWeights = weightAttr?.options ?? [];
+
+// Sort weights by numeric value (ascending) and cap at 4
+function parseWeight(w: string): number {
+  const match = w.match(/([\d.]+)\s*(kg|g|gr)?/i);
+  if (!match) return Infinity;
+  const num = parseFloat(match[1]);
+  const unit = (match[2] || "g").toLowerCase();
+  return unit === "kg" ? num * 1000 : num;
+}
+const weights = [...allWeights]
+  .sort((a, b) => parseWeight(a) - parseWeight(b))
+  .slice(0, 4);
+
+// Star rating
+const rating = parseFloat(averageRating ?? "0");
+const hasRating = rating > 0 || (ratingCount ?? 0) > 0;
+---
+
+<article class="group product-card rounded-lg border border-brand-black bg-white relative grid h-full transition-all duration-500 overflow-hidden">
+  {/* Promo / NEW badge */}
+  {(isNew || isOnSale) && (
+    <div class="absolute -left-[10px] -top-[20px] sm:-left-[12px] sm:-top-[25px] lg:-left-[15px] lg:-top-[30px] z-[2]">
+      <div class="relative flex items-center justify-center">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-[80px] h-[57px] sm:w-[100px] sm:h-[72px] lg:w-[120px] lg:h-[86px]" viewBox="0 0 120 86" fill="none">
+          <g clip-path="url(#clip0_badge)">
+            <path d="M110.332 20.2381C105.656 15.2996 102.311 9.25349 101.032 2.57174L100.727 0.986674L6.56531 18.9394L6.86989 20.5245C8.14231 27.2067 7.25002 34.0562 4.725 40.3704C3.12446 44.367 2.61254 48.8527 3.48117 53.3878C4.3498 57.9228 6.47506 61.9036 9.43107 65.0301C14.107 69.9686 17.4518 76.0147 18.7314 82.6965L19.0359 84.2815L113.198 66.3288L112.893 64.7437C111.621 58.0615 112.513 51.212 115.038 44.8978C116.639 40.9084 117.151 36.4227 116.282 31.8876C115.414 27.3525 113.288 23.3717 110.332 20.2453L110.332 20.2381Z" fill="#19D3C5"></path>
+          </g>
+        </svg>
+        <span class="text-brand-black font-title font-bold text-[30px] sm:text-[40px] lg:text-[50px] -rotate-[11deg] uppercase absolute">
+          {isOnSale ? "Promo" : "NEW !"}
+        </span>
+      </div>
+    </div>
+  )}
+
+  {/* Add-to-cart icon button (top-right) */}
+  <button
+    type="button"
+    class="add-to-cart-btn absolute -right-px -top-px z-[2] w-[50px] h-[50px] bg-brand-black rounded-bl-lg flex items-center justify-center cursor-pointer transition-all duration-300 hover:bg-brand-yellow group/cart border-0"
+    aria-label={`Ajouter ${name} au panier`}
+    data-product-id={id}
+    data-product-name={name}
+    data-product-price={displayPrice}
+    data-product-image={image || ""}
+    data-product-slug={slug}
+  >
+    <svg class="transition-colors" width="22" height="25" viewBox="0 0 22 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="0.5" y="0.5" width="20.5834" height="23.6667" rx="1.5" stroke="#f5d93f" class="group-hover/cart:stroke-brand-black"/>
+      <path d="M1.02734 5.14697H21.069" stroke="#f5d93f" stroke-width="0.7" class="group-hover/cart:stroke-brand-black"/>
+      <path d="M10.3672 16.272V13.633H7.91016V12.671H10.3672V10.032H11.4332V12.671H13.8902V13.633H11.4332V16.272H10.3672Z" fill="#f5d93f" class="group-hover/cart:fill-brand-black"/>
+    </svg>
+  </button>
+
+  {/* Upper side: image + content */}
+  <div class="flex flex-col items-center justify-center h-full">
+    {/* Product image */}
+    <a href={`/produit/${slug}/`} class="block w-full overflow-hidden" aria-label={name}>
+      <div class="relative aspect-square overflow-hidden mx-auto w-full bg-gray-50">
+        {image ? (
+          <img
+            src={image}
+            alt={name}
+            width="400"
+            height="400"
+            loading="lazy"
+            decoding="async"
+            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+          />
+        ) : (
+          <div class="w-full h-full flex items-center justify-center bg-gray-100 text-gray-300">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1">
+              <path stroke-linecap="round" stroke-linejoin="round" d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909M3.75 21h16.5A2.25 2.25 0 0 0 22.5 18.75V5.25A2.25 2.25 0 0 0 20.25 3H3.75A2.25 2.25 0 0 0 1.5 5.25v13.5A2.25 2.25 0 0 0 3.75 21Z" />
+            </svg>
+          </div>
+        )}
+      </div>
+    </a>
+
+    {/* Content: title, price, weights */}
+    <div class="px-3 pb-4 pt-2 text-center w-full">
+      <a href={`/produit/${slug}/`} class="font-title font-medium text-[22px] sm:text-[30px] md:text-[40px] lg:text-[50px] leading-[0.9] uppercase text-brand-black block break-words">
+        {name}
+      </a>
+
+      <p class="text-[15px] sm:text-[18px] font-sans font-normal text-brand-gray-400 text-center mt-2">
+        Dès <span class="text-brand-black font-semibold" data-price-eur={displayPrice}>{displayPrice}€</span>
+      </p>
+
+      {weights.length > 0 && (
+        <p class="text-[13px] sm:text-[14px] font-sans font-normal text-brand-gray-400 text-center mt-1 leading-snug">
+          {weights.join(" – ")}{allWeights.length > 4 ? " …" : ""}
+        </p>
+      )}
+    </div>
+
+    {/* Star rating */}
+    {hasRating && (
+      <div class="pb-4">
+        <svg xmlns="http://www.w3.org/2000/svg" width="119" height="21" viewBox="0 0 119 21" fill="none">
+          <path d="M9.83067 0.669678L12.0377 7.46233H19.18L13.4018 11.6604L15.6088 18.4531L9.83067 14.255L4.05249 18.4531L6.25956 11.6604L0.48138 7.46233H7.6236L9.83067 0.669678Z" fill="#f5d93f"/>
+          <path d="M34.6652 0.669678L36.8723 7.46233H44.0145L38.2363 11.6604L40.4434 18.4531L34.6652 14.255L28.887 18.4531L31.0941 11.6604L25.3159 7.46233H32.4581L34.6652 0.669678Z" fill="#f5d93f"/>
+          <path d="M59.5 0.669678L61.7071 7.46233H68.8493L63.0712 11.6604L65.2782 18.4531L59.5 14.255L53.7219 18.4531L55.9289 11.6604L50.1508 7.46233H57.293L59.5 0.669678Z" fill="#f5d93f"/>
+          <path d="M84.3347 0.669678L86.5418 7.46233H93.684L87.9058 11.6604L90.1129 18.4531L84.3347 14.255L78.5565 18.4531L80.7636 11.6604L74.9854 7.46233H82.1276L84.3347 0.669678Z" fill="#f5d93f"/>
+          <path d="M109.17 0.669678L111.377 7.46233H118.519L112.741 11.6604L114.948 18.4531L109.17 14.255L103.391 18.4531L105.599 11.6604L99.8204 7.46233H106.963L109.17 0.669678Z" fill="#f5d93f"/>
+        </svg>
+      </div>
+    )}
+  </div>
+</article>
+
+<script>
+  import { addToCart } from "@lib/cart";
+
+  function initCardButtons() {
+    document.querySelectorAll<HTMLButtonElement>(".add-to-cart-btn").forEach((btn) => {
+      if (btn.dataset.cartInit) return;
+      btn.dataset.cartInit = "1";
+
+      btn.addEventListener("click", (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+
+        const productId = parseInt(btn.dataset.productId || "0", 10);
+        const name = btn.dataset.productName || "";
+        const price = btn.dataset.productPrice || "0";
+        const image = btn.dataset.productImage || "";
+        const slug = btn.dataset.productSlug || "";
+
+        if (!productId) return;
+
+        addToCart({
+          productId,
+          name,
+          slug,
+          price,
+          image,
+        });
+
+        // Visual feedback
+        const original = btn.innerHTML;
+        btn.innerHTML = `<svg class="w-5 h-5 text-brand-green" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>`;
+        btn.classList.add("bg-brand-yellow");
+        setTimeout(() => {
+          btn.innerHTML = original;
+          btn.classList.remove("bg-brand-yellow");
+        }, 800);
+      });
+    });
+  }
+
+  // Run on initial load and after Astro view transitions
+  initCardButtons();
+  document.addEventListener("astro:page-load", initCardButtons);
+</script>

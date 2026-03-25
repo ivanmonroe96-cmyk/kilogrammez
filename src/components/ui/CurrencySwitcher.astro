@@ -1,0 +1,125 @@
+---
+const currencies = [
+  { code: "EUR", symbol: "€", flag: "/images/flags/EUR.png", label: "EUR(€)" },
+  { code: "CZK", symbol: "Kč", flag: "/images/flags/CZK.png", label: "CZK(Kč)" },
+  { code: "PLN", symbol: "zł", flag: "/images/flags/PLN.png", label: "PLN(zł)" },
+  { code: "SEK", symbol: "kr", flag: "/images/flags/SEK.png", label: "SEK(kr)" },
+];
+---
+
+<!-- Currency Switcher — floating widget, right edge -->
+<div id="currency-switcher" class="fixed right-0 top-1/2 -translate-y-1/2 z-[60] flex flex-col items-end">
+  <!-- Active currency button (always visible) -->
+  <button
+    type="button"
+    id="currency-toggle"
+    class="flex items-center gap-2 bg-brand-gray-950/90 backdrop-blur-sm border border-brand-gray-800 border-r-0 rounded-l-full pl-3 pr-1 py-2 text-brand-white text-sm font-mono hover:bg-brand-gray-900 transition-colors"
+    aria-expanded="false"
+    aria-label="Changer de devise"
+  >
+    <img
+      id="currency-active-flag"
+      src="/images/flags/EUR.png"
+      alt="EUR"
+      class="w-6 h-6 rounded-full object-cover"
+      width="24"
+      height="24"
+    />
+    <span id="currency-active-label" class="text-xs font-bold tracking-wide">EUR(€)</span>
+  </button>
+
+  <!-- Dropdown list -->
+  <ul
+    id="currency-list"
+    class="hidden mt-1 bg-brand-gray-950/95 backdrop-blur-sm border border-brand-gray-800 border-r-0 rounded-l-xl overflow-hidden"
+  >
+    {currencies.map((c) => (
+      <li>
+        <button
+          type="button"
+          class="currency-option flex items-center gap-2.5 w-full px-3 py-2 hover:bg-brand-gray-800 transition-colors"
+          data-code={c.code}
+          data-symbol={c.symbol}
+          data-flag={c.flag}
+          data-label={c.label}
+        >
+          <img src={c.flag} alt={c.code} class="w-6 h-6 rounded-full object-cover" width="24" height="24" loading="lazy" />
+          <span class="text-brand-white text-xs font-mono font-bold tracking-wide">{c.label}</span>
+        </button>
+      </li>
+    ))}
+  </ul>
+</div>
+
+<script>
+  import { updateAllPrices } from "@lib/currency";
+
+  function initCurrencySwitcher() {
+    const toggle = document.getElementById('currency-toggle');
+    const list = document.getElementById('currency-list');
+    const activeFlag = document.getElementById('currency-active-flag') as HTMLImageElement | null;
+    const activeLabel = document.getElementById('currency-active-label');
+    if (!toggle || !list) return;
+
+    // Restore saved currency and apply to all prices
+    const saved = localStorage.getItem('kg_currency');
+    if (saved) {
+      try {
+        const data = JSON.parse(saved);
+        if (activeFlag) { activeFlag.src = data.flag; activeFlag.alt = data.code; }
+        if (activeLabel) activeLabel.textContent = data.label;
+        // Apply currency to prices on load
+        updateAllPrices();
+      } catch {}
+    }
+
+    // Toggle dropdown
+    toggle.addEventListener('click', () => {
+      const open = !list.classList.contains('hidden');
+      list.classList.toggle('hidden');
+      toggle.setAttribute('aria-expanded', String(!open));
+    });
+
+    // Currency selection
+    list.querySelectorAll('.currency-option').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const el = btn as HTMLElement;
+        const code = el.dataset.code!;
+        const symbol = el.dataset.symbol!;
+        const flag = el.dataset.flag!;
+        const label = el.dataset.label!;
+
+        if (activeFlag) { activeFlag.src = flag; activeFlag.alt = code; }
+        if (activeLabel) activeLabel.textContent = label;
+
+        localStorage.setItem('kg_currency', JSON.stringify({ code, symbol, flag, label }));
+
+        list.classList.add('hidden');
+        toggle.setAttribute('aria-expanded', 'false');
+
+        // Convert all prices on page
+        updateAllPrices();
+
+        // Dispatch event so dynamic components (cart drawer, etc.) can react
+        window.dispatchEvent(new CustomEvent('kg:currency-changed', { detail: { code, symbol } }));
+      });
+    });
+
+    // Close on outside click
+    document.addEventListener('click', (e) => {
+      const target = e.target as Node;
+      const switcher = document.getElementById('currency-switcher');
+      if (switcher && !switcher.contains(target)) {
+        list.classList.add('hidden');
+        toggle.setAttribute('aria-expanded', 'false');
+      }
+    });
+  }
+
+  document.addEventListener('astro:page-load', initCurrencySwitcher);
+  if (document.readyState !== 'loading') {
+    initCurrencySwitcher();
+  } else {
+    document.addEventListener('DOMContentLoaded', initCurrencySwitcher);
+  }
+</script>

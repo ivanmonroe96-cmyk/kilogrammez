@@ -1,0 +1,211 @@
+---
+import ShopLayout from "@layouts/ShopLayout.astro";
+import ProductGrid from "@components/product/ProductGrid.astro";
+import CategoryCard from "@components/product/CategoryCard.astro";
+import SectionHeader from "@components/ui/SectionHeader.astro";
+import { buildMetadata } from "@lib/seo/metadata";
+import { getAllProducts, getProductCategories } from "@lib/api/woocommerce";
+import { breadcrumbSchema, collectionPageSchema, faqSchema, buildJsonLd } from "@lib/seo/schema";
+import { getCategoryRouteSlug } from "@lib/seo/focusKeywords";
+
+export const prerender = true;
+
+const metadata = buildMetadata({
+  title: "Boutique CBD : +250 Produits Premium",
+  description:
+    "Boutique CBD Kilogrammes : fleurs, hash, simili-THC, huiles, edibles & accessoires. +250 produits testés en labo. Livraison 48h.",
+  path: "/boutique-cbd/",
+});
+
+const breadcrumbs = [{ name: "Boutique CBD", url: "/boutique-cbd/" }];
+
+const [products, categories] = await Promise.all([
+  getAllProducts().catch(() => []),
+  getProductCategories().catch(() => []),
+]);
+
+const categoryFallbackImages: Record<string, string> = {
+  "fleurs-cbd": "/images/categories/fleurs-cbd.jpg",
+  "resine-cbd-hash-cbg-pollen": "/images/categories/hash.png",
+  "equivalent-thc": "/images/categories/simili-thc.jpg",
+  "extracts-cbd": "/images/categories/extracts.jpg",
+  "trim-cbd": "/images/categories/trim.jpg",
+  "popcorns-cbd": "/images/categories/popcorns.jpg",
+  "edibles-cbd": "/images/categories/edibles.jpg",
+  "cosmetique-cbd": "/images/categories/cosmetiques.jpg",
+  "accessoires-cbd": "/images/categories/accessoires.jpg",
+  "huiles-cbd": "/images/categories/huiles.jpg",
+  "champignons": "/images/categories/champignons.png",
+  "bons-plans": "/images/categories/bons-plans.jpg",
+  "pack-cbd": "/images/categories/packs.jpg",
+  "cbd-promo": "/images/categories/promotions.jpg",
+};
+
+const boutiqueFaq = [
+  {
+    question: "Comment choisir un produit CBD sur Kilogrammes ?",
+    answer:
+      "Commencez par votre besoin et votre mode de consommation. Les fleurs CBD conviennent à la vaporisation ou à l'infusion, les résines offrent un profil plus concentré, les huiles permettent un dosage précis, et les edibles privilégient la discrétion et la simplicité d'usage.",
+  },
+  {
+    question: "Vos produits CBD sont-ils testés en laboratoire ?",
+    answer:
+      "Oui. Chaque lot est analysé afin de contrôler la teneur en cannabinoïdes, le respect du seuil réglementaire de THC et l'absence de contaminants indésirables comme les pesticides, solvants résiduels ou métaux lourds.",
+  },
+  {
+    question: "Quelle est la différence entre fleurs CBD, résines CBD et huiles CBD ?",
+    answer:
+      "Les fleurs CBD mettent l'accent sur le profil aromatique et l'expérience végétale, les résines CBD proposent une texture et une concentration différentes, tandis que les huiles CBD sont privilégiées pour un usage simple, mesurable et régulier.",
+  },
+  {
+    question: "Livrez-vous partout en France et en Europe ?",
+    answer:
+      "Kilogrammes livre en France et dans plusieurs pays européens avec une expédition rapide et discrète. La livraison est offerte à partir de 100 euros d'achat sur la boutique en ligne.",
+  },
+];
+
+const jsonLd = buildJsonLd([
+  breadcrumbSchema(breadcrumbs),
+  collectionPageSchema({
+    name: "Boutique CBD",
+    url: "/boutique-cbd/",
+    description: "Toute la gamme de produits CBD Kilogrammes : fleurs, hash, huiles, edibles, cosmétiques et accessoires.",
+    numberOfItems: products.length || undefined,
+  }),
+  faqSchema(boutiqueFaq),
+]);
+---
+
+<ShopLayout metadata={metadata} jsonLd={jsonLd} breadcrumbs={breadcrumbs}>
+  {/* Dark hero section */}
+  <section class="bg-brand-black py-12 lg:py-16">
+    <div class="max-w-[1440px] mx-auto px-6 lg:px-10">
+      <h1 class="text-4xl sm:text-5xl lg:text-7xl font-title font-bold text-white uppercase">Boutique CBD</h1>
+      <p class="text-lg text-white/80 max-w-2xl mt-4">
+        Fleurs CBD, résines, huiles, simili-THC, edibles et accessoires : toute la sélection Kilogrammes, testée en laboratoire et pensée pour les amateurs exigeants comme pour les nouveaux clients.
+      </p>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-8 max-w-4xl">
+        <div class="rounded-2xl border border-white/15 bg-white/5 p-5">
+          <p class="text-sm font-semibold uppercase tracking-wide text-brand-green">250+ références</p>
+          <p class="mt-2 text-sm text-white/70">Une offre large pour comparer les formats, profils aromatiques et usages.</p>
+        </div>
+        <div class="rounded-2xl border border-white/15 bg-white/5 p-5">
+          <p class="text-sm font-semibold uppercase tracking-wide text-brand-green">Tests & traçabilité</p>
+          <p class="mt-2 text-sm text-white/70">Chaque lot est contrôlé pour garantir conformité, stabilité et clarté produit.</p>
+        </div>
+        <div class="rounded-2xl border border-white/15 bg-white/5 p-5">
+          <p class="text-sm font-semibold uppercase tracking-wide text-brand-green">Livraison Europe</p>
+          <p class="mt-2 text-sm text-white/70">Expédition rapide, colis discret et livraison offerte dès 100 euros.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-white border-b border-gray-100 py-10 lg:py-14">
+    <div class="max-w-[1440px] mx-auto px-6 lg:px-10 grid grid-cols-1 lg:grid-cols-[1.3fr_0.7fr] gap-10 items-start">
+      <div>
+        <h2 class="text-2xl lg:text-4xl font-title font-bold uppercase text-brand-black">Comment bien choisir dans notre boutique CBD</h2>
+        <div class="mt-5 space-y-4 text-sm lg:text-base leading-relaxed text-brand-black/70 max-w-4xl">
+          <p>
+            La boutique Kilogrammes est structurée pour vous aider à trouver rapidement le bon produit, selon votre niveau d'expérience, votre budget et votre mode de consommation. Si vous privilégiez les arômes et la matière végétale, commencez par nos <a href="/categorie-produit/fleurs-cbd/" class="font-medium text-brand-black underline underline-offset-2">fleurs CBD</a>. Si vous recherchez une texture plus dense et une approche différente des terpènes, explorez les <a href="/categorie-produit/resine-cbd-hash-cbg-pollen/" class="font-medium text-brand-black underline underline-offset-2">résines CBD</a>.
+          </p>
+          <p>
+            Pour un dosage plus simple au quotidien, les <a href="/categorie-produit/huiles-cbd/" class="font-medium text-brand-black underline underline-offset-2">huiles CBD</a> constituent souvent le point d'entrée le plus lisible. Les <a href="/categorie-produit/edibles-cbd/" class="font-medium text-brand-black underline underline-offset-2">edibles</a> et les <a href="/categorie-produit/accessoires-cbd/" class="font-medium text-brand-black underline underline-offset-2">accessoires</a> répondent à des usages plus spécifiques, tandis que notre catégorie <a href="/categorie-produit/trim-cbd/" class="font-medium text-brand-black underline underline-offset-2">trim CBD</a> s'adresse aux clients qui veulent optimiser leur rapport format/prix.
+          </p>
+          <p>
+            Si vous hésitez entre plusieurs familles de produits, notre recommandation est simple : comparez d'abord le format, ensuite l'intensité aromatique, puis la facilité d'usage. Cette logique permet de réduire les achats au hasard et d'orienter chaque visiteur vers une catégorie cohérente avec sa vraie intention d'achat.
+          </p>
+        </div>
+      </div>
+      <aside class="rounded-[28px] border border-brand-gray-200 bg-gray-50 p-6">
+        <h2 class="text-xl font-title font-bold uppercase text-brand-black">Repères d'achat</h2>
+        <ul class="mt-4 space-y-3 text-sm text-brand-black/70">
+          <li><strong class="text-brand-black">Fleurs CBD</strong> : pour le profil aromatique et l'expérience végétale.</li>
+          <li><strong class="text-brand-black">Résines CBD</strong> : pour une texture et une concentration différentes.</li>
+          <li><strong class="text-brand-black">Huiles CBD</strong> : pour un usage régulier et un dosage plus lisible.</li>
+          <li><strong class="text-brand-black">Trim CBD</strong> : pour un format économique à forte intention comparative.</li>
+        </ul>
+        <div class="mt-6 border-t border-brand-gray-200 pt-6">
+          <a href="/qualite-securite-cbd/" class="text-sm font-medium text-brand-black underline underline-offset-2">Voir notre méthodologie qualité</a>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  {/* Categories grid on white bg */}
+  {categories.length > 0 && (
+    <section class="bg-white py-10 lg:py-16">
+      <div class="max-w-[1440px] mx-auto px-6 lg:px-10">
+        <SectionHeader title="Catégories" centered={false} />
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+          {categories.filter((c: any) => c.slug !== "uncategorized").map((cat: any) => (
+            <CategoryCard
+              name={cat.name}
+              slug={getCategoryRouteSlug(cat)}
+              image={cat.image?.src || categoryFallbackImages[cat.slug]}
+              count={cat.count}
+            />
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  {/* All products on white bg */}
+  <section class="bg-white py-10 lg:py-16 border-t border-gray-100">
+    <div class="max-w-[1440px] mx-auto px-6 lg:px-10">
+      <SectionHeader title="Tous les produits" centered={false} />
+      {products.length > 0 ? (
+        <ProductGrid products={products} />
+      ) : (
+        <p class="text-brand-gray-400">Aucun produit disponible pour le moment.</p>
+      )}
+    </div>
+  </section>
+
+  <section class="bg-gray-50 border-t border-gray-100 py-10 lg:py-16">
+    <div class="max-w-[1440px] mx-auto px-6 lg:px-10">
+      <h2 class="text-2xl lg:text-4xl font-title font-bold uppercase text-brand-black">Questions fréquentes sur la boutique CBD</h2>
+      <div class="mt-8 grid grid-cols-1 lg:grid-cols-2 gap-4">
+        {boutiqueFaq.map((item) => (
+          <details class="group rounded-2xl border border-brand-gray-200 bg-white p-0 overflow-hidden">
+            <summary class="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 text-sm font-medium text-brand-black [&::-webkit-details-marker]:hidden">
+              <span>{item.question}</span>
+              <span class="text-brand-black/40 transition-transform group-open:rotate-45 text-xl">+</span>
+            </summary>
+            <div class="px-5 pb-5 text-sm leading-relaxed text-brand-black/70">{item.answer}</div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-white border-t border-gray-100 py-10 lg:py-16">
+    <div class="max-w-[1440px] mx-auto px-6 lg:px-10">
+      <div class="max-w-3xl">
+        <h2 class="text-2xl lg:text-4xl font-title font-bold uppercase text-brand-black">Guides pour mieux choisir</h2>
+        <p class="mt-4 text-sm lg:text-base leading-relaxed text-brand-black/70">
+          La boutique répond à l'intention commerciale, mais certaines décisions d'achat demandent un peu plus de contexte. Ces guides complètent les catégories produits avec des repères utiles sur les formats, les comparaisons et les questions réglementaires les plus fréquentes.
+        </p>
+      </div>
+      <div class="mt-8 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
+        <a href="/blog/comment-choisir-une-huile-cbd/" class="rounded-2xl border border-brand-gray-200 bg-gray-50 p-5 hover:border-brand-black transition-colors">
+          <h3 class="text-lg font-title font-bold uppercase text-brand-black">Choisir une huile CBD</h3>
+          <p class="mt-2 text-sm text-brand-black/70">Comparer dosage, concentration et format avant achat.</p>
+        </a>
+        <a href="/blog/resine-cbd-vs-fleur-cbd/" class="rounded-2xl border border-brand-gray-200 bg-gray-50 p-5 hover:border-brand-black transition-colors">
+          <h3 class="text-lg font-title font-bold uppercase text-brand-black">Résine CBD vs fleur CBD</h3>
+          <p class="mt-2 text-sm text-brand-black/70">Le guide de comparaison le plus utile entre deux catégories centrales.</p>
+        </a>
+        <a href="/blog/quest-ce-que-le-trim-cbd/" class="rounded-2xl border border-brand-gray-200 bg-gray-50 p-5 hover:border-brand-black transition-colors">
+          <h3 class="text-lg font-title font-bold uppercase text-brand-black">Comprendre le trim CBD</h3>
+          <p class="mt-2 text-sm text-brand-black/70">Pour lire correctement cette catégorie souvent comparée au reste du catalogue.</p>
+        </a>
+        <a href="/blog/cbd-est-il-legal-en-italie/" class="rounded-2xl border border-brand-gray-200 bg-gray-50 p-5 hover:border-brand-black transition-colors">
+          <h3 class="text-lg font-title font-bold uppercase text-brand-black">CBD en Italie</h3>
+          <p class="mt-2 text-sm text-brand-black/70">Un repère utile pour les visiteurs qui croisent achat produit et livraison en Europe.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+</ShopLayout>

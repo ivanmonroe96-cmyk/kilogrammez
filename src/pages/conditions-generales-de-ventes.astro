@@ -1,0 +1,42 @@
+---
+import MarketingLayout from "@layouts/MarketingLayout.astro";
+import { buildMetadata } from "@lib/seo/metadata";
+import { staticPageSlugs } from "@lib/seo/focusKeywords";
+
+export const prerender = true;
+
+const metadata = buildMetadata({
+  title: "Conditions Générales de Vente",
+  description: "Consultez les conditions générales de vente de Kilogrammes : commandes, livraison, paiement, garanties et responsabilités.",
+  path: `/${staticPageSlugs.terms}/`,
+});
+---
+
+<MarketingLayout metadata={metadata}>
+  <section class="bg-brand-white">
+    <div class="container-site py-16 max-w-3xl mx-auto">
+    <h1 class="text-4xl font-bold text-brand-black mb-8 font-title uppercase">Conditions Générales de Vente</h1>
+    <div class="prose-article">
+      <p>Les présentes conditions générales de vente régissent l'ensemble des transactions effectuées sur le site kilogrammes.com.</p>
+
+      <h2>Article 1 – Objet</h2>
+      <p>Les présentes CGV ont pour objet de définir les droits et obligations des parties dans le cadre de la vente en ligne des produits proposés par Kilogrammes.</p>
+
+      <h2>Article 2 – Prix</h2>
+      <p>Les prix sont indiqués en euros toutes taxes comprises (TTC). Kilogrammes se réserve le droit de modifier ses prix à tout moment mais les produits seront facturés au prix en vigueur au moment de la validation de la commande.</p>
+
+      <h2>Article 3 – Commandes</h2>
+      <p>L'acheteur doit être âgé d'au moins 18 ans pour passer commande. Toute commande vaut acceptation des présentes CGV.</p>
+
+      <h2>Article 4 – Livraison</h2>
+      <p>Les commandes sont expédiées sous 24h ouvrées. Les délais de livraison sont donnés à titre indicatif et peuvent varier selon le transporteur choisi.</p>
+
+      <h2>Article 5 – Droit de rétractation</h2>
+      <p>Conformément à la législation en vigueur, l'acheteur dispose d'un délai de 14 jours à compter de la réception du produit pour exercer son droit de rétractation.</p>
+
+      <h2>Article 6 – Données personnelles</h2>
+      <p>Les données personnelles collectées sont traitées conformément à notre politique de confidentialité disponible sur la page RGPD.</p>
+    </div>
+    </div>
+  </section>
+</MarketingLayout>

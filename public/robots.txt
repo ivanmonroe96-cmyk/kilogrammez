@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+
+Disallow: /panier/
+Disallow: /commander/
+Disallow: /mon-compte/
+Disallow: /wp-admin/
+Disallow: /?s=
+Disallow: /page/
+
+Sitemap: https://kilogrammes.com/sitemap-index.xml

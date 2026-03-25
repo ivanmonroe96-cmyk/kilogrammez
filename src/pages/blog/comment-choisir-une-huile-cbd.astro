@@ -1,0 +1,110 @@
+---
+import ArticleLayout from "@layouts/ArticleLayout.astro";
+import { buildMetadata } from "@lib/seo/metadata";
+import { articleSchema, breadcrumbSchema, faqSchema, buildJsonLd } from "@lib/seo/schema";
+
+export const prerender = true;
+
+const title = "Comment choisir une huile CBD";
+const description = "Dosage, format, lisibilité de l'étiquette, qualité et usage : les repères essentiels pour choisir une huile CBD plus sereinement.";
+const path = "/blog/comment-choisir-une-huile-cbd/";
+const publishedTime = "2026-03-23T10:10:00.000Z";
+const modifiedTime = "2026-03-23T10:10:00.000Z";
+
+const metadata = buildMetadata({
+  title,
+  description,
+  path,
+  ogType: "article",
+  article: { publishedTime, modifiedTime, author: "Équipe Kilogrammes" },
+});
+
+const breadcrumbs = [
+  { name: "Blog", url: "/blog/" },
+  { name: title, url: path },
+];
+
+const faq = [
+  {
+    question: "Quel pourcentage choisir pour une huile CBD ?",
+    answer:
+      "Le pourcentage dépend surtout de votre besoin de lecture du dosage et de votre niveau de familiarité avec le produit. Une page utile doit expliquer clairement la concentration, le format et l'usage, sans promettre une réponse universelle valable pour tout le monde.",
+  },
+  {
+    question: "Que faut-il vérifier sur une fiche d'huile CBD ?",
+    answer:
+      "Vérifiez la concentration, la clarté de l'étiquetage, la nature du produit, la logique qualité du vendeur et la présence d'informations de conformité ou de traçabilité. Une bonne fiche doit rester lisible et précise.",
+  },
+  {
+    question: "Pourquoi comparer plusieurs huiles CBD avant achat ?",
+    answer:
+      "Comparer plusieurs huiles permet de mieux lire le dosage, le format, la présentation de la qualité et la cohérence du catalogue. Cela évite les achats fondés uniquement sur un pourcentage ou une promesse trop générique.",
+  },
+];
+
+const jsonLd = buildJsonLd([
+  breadcrumbSchema(breadcrumbs),
+  articleSchema({ title, url: path, description, publishedTime, modifiedTime, author: "Équipe Kilogrammes" }),
+  faqSchema(faq),
+]);
+---
+
+<ArticleLayout metadata={metadata} jsonLd={jsonLd} breadcrumbs={breadcrumbs}>
+  <div class="bg-white rounded-lg p-6 lg:p-10">
+    <header class="mb-8">
+      <h1 class="text-3xl sm:text-4xl lg:text-5xl font-title font-bold text-brand-black uppercase leading-tight mb-4">{title}</h1>
+      <div class="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-brand-gray-400">
+        <time datetime={publishedTime}>Publié le 23 mars 2026</time>
+        <span>•</span>
+        <time datetime={modifiedTime}>Mis à jour le 23 mars 2026</time>
+        <span>•</span>
+        <span>Revue éditoriale : Équipe Kilogrammes</span>
+      </div>
+    </header>
+
+    <div class="text-brand-black/80 leading-relaxed [&_h2]:font-title [&_h2]:uppercase [&_h2]:text-2xl [&_h2]:font-bold [&_h2]:text-brand-black [&_h2]:mt-8 [&_h2]:mb-4 [&_h3]:font-title [&_h3]:uppercase [&_h3]:text-xl [&_h3]:font-bold [&_h3]:mt-6 [&_h3]:mb-3 [&_p]:mb-4 [&_li]:mb-2 [&_a]:text-brand-black [&_a]:underline [&_a]:underline-offset-2">
+      <p>
+        Choisir une <strong>huile CBD</strong> paraît simple en apparence, mais les visiteurs se retrouvent souvent face à des fiches difficiles à comparer : pourcentages, formats, promesses vagues et différences de présentation. Le vrai enjeu est de savoir quels repères lire avant achat.
+      </p>
+      <p>
+        Ce guide sert à clarifier la lecture d'une huile CBD avant de passer commande. Il complète naturellement notre catégorie <a href="/categorie-produit/huiles-cbd/">huiles CBD</a> et notre page <a href="/qualite-securite-cbd/">Safety</a>, afin d'aider à comparer plus sereinement les formats disponibles.
+      </p>
+
+      <h2>Réponse courte</h2>
+      <p>
+        Pour choisir une huile CBD, il faut d'abord regarder la concentration, puis la lisibilité de la fiche produit, la logique qualité du vendeur et le format de l'huile. Une bonne page commerciale doit permettre de comparer clairement ces éléments sans surpromettre.
+      </p>
+
+      <h2>Les 4 repères à lire en priorité</h2>
+      <ol>
+        <li><strong>La concentration</strong> : le pourcentage doit être clairement indiqué et compréhensible.</li>
+        <li><strong>Le format</strong> : flacon, volume et présentation doivent être lisibles.</li>
+        <li><strong>La qualité</strong> : la fiche doit renvoyer vers une logique de contrôle et de conformité.</li>
+        <li><strong>La cohérence du catalogue</strong> : une bonne catégorie aide à comparer plusieurs options sans confusion.</li>
+      </ol>
+
+      <h2>Pourquoi le pourcentage ne suffit pas</h2>
+      <p>
+        Beaucoup d'acheteurs comparent les huiles CBD uniquement par le taux affiché. Ce réflexe est compréhensible, mais incomplet. Une concentration annoncée sans fiche claire, sans méthode qualité visible et sans logique de gamme reste difficile à interpréter.
+      </p>
+
+      <h2>Comment comparer plusieurs huiles CBD</h2>
+      <p>
+        Le plus simple est de comparer plusieurs fiches dans une même catégorie cohérente. C'est précisément le rôle de notre page <a href="/categorie-produit/huiles-cbd/">huiles CBD</a>. Vous pouvez ensuite compléter cette lecture avec notre <a href="/support-cbd/">page support</a> si votre question concerne le parcours de commande ou la livraison.
+      </p>
+
+      <h2>Questions fréquentes</h2>
+      {faq.map((item) => (
+        <div class="border border-brand-gray-200 rounded-xl px-5 py-4 my-4">
+          <h3 class="!mt-0">{item.question}</h3>
+          <p>{item.answer}</p>
+        </div>
+      ))}
+
+      <h2>Conclusion</h2>
+      <p>
+        Une bonne huile CBD ne se choisit pas sur une promesse courte ou un pourcentage isolé. Elle se lit dans un ensemble : clarté de la fiche, cohérence de la gamme, qualité du vendeur et simplicité de comparaison. Pour passer à l'étape suivante, explorez notre catégorie <a href="/categorie-produit/huiles-cbd/">huiles CBD</a> ou revenez à la <a href="/boutique-cbd/">boutique CBD</a>.
+      </p>
+    </div>
+  </div>
+</ArticleLayout>

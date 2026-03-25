@@ -1,0 +1,63 @@
+---
+import MarketingLayout from "@layouts/MarketingLayout.astro";
+import { buildMetadata } from "@lib/seo/metadata";
+import { buildJsonLd, breadcrumbSchema } from "@lib/seo/schema";
+import { staticPageSlugs } from "@lib/seo/focusKeywords";
+
+export const prerender = true;
+
+const metadata = buildMetadata({
+  title: "Processus Éditorial & Standards Contenu",
+  description:
+    "Comment Kilogrammes rédige et révise ses contenus : méthode éditoriale, contrôle qualité, clarté des sources et expertise CBD.",
+  path: `/${staticPageSlugs.editorial}/`,
+});
+
+const jsonLd = buildJsonLd([
+  breadcrumbSchema([{ name: "Processus éditorial", url: `/${staticPageSlugs.editorial}/` }]),
+]);
+---
+
+<MarketingLayout metadata={metadata} jsonLd={jsonLd}>
+  <section class="bg-brand-white">
+    <div class="container-site py-16 max-w-4xl mx-auto">
+      <h1 class="text-4xl sm:text-5xl font-bold text-brand-black mb-4 font-title uppercase">Processus éditorial</h1>
+      <p class="text-lg text-brand-black/60 mb-10">
+        Cette page explique comment Kilogrammes conçoit, révise et met à jour ses contenus afin d'améliorer leur utilité, leur clarté et leur cohérence avec notre activité.
+      </p>
+
+      <div class="prose-article">
+        <h2>Notre objectif éditorial</h2>
+        <p>
+          Nous produisons des contenus destinés à informer les visiteurs sur nos produits, nos catégories, notre approche qualité et les grands sujets liés au CBD et au cannabis légal. Notre priorité est de répondre clairement aux intentions de recherche sans recourir à des formulations artificielles ou à des promesses imprécises.
+        </p>
+
+        <h2>Comment un contenu est préparé</h2>
+        <p>
+          Chaque page ou article suit une logique simple : comprendre la question de l'utilisateur, structurer une réponse utile, vérifier que le texte reste cohérent avec notre catalogue et nos engagements qualité, puis améliorer la lisibilité pour la recherche organique, les moteurs génératifs et les systèmes de réponses.
+        </p>
+        <ul>
+          <li>analyse de l'intention de recherche et du contexte commercial ou informationnel ;</li>
+          <li>structuration du contenu autour de questions réelles et de sous-thèmes utiles ;</li>
+          <li>révision du langage pour supprimer les approximations, répétitions et affirmations inutiles ;</li>
+          <li>ajout d'éléments de contexte, d'internal linking et de repères qualité lorsque c'est pertinent.</li>
+        </ul>
+
+        <h2>Notre ligne de vérification</h2>
+        <p>
+          Nous cherchons à distinguer ce qui relève de la description produit, de l'information générale, de la réglementation et de l'interprétation. Lorsqu'un point demande une vérification externe ou juridique, il doit être confirmé avant d'être traité comme une affirmation ferme. Cette exigence est particulièrement importante sur les sujets sensibles comme la conformité, les cannabinoïdes émergents ou les usages associés au bien-être.
+        </p>
+
+        <h2>Comment nous mettons à jour les contenus</h2>
+        <p>
+          Les contenus sont revus lorsque l'offre évolue, lorsqu'une page devient trop faible face à l'intention de recherche qu'elle cible ou lorsqu'un sujet mérite une clarification. Les articles et pages stratégiques doivent également rester alignés avec nos pages <a href={`/${staticPageSlugs.safety}/`}>Safety</a>, <a href={`/${staticPageSlugs.support}/`}>Support</a> et nos grandes catégories de boutique.
+        </p>
+
+        <h2>Ce que cette page garantit au lecteur</h2>
+        <p>
+          Cette page ne remplace pas une source réglementaire ou médicale. Elle décrit notre cadre de travail éditorial : précision, lisibilité, cohérence, et volonté de faire mieux que du simple contenu SEO générique. Pour toute question spécifique liée à une commande, un produit ou une demande particulière, notre <a href="/contact/">équipe reste joignable</a>.
+        </p>
+      </div>
+    </div>
+  </section>
+</MarketingLayout>

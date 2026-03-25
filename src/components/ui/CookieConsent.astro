@@ -1,0 +1,56 @@
+---
+/**
+ * Cookie consent banner – minimal GDPR-compliant notice.
+ * Uses a simple cookie to remember the user's choice.
+ */
+---
+
+<div
+  id="cookie-consent"
+  class="fixed bottom-0 inset-x-0 z-50 p-4 bg-brand-gray-950 border-t border-brand-gray-800 transform translate-y-full transition-transform duration-300"
+  role="dialog"
+  aria-label="Consentement aux cookies"
+>
+  <div class="container-site flex flex-col sm:flex-row items-center justify-between gap-4">
+    <p class="text-sm text-brand-gray-300">
+      Nous utilisons des cookies pour améliorer votre expérience. En continuant, vous acceptez notre
+      <a href="/rgpd/" class="text-brand-green underline underline-offset-2">politique de confidentialité</a>.
+    </p>
+    <div class="flex items-center gap-3 shrink-0">
+      <button id="cookie-reject" class="btn-ghost text-xs">Refuser</button>
+      <button id="cookie-accept" class="btn-primary text-xs">Accepter</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  const banner = document.getElementById("cookie-consent");
+  const acceptBtn = document.getElementById("cookie-accept");
+  const rejectBtn = document.getElementById("cookie-reject");
+
+  function getCookie(name: string): string | null {
+    const match = document.cookie.match(new RegExp(`(?:^|; )${name}=([^;]*)`));
+    return match ? decodeURIComponent(match[1]) : null;
+  }
+
+  function setCookie(name: string, value: string, days: number) {
+    const d = new Date();
+    d.setTime(d.getTime() + days * 86400000);
+    document.cookie = `${name}=${encodeURIComponent(value)};expires=${d.toUTCString()};path=/;SameSite=Lax`;
+  }
+
+  if (!getCookie("cookie_consent") && banner) {
+    requestAnimationFrame(() => {
+      banner.classList.remove("translate-y-full");
+    });
+  }
+
+  function dismiss(value: string) {
+    const days = value === "accepted" ? 91 : 1;
+    setCookie("cookie_consent", value, days);
+    banner?.classList.add("translate-y-full");
+  }
+
+  acceptBtn?.addEventListener("click", () => dismiss("accepted"));
+  rejectBtn?.addEventListener("click", () => dismiss("rejected"));
+</script>

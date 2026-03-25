@@ -1,0 +1,133 @@
+---
+import ArticleLayout from "@layouts/ArticleLayout.astro";
+import { buildMetadata } from "@lib/seo/metadata";
+import { articleSchema, breadcrumbSchema, faqSchema, buildJsonLd } from "@lib/seo/schema";
+
+export const prerender = true;
+
+const title = "Résine CBD vs fleur CBD : comment choisir ?";
+const description = "Format, lecture produit, profils et logique d'achat : un guide clair pour comparer résine CBD et fleur CBD avant de commander.";
+const path = "/blog/resine-cbd-vs-fleur-cbd/";
+const publishedTime = "2026-03-23T10:20:00.000Z";
+const modifiedTime = "2026-03-23T10:20:00.000Z";
+
+const metadata = buildMetadata({
+  title,
+  description,
+  path,
+  ogType: "article",
+  article: { publishedTime, modifiedTime, author: "Équipe Kilogrammes" },
+});
+
+const breadcrumbs = [
+  { name: "Blog", url: "/blog/" },
+  { name: title, url: path },
+];
+
+const faq = [
+  {
+    question: "Quelle différence entre résine CBD et fleur CBD ?",
+    answer:
+      "La fleur CBD met en avant la structure végétale et le profil aromatique de la tête, tandis que la résine CBD correspond à une autre texture, une autre présentation et une autre manière de lire la catégorie. L'intention d'achat n'est donc pas toujours la même.",
+  },
+  {
+    question: "Comment choisir entre résine CBD et fleur CBD ?",
+    answer:
+      "Le plus utile est de partir du format que vous souhaitez comparer, puis de vérifier la clarté des fiches, le profil annoncé et la logique qualité du vendeur. Une bonne boutique doit permettre de comparer les deux catégories sans confusion.",
+  },
+  {
+    question: "Pourquoi comparer les catégories avant achat ?",
+    answer:
+      "Comparer les catégories aide à réduire les achats au hasard. Cela permet de mieux comprendre si vous cherchez un profil de fleur, une texture de résine, ou une autre logique de lecture produit dans le catalogue.",
+  },
+];
+
+const jsonLd = buildJsonLd([
+  breadcrumbSchema(breadcrumbs),
+  articleSchema({ title, url: path, description, publishedTime, modifiedTime, author: "Équipe Kilogrammes" }),
+  faqSchema(faq),
+]);
+---
+
+<ArticleLayout metadata={metadata} jsonLd={jsonLd} breadcrumbs={breadcrumbs}>
+  <div class="bg-white rounded-lg p-6 lg:p-10">
+    <header class="mb-8">
+      <h1 class="text-3xl sm:text-4xl lg:text-5xl font-title font-bold text-brand-black uppercase leading-tight mb-4">{title}</h1>
+      <div class="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-brand-gray-400">
+        <time datetime={publishedTime}>Publié le 23 mars 2026</time>
+        <span>•</span>
+        <time datetime={modifiedTime}>Mis à jour le 23 mars 2026</time>
+        <span>•</span>
+        <span>Revue éditoriale : Équipe Kilogrammes</span>
+      </div>
+    </header>
+
+    <div class="text-brand-black/80 leading-relaxed [&_h2]:font-title [&_h2]:uppercase [&_h2]:text-2xl [&_h2]:font-bold [&_h2]:text-brand-black [&_h2]:mt-8 [&_h2]:mb-4 [&_h3]:font-title [&_h3]:uppercase [&_h3]:text-xl [&_h3]:font-bold [&_h3]:mt-6 [&_h3]:mb-3 [&_p]:mb-4 [&_li]:mb-2 [&_a]:text-brand-black [&_a]:underline [&_a]:underline-offset-2 [&_th]:text-left [&_th]:border [&_th]:border-brand-gray-200 [&_th]:p-3 [&_td]:border [&_td]:border-brand-gray-200 [&_td]:p-3 [&_table]:w-full [&_table]:border-collapse [&_table]:my-6">
+      <p>
+        La comparaison <strong>résine CBD vs fleur CBD</strong> est l'une des plus utiles pour les visiteurs d'une boutique. Elle ne sert pas seulement à opposer deux noms de catégories, mais à comprendre deux façons différentes de lire un produit avant achat.
+      </p>
+      <p>
+        Cette page aide à distinguer clairement les deux formats, puis renvoie vers nos catégories <a href="/categorie-produit/resine-cbd-hash-cbg-pollen/">résines CBD</a> et <a href="/categorie-produit/fleurs-cbd/">fleurs CBD</a> pour poursuivre la comparaison dans le catalogue.
+      </p>
+
+      <h2>Réponse courte</h2>
+      <p>
+        La fleur CBD et la résine CBD ne se lisent pas de la même manière. La première met davantage en avant la matière végétale et le profil de la tête, la seconde une texture et une logique de catégorie différentes. Le bon choix dépend surtout du format que vous voulez comparer et de la clarté du vendeur.
+      </p>
+
+      <h2>Tableau de comparaison</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Point comparé</th>
+            <th>Fleur CBD</th>
+            <th>Résine CBD</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Lecture principale</td>
+            <td>Structure et profil de la fleur</td>
+            <td>Texture et présentation de la résine</td>
+          </tr>
+          <tr>
+            <td>Repère d'achat</td>
+            <td>Profil végétal et aromatique</td>
+            <td>Catégorie plus dense et différente dans sa présentation</td>
+          </tr>
+          <tr>
+            <td>Comparaison utile</td>
+            <td>Clarté de la fiche, cohérence du lot</td>
+            <td>Clarté de la fiche, cohérence de la texture et de la catégorie</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2>Pourquoi cette comparaison aide vraiment à acheter</h2>
+      <p>
+        Une boutique efficace ne doit pas forcer le client à deviner. Elle doit l'aider à choisir entre plusieurs formats cohérents. C'est le rôle de cette comparaison : réduire l'achat au hasard en orientant vers la bonne famille de produits.
+      </p>
+
+      <h2>Comment comparer intelligemment</h2>
+      <ul>
+        <li>partir du format que vous souhaitez lire ;</li>
+        <li>vérifier la clarté des descriptions ;</li>
+        <li>contrôler la présence d'une logique qualité et traçabilité ;</li>
+        <li>revenir à des catégories bien structurées pour poursuivre la comparaison.</li>
+      </ul>
+
+      <h2>Questions fréquentes</h2>
+      {faq.map((item) => (
+        <div class="border border-brand-gray-200 rounded-xl px-5 py-4 my-4">
+          <h3 class="!mt-0">{item.question}</h3>
+          <p>{item.answer}</p>
+        </div>
+      ))}
+
+      <h2>Conclusion</h2>
+      <p>
+        Le bon choix entre résine CBD et fleur CBD dépend moins d'un slogan que d'une lecture claire du format. Pour comparer l'offre de façon concrète, explorez nos catégories <a href="/categorie-produit/resine-cbd-hash-cbg-pollen/">résines CBD</a> et <a href="/categorie-produit/fleurs-cbd/">fleurs CBD</a>, ou revenez à la <a href="/boutique-cbd/">boutique CBD</a> pour voir l'ensemble des familles de produits.
+      </p>
+    </div>
+  </div>
+</ArticleLayout>

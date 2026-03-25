@@ -1,0 +1,56 @@
+---
+import MarketingLayout from "@layouts/MarketingLayout.astro";
+import { buildMetadata } from "@lib/seo/metadata";
+import { buildJsonLd, breadcrumbSchema } from "@lib/seo/schema";
+import { staticPageSlugs } from "@lib/seo/focusKeywords";
+
+export const prerender = true;
+
+const metadata = buildMetadata({
+  title: "Programme Affiliation CBD : Commissions",
+  description:
+    "Rejoignez l'affiliation Kilogrammes : commissions sur chaque vente CBD. Inscription gratuite, lien de suivi unique, paiement mensuel.",
+  path: `/${staticPageSlugs.affiliation}/`,
+});
+
+const jsonLd = buildJsonLd([
+  breadcrumbSchema([{ name: "Affiliation", url: "/affiliation/" }]),
+]);
+---
+
+<MarketingLayout metadata={metadata} jsonLd={jsonLd}>
+  <section class="bg-brand-black py-24">
+    <div class="container-site text-center">
+      <p class="text-brand-green text-sm font-medium uppercase tracking-widest mb-4">Programme Partenaire</p>
+      <h1 class="text-4xl sm:text-5xl font-bold text-brand-white leading-tight mb-6 font-title uppercase">
+        Affiliation CBD
+      </h1>
+      <p class="text-lg text-brand-gray-400 max-w-2xl mx-auto mb-8">
+        Gagnez des commissions en recommandant nos produits CBD. Inscription gratuite, lien de suivi personnalisé et paiement mensuel.
+      </p>
+      <a href="/contact/" class="btn-primary">Devenir affilié</a>
+    </div>
+  </section>
+
+  <section class="bg-brand-white py-20">
+    <div class="container-site">
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-8">
+      <div class="text-center">
+        <div class="text-4xl font-bold text-brand-green mb-2">1</div>
+        <h3 class="text-lg font-bold text-brand-black mb-2">Inscrivez-vous</h3>
+        <p class="text-sm text-brand-black/60">Remplissez le formulaire et recevez votre lien unique d'affiliation.</p>
+      </div>
+      <div class="text-center">
+        <div class="text-4xl font-bold text-brand-green mb-2">2</div>
+        <h3 class="text-lg font-bold text-brand-black mb-2">Partagez</h3>
+        <p class="text-sm text-brand-black/60">Recommandez nos produits via votre lien sur vos réseaux et contenus.</p>
+      </div>
+      <div class="text-center">
+        <div class="text-4xl font-bold text-brand-green mb-2">3</div>
+        <h3 class="text-lg font-bold text-brand-black mb-2">Gagnez</h3>
+        <p class="text-sm text-brand-black/60">Recevez une commission sur chaque vente générée. Paiement mensuel garanti.</p>
+      </div>
+    </div>
+    </div>
+  </section>
+</MarketingLayout>

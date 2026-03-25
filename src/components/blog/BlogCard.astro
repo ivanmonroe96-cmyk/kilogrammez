@@ -1,0 +1,48 @@
+---
+interface Props {
+  title: string;
+  excerpt: string;
+  slug: string;
+  image?: string;
+  date?: string;
+  category?: string;
+}
+
+const { title, excerpt, slug, image, date } = Astro.props;
+
+const formattedDate = date
+  ? new Date(date).toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric" }).toUpperCase()
+  : null;
+---
+
+<article class="group border border-brand-black rounded-lg overflow-hidden bg-white hover:shadow-lg transition-all duration-300">
+  <a href={`/blog/${slug}/`} class="block">
+    <div class="relative aspect-[16/10] overflow-hidden bg-gray-50">
+      {image ? (
+        <img
+          src={image}
+          alt={title}
+          width="640"
+          height="400"
+          loading="lazy"
+          decoding="async"
+          class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+        />
+      ) : (
+        <div class="w-full h-full bg-gradient-to-br from-gray-100 to-gray-200"></div>
+      )}
+    </div>
+
+    <div class="p-5">
+      {formattedDate && (
+        <time class="text-xs text-brand-gray-400 uppercase tracking-wider mb-2 block" datetime={date}>{formattedDate}</time>
+      )}
+
+      <h3 class="text-lg font-title font-bold text-brand-black uppercase leading-tight group-hover:text-brand-yellow transition-colors line-clamp-2 mb-2">
+        {title}
+      </h3>
+
+      <p class="text-sm text-brand-gray-400 line-clamp-3 leading-relaxed">{excerpt}</p>
+    </div>
+  </a>
+</article>

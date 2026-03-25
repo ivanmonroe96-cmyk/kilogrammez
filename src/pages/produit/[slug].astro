@@ -1,0 +1,307 @@
+---
+import ShopLayout from "@layouts/ShopLayout.astro";
+import ProductGrid from "@components/product/ProductGrid.astro";
+import { buildMetadata } from "@lib/seo/metadata";
+import { productSchema, breadcrumbSchema, buildJsonLd } from "@lib/seo/schema";
+import { getAllProducts, getProductsByCategory } from "@lib/api/woocommerce";
+import { getCategoryUrl, getProductFocusKeyword, getProductRouteAliases, getProductRouteSlug } from "@lib/seo/focusKeywords";
+import type { BreadcrumbItem } from "@lib/seo/schema";
+
+export const prerender = true;
+
+export async function getStaticPaths() {
+  const products = await getAllProducts().catch(() => []);
+  return products.flatMap((product: any) => {
+    const canonicalSlug = getProductRouteSlug(product);
+    return getProductRouteAliases(product).map((routeSlug) => ({
+      params: { slug: routeSlug },
+      props: { product, canonicalSlug, focusKeyword: getProductFocusKeyword(product) },
+    }));
+  });
+}
+
+const { product, canonicalSlug, focusKeyword } = Astro.props;
+
+const category = product.categories?.[0];
+const mainImage = product.images?.[0]?.src;
+
+const metadata = buildMetadata({
+  title: focusKeyword,
+  description: product.short_description
+    ? product.short_description.replace(/<[^>]*>/g, "").slice(0, 160)
+    : `Acheter ${product.name} CBD chez Kilogrammes. Livraison rapide.`,
+  path: `/produit/${canonicalSlug}/`,
+  ogImage: mainImage,
+  ogType: "product",
+});
+
+const breadcrumbs: BreadcrumbItem[] = [
+  { name: "Boutique CBD", url: "/boutique-cbd/" },
+  ...(category ? [{ name: category.name, url: getCategoryUrl(category) }] : []),
+  { name: product.name, url: `/produit/${canonicalSlug}/` },
+];
+
+const jsonLd = buildJsonLd([
+  breadcrumbSchema(breadcrumbs),
+  productSchema({
+    name: product.name,
+    url: `/produit/${canonicalSlug}/`,
+    description: product.short_description?.replace(/<[^>]*>/g, "") || product.name,
+    image: mainImage,
+    sku: product.sku,
+    price: parseFloat(product.price) || 0,
+    currency: "EUR",
+    availability: product.stock_status === "instock" ? "InStock" : "OutOfStock",
+    ratingValue: parseFloat(product.average_rating) || undefined,
+    reviewCount: product.rating_count || undefined,
+  }),
+]);
+
+// Related products from same category
+const relatedProducts = category
+  ? await getProductsByCategory(category.id)
+      .then((p: any[]) => p.filter((r: any) => r.id !== product.id).slice(0, 4))
+      .catch(() => [])
+  : [];
+---
+
+<ShopLayout metadata={metadata} jsonLd={jsonLd} breadcrumbs={breadcrumbs}>
+  <article class="bg-white">
+    {/* Back link */}
+    <div class="max-w-[1440px] mx-auto px-6 lg:px-10 pt-6">
+      <a href="/boutique-cbd/" class="inline-flex items-center gap-2 text-brand-black text-sm font-medium hover:underline">
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18"/></svg>
+        Retour au shop
+      </a>
+    </div>
+
+    {/* Product Detail */}
+    <div class="max-w-[1440px] mx-auto px-6 lg:px-10 py-8 lg:py-12">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16">
+        {/* Gallery */}
+        <div>
+          <div class="aspect-square rounded-lg overflow-hidden bg-gray-50 border border-gray-100">
+            {mainImage ? (
+              <img
+                id="main-product-image"
+                src={mainImage}
+                alt={product.name}
+                width="700"
+                height="700"
+                class="w-full h-full object-cover"
+              />
+            ) : (
+              <div class="w-full h-full flex items-center justify-center text-gray-300">
+                <span class="text-6xl">📦</span>
+              </div>
+            )}
+          </div>
+          {product.images?.length > 1 && (
+            <div class="grid grid-cols-3 sm:grid-cols-4 gap-3 mt-3">
+              {product.images.slice(1, 5).map((img: any) => (
+                <div class="thumb-img aspect-square rounded-lg overflow-hidden bg-gray-50 border border-gray-100 cursor-pointer hover:border-brand-black transition-colors">
+                  <img
+                    src={img.src}
+                    alt={img.alt || product.name}
+                    width="160"
+                    height="160"
+                    loading="lazy"
+                    class="w-full h-full object-cover"
+                  />
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+
+        {/* Info */}
+        <div>
+          {category && (
+            <a
+              href={getCategoryUrl(category)}
+              class="text-sm text-brand-gray-400 hover:text-brand-black transition-colors uppercase tracking-wider"
+            >
+              {category.name}
+            </a>
+          )}
+
+          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-title font-bold text-brand-black uppercase mt-2 mb-4 leading-[0.9]">{product.name}</h1>
+
+          {product.average_rating && parseFloat(product.average_rating) > 0 && (
+            <div class="flex items-center gap-2 mb-4">
+              <svg xmlns="http://www.w3.org/2000/svg" width="119" height="21" viewBox="0 0 119 21" fill="none">
+                <path d="M9.83067 0.669678L12.0377 7.46233H19.18L13.4018 11.6604L15.6088 18.4531L9.83067 14.255L4.05249 18.4531L6.25956 11.6604L0.48138 7.46233H7.6236L9.83067 0.669678Z" fill="#f5d93f"/>
+                <path d="M34.6652 0.669678L36.8723 7.46233H44.0145L38.2363 11.6604L40.4434 18.4531L34.6652 14.255L28.887 18.4531L31.0941 11.6604L25.3159 7.46233H32.4581L34.6652 0.669678Z" fill="#f5d93f"/>
+                <path d="M59.5 0.669678L61.7071 7.46233H68.8493L63.0712 11.6604L65.2782 18.4531L59.5 14.255L53.7219 18.4531L55.9289 11.6604L50.1508 7.46233H57.293L59.5 0.669678Z" fill="#f5d93f"/>
+                <path d="M84.3347 0.669678L86.5418 7.46233H93.684L87.9058 11.6604L90.1129 18.4531L84.3347 14.255L78.5565 18.4531L80.7636 11.6604L74.9854 7.46233H82.1276L84.3347 0.669678Z" fill="#f5d93f"/>
+                <path d="M109.17 0.669678L111.377 7.46233H118.519L112.741 11.6604L114.948 18.4531L109.17 14.255L103.391 18.4531L105.599 11.6604L99.8204 7.46233H106.963L109.17 0.669678Z" fill="#f5d93f"/>
+              </svg>
+              <span class="text-brand-black font-semibold text-sm">{product.average_rating}/5</span>
+              <span class="text-sm text-brand-gray-400">({product.rating_count} avis)</span>
+            </div>
+          )}
+
+          {product.short_description && (
+            <div class="text-brand-black/80 text-base mb-6 leading-relaxed [&_p]:mb-2" set:html={product.short_description} />
+          )}
+
+          {/* Shipping note */}
+          <p class="text-sm text-brand-gray-400 mb-4">
+            Toute commande passée avant 12:00 est expédiée dans la journée. Livraison à domicile sous 3 jours ouvrés.
+          </p>
+
+          {/* Price */}
+          <div class="flex items-baseline gap-3 mb-6">
+            {product.on_sale && product.regular_price && (
+              <span class="text-xl text-brand-gray-400 line-through" data-price-eur={product.regular_price}>{product.regular_price}€</span>
+            )}
+            <span class="text-3xl font-bold text-brand-black" data-price-eur={product.price}>{product.price}€</span>
+          </div>
+
+          {/* Attributes / Variations */}
+          {product.attributes?.length > 0 && (
+            <div class="space-y-4 mb-6" id="product-attributes">
+              {product.attributes.map((attr: any) => (
+                <div>
+                  <label class="text-sm font-semibold text-brand-black uppercase tracking-wider block mb-2">{attr.name}</label>
+                  <div class="flex flex-wrap gap-2" data-attr-name={attr.name}>
+                    {attr.options?.map((opt: string, idx: number) => (
+                      <button
+                        type="button"
+                        class:list={[
+                          "variation-btn px-4 py-2 border border-brand-black rounded-lg text-sm text-brand-black font-medium cursor-pointer transition-colors",
+                          idx === 0 ? "bg-brand-black text-white" : "hover:bg-brand-black hover:text-white",
+                        ]}
+                        data-attr-name={attr.name}
+                        data-attr-value={opt}
+                      >
+                        {opt}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {/* Add to Cart */}
+          <button
+            id="add-to-cart-btn"
+            class="w-full sm:w-auto bg-brand-yellow text-brand-black font-bold uppercase tracking-wider text-base py-4 px-10 rounded-lg hover:brightness-95 transition-all flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed"
+            data-product-id={product.id}
+            data-product-name={product.name}
+            data-product-price={product.price}
+            data-product-image={mainImage || ""}
+            data-product-slug={canonicalSlug}
+            disabled={product.stock_status !== "instock"}
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="21" viewBox="0 0 22 21" fill="none">
+              <path d="M11.7195 20.56H7.99945L13.9995 14.6L17.2395 12.28L16.9595 11.32L0.439453 11.52V9L16.9595 9.16L17.2395 8.2L13.9995 5.92L8.03945 0H11.7195L21.9595 10.28L11.7195 20.56Z" fill="#221F1D"/>
+            </svg>
+            <span id="add-to-cart-text">{product.stock_status === "instock" ? "Ajouter au panier" : "Indisponible"}</span>
+          </button>
+
+          {product.sku && (
+            <p class="text-xs text-brand-gray-400 mt-4">SKU: {product.sku}</p>
+          )}
+        </div>
+      </div>
+    </div>
+
+    {/* Full Description */}
+    {product.description && (
+      <section class="bg-gray-50 py-12 lg:py-16">
+        <div class="max-w-[1440px] mx-auto px-6 lg:px-10">
+          <h2 class="text-2xl lg:text-3xl font-title font-bold text-brand-black uppercase mb-6">Description</h2>
+          <div class="prose max-w-3xl text-brand-black/80 [&_h3]:font-title [&_h3]:uppercase [&_h3]:text-xl [&_h3]:font-bold [&_h3]:mt-8 [&_h3]:mb-3 [&_p]:mb-4 [&_p]:leading-relaxed [&_img]:max-w-full [&_img]:h-auto" set:html={product.description} />
+        </div>
+      </section>
+    )}
+
+    {/* Related Products */}
+    {relatedProducts.length > 0 && (
+      <section class="bg-white py-12 lg:py-16">
+        <div class="max-w-[1440px] mx-auto px-6 lg:px-10">
+          <h2 class="text-2xl lg:text-3xl font-title font-bold text-brand-black uppercase mb-8">Produits similaires</h2>
+          <ProductGrid products={relatedProducts} />
+        </div>
+      </section>
+    )}
+  </article>
+
+  <script>
+    import { addToCart } from "@lib/cart";
+
+    function initProductPage() {
+      // --- Variation selection ---
+      document.querySelectorAll<HTMLButtonElement>(".variation-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const attrName = btn.dataset.attrName;
+          const group = document.querySelector(`[data-attr-name="${attrName}"]`);
+          if (group) {
+            group.querySelectorAll<HTMLButtonElement>(".variation-btn").forEach((b) => {
+              b.classList.remove("bg-brand-black", "text-white");
+              b.classList.add("hover:bg-brand-black", "hover:text-white");
+            });
+          }
+          btn.classList.add("bg-brand-black", "text-white");
+          btn.classList.remove("hover:bg-brand-black", "hover:text-white");
+        });
+      });
+
+      // --- Thumbnail gallery ---
+      const thumbs = document.querySelectorAll<HTMLDivElement>(".thumb-img");
+      const mainImg = document.querySelector<HTMLImageElement>("#main-product-image");
+      thumbs.forEach((thumb) => {
+        thumb.addEventListener("click", () => {
+          const src = thumb.querySelector("img")?.src;
+          if (src && mainImg) mainImg.src = src;
+        });
+      });
+
+      // --- Add to Cart ---
+      const addBtn = document.getElementById("add-to-cart-btn") as HTMLButtonElement | null;
+      if (!addBtn || addBtn.disabled) return;
+
+      let isAdding = false;
+
+      addBtn.addEventListener("click", () => {
+        if (isAdding) return;
+        isAdding = true;
+
+        const name = addBtn.dataset.productName || "";
+        const price = addBtn.dataset.productPrice || "0";
+        const image = addBtn.dataset.productImage || "";
+        const slug = addBtn.dataset.productSlug || "";
+        const productId = parseInt(addBtn.dataset.productId || "0", 10);
+
+        // Collect selected variations
+        const selected: string[] = [];
+        document.querySelectorAll<HTMLButtonElement>(".variation-btn.bg-brand-black").forEach((b) => {
+          selected.push(b.dataset.attrValue || "");
+        });
+        const variation = selected.length > 0 ? selected.join(" / ") : undefined;
+
+        addToCart({ productId, name, slug, price, image, variation });
+
+        // Visual feedback
+        const textEl = document.getElementById("add-to-cart-text");
+        if (textEl) {
+          const original = textEl.textContent;
+          textEl.textContent = "✓ Ajouté au panier";
+          addBtn.classList.add("brightness-110");
+          setTimeout(() => {
+            textEl.textContent = original;
+            addBtn.classList.remove("brightness-110");
+            isAdding = false;
+          }, 1200);
+        } else {
+          isAdding = false;
+        }
+      });
+    }
+
+    initProductPage();
+    document.addEventListener("astro:page-load", initProductPage);
+  </script>
+</ShopLayout>

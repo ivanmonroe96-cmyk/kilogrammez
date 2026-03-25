@@ -1,0 +1,173 @@
+---
+import MarketingLayout from "@layouts/MarketingLayout.astro";
+import { buildMetadata } from "@lib/seo/metadata";
+import { breadcrumbSchema, faqSchema, buildJsonLd } from "@lib/seo/schema";
+import { getKeywordLandingSlugs, getKeywordTopic, shouldNoindexKeywordLanding } from "@lib/seo/focusKeywords";
+
+export const prerender = true;
+
+export async function getStaticPaths() {
+  const reservedRootSlugs = [
+    "404",
+    "affiliation",
+    "blog",
+    "boutique-cbd",
+    "commander",
+    "conditions-generales-de-ventes",
+    "conditions-generales-vente-cbd",
+    "contact",
+    "contact-service-client-cbd",
+    "finaliser-commande-cbd",
+    "franchise-cbd",
+    "grossiste-cbd",
+    "grossiste-cbd-france",
+    "index",
+    "kilogramme-shop",
+    "livraison-cbd-europe",
+    "mon-compte",
+    "mon-compte-kilogrammes",
+    "panier",
+    "panier-cbd",
+    "politique-confidentialite-rgpd",
+    "processus-editorial",
+    "processus-editorial-cbd",
+    "programme-affiliation-cbd",
+    "qualite-securite-cbd",
+    "remboursements-retours-cbd",
+    "remboursements_retours",
+    "rgpd",
+    "safety",
+    "support",
+    "support-cbd",
+  ];
+
+  return getKeywordLandingSlugs(reservedRootSlugs).map(({ keyword, slug }) => ({
+    params: { slug },
+    props: { keyword },
+  }));
+}
+
+const { keyword } = Astro.props;
+const topic = getKeywordTopic(keyword);
+const noindex = shouldNoindexKeywordLanding(keyword);
+
+const topicContent = {
+  legal: {
+    eyebrow: "Cadre & vérification",
+    intro: `Cette requête renvoie souvent à une question réglementaire, territoriale ou de conformité. Kilogrammes traite ${keyword} sous un angle éditorial prudent, en renvoyant vers des sources à vérifier et vers des pages commerciales lisibles plutôt que vers des affirmations simplistes.`,
+    bullets: [
+      "vérifier le cadre local avant achat ou livraison",
+      "croiser réglementation, traçabilité et clarté vendeur",
+      "utiliser la boutique et les pages qualité comme points d'appui",
+    ],
+  },
+  recipe: {
+    eyebrow: "Intention sensible",
+    intro: `Cette requête est souvent associée à des préparations ou usages à risque. Kilogrammes ne fournit pas d'instructions pour fabriquer des produits illicites ; nous utilisons cette page pour clarifier l'intention de recherche et orienter vers des alternatives CBD légales, des repères qualité et des pages d'information plus sûres.`,
+    bullets: [
+      "éviter les tutoriels de fabrication ou de dosage illicites",
+      "privilégier des produits légaux, tracés et clairement étiquetés",
+      "consulter le support si la question concerne une commande ou un produit CBD",
+    ],
+  },
+  strain: {
+    eyebrow: "Repères produit",
+    intro: `La requête ${keyword} relève souvent d'une logique variété, profil aromatique ou comparaison de formats. Cette page sert de point d'entrée pour relier ce sujet aux catégories Kilogrammes, aux fiches produit et aux contenus éditoriaux qui aident à mieux lire une offre.`,
+    bullets: [
+      "comparer l'intention d'achat avant le nom de variété",
+      "relier le sujet aux catégories fleurs, résines, huiles ou accessoires",
+      "vérifier description, lot, image et lisibilité de la fiche produit",
+    ],
+  },
+  shop: {
+    eyebrow: "Recherche commerciale",
+    intro: `Cette page cible la requête ${keyword} comme porte d'entrée transactionnelle ou navigationnelle. L'objectif est de faire correspondre la recherche à des catégories, des pages de confiance et des contenus utiles sans créer de promesses vagues.`,
+    bullets: [
+      "diriger vers la boutique et les catégories les plus cohérentes",
+      "mettre en avant livraison, support et qualité",
+      "renforcer la lisibilité du parcours avant achat",
+    ],
+  },
+  general: {
+    eyebrow: "Repère éditorial",
+    intro: `La requête ${keyword} est intégrée comme page de correspondance sémantique dans le site Kilogrammes. Elle sert à capter l'intention, proposer une lecture plus claire du sujet et redistribuer vers les pages les plus pertinentes du catalogue ou du contenu éditorial.`,
+    bullets: [
+      "clarifier le sujet avant toute comparaison produit",
+      "relier l'intention à des pages de confiance du site",
+      "maintenir une couverture sémantique large sans casser l'architecture",
+    ],
+  },
+} as const;
+
+const metadata = buildMetadata({
+  title: keyword,
+  description: `Page Kilogrammes sur ${keyword} : repères éditoriaux, liens utiles et orientation vers nos catégories et guides CBD.`.slice(0, 160),
+  path: `/${Astro.params.slug}/`,
+  noindex,
+});
+
+const jsonLd = buildJsonLd([
+  breadcrumbSchema([
+    { name: "Accueil", url: "/" },
+    { name: keyword, url: `/${Astro.params.slug}/` },
+  ]),
+  faqSchema([
+    {
+      question: `Pourquoi Kilogrammes a une page sur ${keyword} ?`,
+      answer: `Parce que cette requête exprime une intention de recherche réelle. Nous l'utilisons pour relier le sujet à des pages CBD lisibles, à notre méthode qualité et à des contenus d'aide plutôt qu'à des promesses floues.`,
+    },
+    {
+      question: `Cette page remplace-t-elle un conseil juridique, médical ou pratique ?`,
+      answer: "Non. Cette page est informative et éditoriale. Elle aide à mieux cadrer une recherche et à rejoindre les pages pertinentes du site, mais ne remplace ni une source officielle ni un avis spécialisé.",
+    },
+  ]),
+]);
+---
+
+<MarketingLayout metadata={metadata} jsonLd={jsonLd}>
+  <section class="bg-brand-black py-16 lg:py-20">
+    <div class="max-w-[1180px] mx-auto px-6 lg:px-10">
+      <p class="text-sm uppercase tracking-[0.2em] text-brand-green">{topicContent[topic].eyebrow}</p>
+      <h1 class="mt-4 text-4xl sm:text-5xl lg:text-7xl font-title font-bold uppercase text-white">{keyword}</h1>
+      <p class="mt-5 max-w-4xl text-base lg:text-lg leading-relaxed text-white/80">{topicContent[topic].intro}</p>
+    </div>
+  </section>
+
+  <section class="bg-white py-12 lg:py-16">
+    <div class="max-w-[1180px] mx-auto px-6 lg:px-10 grid grid-cols-1 lg:grid-cols-[1.2fr_0.8fr] gap-10 items-start">
+      <div>
+        <h2 class="text-2xl lg:text-4xl font-title font-bold uppercase text-brand-black">Comment lire cette recherche</h2>
+        <ul class="mt-6 space-y-4 text-sm lg:text-base leading-relaxed text-brand-black/70">
+          {topicContent[topic].bullets.map((bullet) => (
+            <li class="flex gap-3">
+              <span class="mt-1 h-2.5 w-2.5 shrink-0 rounded-full bg-brand-green"></span>
+              <span>{bullet}</span>
+            </li>
+          ))}
+        </ul>
+
+        <div class="mt-10 rounded-[28px] border border-brand-gray-200 bg-gray-50 p-6 lg:p-8">
+          <h3 class="text-xl font-title font-bold uppercase text-brand-black">Pages utiles à consulter</h3>
+          <div class="mt-5 flex flex-wrap gap-3 text-sm">
+            <a href="/boutique-cbd/" class="inline-flex items-center rounded-full bg-brand-black px-4 py-2 text-white transition-colors hover:bg-brand-gray-900">Voir la boutique CBD</a>
+            <a href="/support-cbd/" class="inline-flex items-center rounded-full border border-brand-gray-300 px-4 py-2 text-brand-black transition-colors hover:border-brand-black">Support CBD</a>
+            <a href="/qualite-securite-cbd/" class="inline-flex items-center rounded-full border border-brand-gray-300 px-4 py-2 text-brand-black transition-colors hover:border-brand-black">Qualité & sécurité</a>
+            <a href="/blog/" class="inline-flex items-center rounded-full border border-brand-gray-300 px-4 py-2 text-brand-black transition-colors hover:border-brand-black">Guides du blog</a>
+          </div>
+        </div>
+      </div>
+
+      <aside class="rounded-[28px] border border-brand-gray-200 bg-brand-white p-6 shadow-[0_20px_60px_rgba(45,41,38,0.06)]">
+        <p class="text-xs font-semibold uppercase tracking-[0.2em] text-brand-black/50">Cadrage éditorial</p>
+        <h3 class="mt-3 text-xl font-title font-bold uppercase text-brand-black">Pourquoi cette page existe</h3>
+        <p class="mt-4 text-sm leading-relaxed text-brand-black/70">
+          Kilogrammes construit aussi des pages de correspondance sémantique pour relier des requêtes exactes à une architecture propre, éviter des liens cassés et garder un parcours cohérent entre recherche, comparaison et commande.
+        </p>
+        <div class="mt-6 border-t border-brand-gray-200 pt-6 text-sm text-brand-black/70">
+          <p>Mot-clé principal : <strong class="text-brand-black">{keyword}</strong></p>
+          <p class="mt-2">Type d'intention : <strong class="text-brand-black">{topic}</strong></p>
+        </div>
+      </aside>
+    </div>
+  </section>
+</MarketingLayout>

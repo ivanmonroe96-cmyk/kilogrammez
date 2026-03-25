@@ -1,0 +1,118 @@
+---
+import ArticleLayout from "@layouts/ArticleLayout.astro";
+import { buildMetadata } from "@lib/seo/metadata";
+import { articleSchema, breadcrumbSchema, faqSchema, buildJsonLd } from "@lib/seo/schema";
+
+export const prerender = true;
+
+const title = "Qu'est-ce que le trim CBD ?";
+const description = "Définition, différences avec la fleur CBD, usages, repères qualité et points de comparaison : comprendre le trim CBD avant d'acheter.";
+const path = "/blog/quest-ce-que-le-trim-cbd/";
+const publishedTime = "2026-03-23T09:10:00.000Z";
+const modifiedTime = "2026-03-23T09:10:00.000Z";
+
+const metadata = buildMetadata({
+  title,
+  description,
+  path,
+  ogType: "article",
+  article: { publishedTime, modifiedTime, author: "Équipe Kilogrammes" },
+});
+
+const breadcrumbs = [
+  { name: "Blog", url: "/blog/" },
+  { name: title, url: path },
+];
+
+const faq = [
+  {
+    question: "Quelle est la différence entre trim CBD et fleur CBD ?",
+    answer:
+      "La fleur CBD correspond aux têtes sélectionnées, tandis que le trim CBD regroupe les parties plus fines issues de la préparation et du tri. Le trim s'adresse surtout aux personnes qui comparent le rapport format, usage et budget.",
+  },
+  {
+    question: "Le trim CBD est-il forcément de mauvaise qualité ?",
+    answer:
+      "Non. Le trim n'est pas une mauvaise catégorie en soi. Sa qualité dépend de la sélection, de la propreté du lot, de la cohérence de la coupe et de la manière dont il est présenté au client.",
+  },
+  {
+    question: "À qui s'adresse le trim CBD ?",
+    answer:
+      "Le trim CBD convient surtout aux acheteurs qui veulent comparer les formats, optimiser leur budget ou privilégier une catégorie économique sans chercher exactement la même présentation qu'une fleur entière.",
+  },
+];
+
+const jsonLd = buildJsonLd([
+  breadcrumbSchema(breadcrumbs),
+  articleSchema({ title, url: path, description, publishedTime, modifiedTime, author: "Équipe Kilogrammes" }),
+  faqSchema(faq),
+]);
+---
+
+<ArticleLayout metadata={metadata} jsonLd={jsonLd} breadcrumbs={breadcrumbs}>
+  <div class="bg-white rounded-lg p-6 lg:p-10">
+    <header class="mb-8">
+      <h1 class="text-3xl sm:text-4xl lg:text-5xl font-title font-bold text-brand-black uppercase leading-tight mb-4">{title}</h1>
+      <div class="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-brand-gray-400">
+        <time datetime={publishedTime}>Publié le 23 mars 2026</time>
+        <span>•</span>
+        <time datetime={modifiedTime}>Mis à jour le 23 mars 2026</time>
+        <span>•</span>
+        <span>Revue éditoriale : Équipe Kilogrammes</span>
+      </div>
+    </header>
+
+    <div class="text-brand-black/80 leading-relaxed [&_h2]:font-title [&_h2]:uppercase [&_h2]:text-2xl [&_h2]:font-bold [&_h2]:text-brand-black [&_h2]:mt-8 [&_h2]:mb-4 [&_h3]:font-title [&_h3]:uppercase [&_h3]:text-xl [&_h3]:font-bold [&_h3]:mt-6 [&_h3]:mb-3 [&_p]:mb-4 [&_li]:mb-2 [&_a]:text-brand-black [&_a]:underline [&_a]:underline-offset-2">
+      <p>
+        Le <strong>trim CBD</strong> est souvent recherché pour une raison simple : il attire les clients qui veulent mieux comprendre le rapport entre format, présentation et prix avant d'acheter. Pourtant, cette catégorie est encore mal expliquée. Beaucoup de pages la réduisent à une version dégradée de la fleur, alors qu'elle mérite une définition plus précise.
+      </p>
+      <p>
+        Si vous comparez plusieurs formats dans une <a href="/boutique-cbd/">boutique CBD</a>, ce guide vous aide à comprendre ce qu'est réellement le trim, ce qui le différencie d'une fleur CBD classique et quels repères utiliser pour lire une offre avec plus de clarté.
+      </p>
+
+      <h2>Définition simple du trim CBD</h2>
+      <p>
+        Le trim CBD désigne les éléments plus fins issus du travail de préparation et de coupe autour des fleurs. Il ne s'agit pas d'une catégorie identique à la tête entière, mais d'un format distinct, généralement observé par les acheteurs qui comparent l'aspect, la texture, le rendu et le budget.
+      </p>
+
+      <h2>Trim CBD et fleur CBD : quelle différence ?</h2>
+      <p>
+        La principale différence tient à la présentation du produit. Une <a href="/categorie-produit/fleurs-cbd/">fleur CBD</a> met davantage en avant la structure des têtes et leur profil visuel, tandis que le <a href="/categorie-produit/trim-cbd/">trim CBD</a> correspond à un format plus fragmenté. L'intention d'achat n'est donc pas toujours la même.
+      </p>
+      <ul>
+        <li>la fleur CBD est souvent choisie pour son apparence et son profil aromatique global ;</li>
+        <li>le trim CBD intéresse davantage les acheteurs qui comparent la catégorie sous un angle pratique ou budgétaire ;</li>
+        <li>la qualité doit être lue selon la propreté du lot, la cohérence de la coupe et la transparence du vendeur.</li>
+      </ul>
+
+      <h2>Comment évaluer un trim CBD de façon utile</h2>
+      <h3>Regarder la cohérence du lot</h3>
+      <p>
+        Un bon trim CBD doit rester lisible et homogène. L'objectif n'est pas d'imiter une fleur entière, mais de proposer une catégorie claire, propre et cohérente avec sa promesse.
+      </p>
+
+      <h3>Vérifier la logique qualité du vendeur</h3>
+      <p>
+        Comme pour d'autres familles de produits, le contexte compte : qualité des lots, méthode de contrôle, description honnête et présence d'informations de traçabilité. Notre page <a href="/qualite-securite-cbd/">Safety</a> explique la logique de vérification que nous considérons utile pour lire une offre CBD sérieusement.
+      </p>
+
+      <h2>À qui s'adresse cette catégorie ?</h2>
+      <p>
+        Le trim CBD s'adresse principalement à des visiteurs qui savent déjà qu'ils ne cherchent pas exactement la même présentation qu'une fleur entière. C'est une catégorie de comparaison, utile dans une boutique bien structurée parce qu'elle répond à une vraie recherche de format.
+      </p>
+
+      <h2>Questions fréquentes</h2>
+      {faq.map((item) => (
+        <div class="border border-brand-gray-200 rounded-xl px-5 py-4 my-4">
+          <h3 class="!mt-0">{item.question}</h3>
+          <p>{item.answer}</p>
+        </div>
+      ))}
+
+      <h2>Conclusion</h2>
+      <p>
+        Le trim CBD n'est ni une anomalie ni une simple version inférieure d'une autre catégorie. C'est un format à comprendre pour ce qu'il est, avec ses propres critères de lecture. Si vous souhaitez comparer directement les catégories, consultez notre page <a href="/boutique-cbd/">Boutique CBD</a> ou explorez notre catégorie <a href="/categorie-produit/trim-cbd/">trim CBD</a>.
+      </p>
+    </div>
+  </div>
+</ArticleLayout>

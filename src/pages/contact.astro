@@ -1,0 +1,87 @@
+---
+import MarketingLayout from "@layouts/MarketingLayout.astro";
+import { buildMetadata } from "@lib/seo/metadata";
+import { buildJsonLd, breadcrumbSchema } from "@lib/seo/schema";
+import { staticPageSlugs } from "@lib/seo/focusKeywords";
+
+export const prerender = true;
+
+const metadata = buildMetadata({
+  title: "Contact Service Client CBD & Partenariats",
+  description:
+    "Contactez l'équipe Kilogrammes : questions sur nos produits CBD, suivi de commande, partenariats B2B ou franchise. Réponse garantie sous 24h.",
+  path: `/${staticPageSlugs.contact}/`,
+});
+
+const jsonLd = buildJsonLd([
+  breadcrumbSchema([{ name: "Contact", url: "/contact/" }]),
+]);
+---
+
+<MarketingLayout metadata={metadata} jsonLd={jsonLd}>
+  <section class="bg-brand-white">
+    <div class="container-site py-16 max-w-3xl mx-auto">
+    <h1 class="text-4xl sm:text-5xl font-bold text-brand-black mb-4 font-title uppercase">Contact</h1>
+    <p class="text-lg text-brand-black/60 mb-10">
+      Une question ? Notre équipe vous répond sous 24h.
+    </p>
+
+    <form
+      action="https://kilogrammes.com/wp-json/contact-form-7/v1/contact-forms/submit"
+      method="POST"
+      class="space-y-6"
+    >
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+        <div>
+          <label for="name" class="block text-sm font-medium text-brand-black mb-2">Nom</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            required
+            class="w-full px-4 py-3 bg-white border border-brand-gray-300 rounded-xl text-brand-black placeholder-brand-gray-400 focus:border-brand-black focus:ring-1 focus:ring-brand-black outline-none transition"
+            placeholder="Votre nom"
+          />
+        </div>
+        <div>
+          <label for="email" class="block text-sm font-medium text-brand-black mb-2">Email</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            required
+            class="w-full px-4 py-3 bg-white border border-brand-gray-300 rounded-xl text-brand-black placeholder-brand-gray-400 focus:border-brand-black focus:ring-1 focus:ring-brand-black outline-none transition"
+            placeholder="votre@email.com"
+          />
+        </div>
+      </div>
+
+      <div>
+        <label for="subject" class="block text-sm font-medium text-brand-black mb-2">Sujet</label>
+        <input
+          type="text"
+          id="subject"
+          name="subject"
+          required
+          class="w-full px-4 py-3 bg-white border border-brand-gray-300 rounded-xl text-brand-black placeholder-brand-gray-400 focus:border-brand-black focus:ring-1 focus:ring-brand-black outline-none transition"
+          placeholder="Sujet de votre message"
+        />
+      </div>
+
+      <div>
+        <label for="message" class="block text-sm font-medium text-brand-black mb-2">Message</label>
+        <textarea
+          id="message"
+          name="message"
+          rows="6"
+          required
+          class="w-full px-4 py-3 bg-white border border-brand-gray-300 rounded-xl text-brand-black placeholder-brand-gray-400 focus:border-brand-black focus:ring-1 focus:ring-brand-black outline-none transition resize-y"
+          placeholder="Votre message..."
+        ></textarea>
+      </div>
+
+      <button type="submit" class="btn-primary">Envoyer le message</button>
+    </form>
+    </div>
+  </section>
+</MarketingLayout>

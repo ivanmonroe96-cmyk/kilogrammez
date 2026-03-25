@@ -1,0 +1,657 @@
+---
+import { mainNav } from "@/data/navigation";
+import { staticPageSlugs } from "@lib/seo/focusKeywords";
+
+const currentPath = Astro.url.pathname;
+const shopItem = mainNav.find((item) => item.label === "Shop");
+const shopCategories = shopItem && "children" in shopItem ? shopItem.children : [];
+---
+
+<header class="mainHeader sticky top-0 z-50 w-full bg-brand-black" id="site-header">
+  <!-- Main Header Bar -->
+  <div class="h-[110px] lg:h-[130px] flex items-center justify-between px-4 lg:px-10 max-w-[1440px] mx-auto transition-[height] duration-300">
+
+    <!-- Left: Logo -->
+    <a href="/" class="shrink-0" aria-label="Kilogrammes - Accueil">
+      <img
+        src="/images/logo-kilogrammes.svg"
+        alt="Kilogrammes"
+        width="180"
+        height="40"
+        class="h-8 lg:h-10 w-auto"
+      />
+    </a>
+
+    <!-- Center: Desktop Navigation -->
+    <nav class="hidden lg:flex items-center gap-7 font-mdio" aria-label="Navigation principale">
+      {mainNav.map((item) => {
+        const hasChildren = "children" in item && item.children;
+        const isActive = currentPath.startsWith(item.href);
+
+        return hasChildren ? (
+          <button
+            class:list={[
+              "desk-nav-item flex items-center gap-1.5 text-sm uppercase tracking-wider transition-colors",
+              isActive ? "text-brand-yellow" : "text-brand-white hover:text-brand-yellow",
+            ]}
+            data-toggle="mega-menu"
+            type="button"
+            aria-expanded="false"
+          >
+            {item.label}
+            <svg class="w-3 h-3 mt-0.5 transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+            </svg>
+          </button>
+        ) : (
+          <a
+            href={item.href}
+            class:list={[
+              "text-sm uppercase tracking-wider transition-colors",
+              isActive ? "text-brand-yellow" : "text-brand-white hover:text-brand-yellow",
+            ]}
+            {...(("external" in item && item.external) ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+          >
+            {item.label}
+          </a>
+        );
+      })}
+    </nav>
+
+    <!-- Right: Action Icons -->
+    <div class="flex items-center gap-3 shrink-0">
+      <!-- Search -->
+      <button
+        class="p-2 text-brand-white hover:text-brand-yellow transition-colors"
+        aria-label="Rechercher"
+        id="search-btn"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 19 20" fill="none">
+          <circle cx="8.5" cy="8.5" r="7.75" stroke="currentColor" stroke-width="1.5"/>
+          <line x1="14.06" y1="14.56" x2="18.25" y2="18.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </button>
+
+      <!-- Account (hidden on mobile) -->
+      <a
+        href="/mon-compte/"
+        class="hidden lg:block p-2 text-brand-white hover:text-brand-yellow transition-colors"
+        aria-label="Mon compte"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 18 21" fill="none">
+          <path d="M9 10c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5Z" stroke="currentColor" stroke-width="1.5"/>
+          <path d="M17 20c0-4.42-3.58-8-8-8s-8 3.58-8 8" stroke="currentColor" stroke-width="1.5"/>
+        </svg>
+      </a>
+
+      <!-- Cart with count -->
+      <button type="button" id="cart-toggle-btn" class="p-2 text-brand-white hover:text-brand-yellow transition-colors relative" aria-label="Ouvrir le panier">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 20 25" fill="none">
+          <rect x="0.75" y="0.75" width="18.5" height="23.5" rx="3.25" stroke="currentColor" stroke-width="1.5"/>
+          <line x1="0.75" y1="7" x2="19.25" y2="7" stroke="currentColor" stroke-width="1.5"/>
+        </svg>
+        <span
+          id="cart-count"
+          class="absolute -top-0.5 -right-0.5 bg-brand-green text-brand-black text-[10px] font-bold rounded-full w-4 h-4 flex items-center justify-center mini-cart-count hidden"
+        >0</span>
+      </button>
+
+      <!-- Hamburger (hidden on desktop) -->
+      <button
+        class="lg:hidden p-2 text-brand-white hover:text-brand-yellow transition-colors"
+        id="mobile-menu-btn"
+        aria-label="Menu"
+        aria-expanded="false"
+      >
+        <svg class="w-6 h-6 hamburger-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+        </svg>
+        <svg class="w-6 h-6 close-icon hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Marquee Announcement Bar -->
+<div class="marquee-bar border border-brand-white border-t-0 rounded-[8px] mx-4 lg:mx-10 overflow-hidden bg-brand-black">
+  <div class="marquee-track flex items-center whitespace-nowrap py-2 text-sm text-brand-white font-mdio uppercase tracking-wider">
+    {[...Array(12)].map(() => (
+      <span class="inline-flex items-center gap-4 mx-4 shrink-0">
+        <svg class="w-4 h-4 text-brand-yellow shrink-0" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+        </svg>
+        <span>Livraison offerte à partir de 100€&nbsp;!</span>
+      </span>
+    ))}
+  </div>
+</div>
+
+<!-- Mega Menu (Shop) -->
+<div
+  id="mega-menu"
+  class="mega-menu fixed left-0 right-0 z-40 bg-brand-black border-t border-brand-gray-800 hidden"
+  style="top: 112px;"
+>
+  <div class="max-w-[1440px] mx-auto px-6 lg:px-10 py-10">
+    <div class="grid grid-cols-12 gap-8">
+      <!-- Left: Feature Image -->
+      <div class="col-span-5 rounded-2xl overflow-hidden bg-brand-gray-900 aspect-[4/3]">
+        <img
+          src="/images/mega-menu-shop.jpg"
+          alt="Découvrir nos produits CBD"
+          class="w-full h-full object-cover"
+          loading="lazy"
+        />
+      </div>
+
+      <!-- Right: Category Links -->
+      <div class="col-span-7">
+        <h3 class="text-brand-gray-400 text-xs uppercase tracking-widest mb-6">Nos catégories</h3>
+        <div class="grid grid-cols-2 gap-x-8 gap-y-1">
+          {shopCategories.map((cat) => (
+            <a
+              href={cat.href}
+              class:list={[
+                "group flex items-center gap-3 py-2.5 transition-colors",
+                ("highlight" in cat && cat.highlight) ? "text-brand-yellow hover:text-brand-white" : "text-brand-white hover:text-brand-yellow",
+              ]}
+            >
+              <svg
+                class="w-4 h-4 shrink-0 transition-transform duration-200 group-hover:translate-x-1"
+                viewBox="0 0 24 24"
+                fill="#F5D93F"
+              >
+                <path d="M13.22 19.03a.75.75 0 0 1 0-1.06L18.19 13H3.75a.75.75 0 0 1 0-1.5h14.44l-4.97-4.97a.75.75 0 0 1 1.06-1.06l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z" />
+              </svg>
+              <span class="text-base">{cat.label}</span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Mobile Navigation Overlay -->
+<div
+  id="mobile-menu"
+  class="mobile-menu fixed inset-x-0 bottom-0 z-[60] bg-brand-black hidden overflow-y-auto"
+  style="top: 112px;"
+>
+  <nav class="px-6 py-8 space-y-1 font-mdio" aria-label="Navigation mobile">
+    {mainNav.map((item) => {
+      const hasChildren = "children" in item && item.children;
+
+      return (
+        <div class="border-b border-brand-gray-900 last:border-0">
+          {hasChildren ? (
+            <div>
+              <button
+                class="mobile-submenu-toggle w-full flex items-center justify-between py-4 text-xl text-brand-white uppercase tracking-wider"
+                aria-expanded="false"
+              >
+                {item.label}
+                <svg class="w-5 h-5 transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                </svg>
+              </button>
+              <div class="mobile-submenu hidden pl-4 pb-4 space-y-1">
+                {item.children.map((child) => (
+                  <a
+                    href={child.href}
+                    class="flex items-center gap-3 py-2 text-brand-gray-300 hover:text-brand-yellow transition-colors"
+                  >
+                    <svg class="w-3.5 h-3.5 text-brand-yellow shrink-0" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M13.22 19.03a.75.75 0 0 1 0-1.06L18.19 13H3.75a.75.75 0 0 1 0-1.5h14.44l-4.97-4.97a.75.75 0 0 1 1.06-1.06l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z" />
+                    </svg>
+                    <span class="text-base">{child.label}</span>
+                  </a>
+                ))}
+              </div>
+            </div>
+          ) : (
+            <a
+              href={item.href}
+              class="block py-4 text-xl text-brand-white uppercase tracking-wider hover:text-brand-yellow transition-colors"
+              {...(("external" in item && item.external) ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+            >
+              {item.label}
+            </a>
+          )}
+        </div>
+      );
+    })}
+
+    {/* Account & Cart links in mobile menu */}
+    <div class="border-t border-brand-gray-900 pt-4 mt-2 space-y-1">
+      <a href={`/${staticPageSlugs.account}/`} class="flex items-center gap-3 py-3 text-brand-white hover:text-brand-yellow transition-colors">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 18 21" fill="none">
+          <path d="M9 10c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5Z" stroke="currentColor" stroke-width="1.5"/>
+          <path d="M17 20c0-4.42-3.58-8-8-8s-8 3.58-8 8" stroke="currentColor" stroke-width="1.5"/>
+        </svg>
+        <span class="text-base uppercase tracking-wider">Mon compte</span>
+      </a>
+      <a href={`/${staticPageSlugs.cart}/`} class="flex items-center gap-3 py-3 text-brand-white hover:text-brand-yellow transition-colors">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 20 25" fill="none">
+          <rect x="0.75" y="0.75" width="18.5" height="23.5" rx="3.25" stroke="currentColor" stroke-width="1.5"/>
+          <line x1="0.75" y1="7" x2="19.25" y2="7" stroke="currentColor" stroke-width="1.5"/>
+        </svg>
+        <span class="text-base uppercase tracking-wider">Panier</span>
+      </a>
+    </div>
+  </nav>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     CART DRAWER — Slide-in panel from right
+═══════════════════════════════════════════ -->
+<div id="cart-drawer-overlay" class="fixed inset-0 z-[70] bg-black/60 backdrop-blur-sm hidden transition-opacity duration-300 opacity-0"></div>
+<aside
+  id="cart-drawer"
+  class="fixed top-0 right-0 z-[80] h-full w-full max-w-md bg-brand-black border-l border-brand-gray-800 shadow-2xl translate-x-full transition-transform duration-300 ease-out flex flex-col"
+  aria-label="Panier"
+>
+  <!-- Drawer Header -->
+  <div class="flex items-center justify-between px-6 py-5 border-b border-brand-gray-800">
+    <h2 class="text-brand-white font-title font-bold text-xl uppercase">Mon Panier</h2>
+    <button type="button" id="cart-drawer-close" class="p-2 text-brand-gray-400 hover:text-brand-white transition-colors" aria-label="Fermer le panier">
+      <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+      </svg>
+    </button>
+  </div>
+
+  <!-- Drawer Body (scrollable) -->
+  <div id="cart-drawer-body" class="flex-1 overflow-y-auto px-6 py-4">
+    <!-- Empty state -->
+    <div id="cart-drawer-empty" class="flex flex-col items-center justify-center h-full text-center">
+      <svg class="w-16 h-16 text-brand-gray-700 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
+      </svg>
+      <p class="text-brand-gray-400 text-sm">Votre panier est vide</p>
+      <a href="/boutique-cbd/" class="mt-4 text-brand-green text-sm font-bold uppercase hover:underline">Découvrir nos produits</a>
+    </div>
+    <!-- Items list -->
+    <div id="cart-drawer-items" class="space-y-4 hidden"></div>
+  </div>
+
+  <!-- Drawer Footer -->
+  <div id="cart-drawer-footer" class="border-t border-brand-gray-800 px-6 py-5 hidden">
+    <div class="flex items-center justify-between mb-4">
+      <span class="text-brand-gray-400 text-sm uppercase tracking-wider">Total</span>
+      <span id="cart-drawer-total" class="text-brand-white font-bold text-xl">0,00&nbsp;€</span>
+    </div>
+    <a href={`/${staticPageSlugs.checkout}/`} class="block w-full text-center bg-brand-green text-brand-black font-bold uppercase tracking-wider py-3.5 rounded-full text-sm transition-colors hover:brightness-95">
+      Commander
+    </a>
+    <a href={`/${staticPageSlugs.cart}/`} class="mt-3 block w-full text-center rounded-full border border-brand-gray-700 py-3.5 text-sm font-bold uppercase tracking-wider text-brand-white transition-colors hover:border-brand-white">
+      Voir le panier
+    </a>
+    <button type="button" id="cart-drawer-clear" class="block w-full text-center text-brand-gray-500 hover:text-brand-white text-xs uppercase tracking-wider mt-3 py-2 transition-colors">
+      Vider le panier
+    </button>
+  </div>
+</aside>
+
+<style>
+  @keyframes marquee-scroll {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+  .marquee-track {
+    animation: marquee-scroll 30s linear infinite;
+    width: max-content;
+  }
+  .marquee-bar:hover .marquee-track {
+    animation-play-state: paused;
+  }
+
+  @media (min-width: 1024px) {
+    .mainHeader.is-condensed > div {
+      height: 92px;
+    }
+
+    .mainHeader.is-condensed + .marquee-bar {
+      margin-top: 0;
+    }
+
+    #mega-menu {
+      top: 92px !important;
+    }
+  }
+</style>
+
+<script>
+  const siteHeader = document.getElementById('site-header');
+
+  function syncHeaderState() {
+    if (!siteHeader) return;
+    const condensed = window.scrollY > 20;
+    siteHeader.classList.toggle('is-condensed', condensed);
+  }
+
+  syncHeaderState();
+  window.addEventListener('scroll', syncHeaderState, { passive: true });
+
+  // --- Mega Menu (Shop dropdown) ---
+  const megaMenuBtn = document.querySelector<HTMLButtonElement>('[data-toggle="mega-menu"]');
+  const megaMenu = document.getElementById('mega-menu');
+  let megaCloseTimeout: number | undefined;
+
+  function closeMegaMenu() {
+    if (!megaMenu || !megaMenuBtn) return;
+    megaMenu.classList.add('hidden');
+    megaMenuBtn.setAttribute('aria-expanded', 'false');
+    const chevron = megaMenuBtn.querySelector('svg');
+    if (chevron) chevron.classList.remove('rotate-180');
+  }
+
+  function openMegaMenu() {
+    if (!megaMenu || !megaMenuBtn) return;
+    megaMenu.classList.remove('hidden');
+    megaMenuBtn.setAttribute('aria-expanded', 'true');
+    const chevron = megaMenuBtn.querySelector('svg');
+    if (chevron) chevron.classList.add('rotate-180');
+  }
+
+  if (megaMenuBtn && megaMenu) {
+    const clearMegaCloseTimeout = () => {
+      if (megaCloseTimeout) {
+        window.clearTimeout(megaCloseTimeout);
+        megaCloseTimeout = undefined;
+      }
+    };
+
+    const queueMegaClose = () => {
+      clearMegaCloseTimeout();
+      megaCloseTimeout = window.setTimeout(closeMegaMenu, 120);
+    };
+
+    megaMenuBtn.addEventListener('click', () => {
+      const isOpen = !megaMenu.classList.contains('hidden');
+      isOpen ? closeMegaMenu() : openMegaMenu();
+    });
+
+    megaMenuBtn.addEventListener('mouseenter', () => {
+      if (window.matchMedia('(min-width: 1024px)').matches) {
+        clearMegaCloseTimeout();
+        openMegaMenu();
+      }
+    });
+
+    megaMenu.addEventListener('mouseenter', clearMegaCloseTimeout);
+
+    megaMenuBtn.addEventListener('mouseleave', () => {
+      if (window.matchMedia('(min-width: 1024px)').matches) queueMegaClose();
+    });
+
+    megaMenu.addEventListener('mouseleave', () => {
+      if (window.matchMedia('(min-width: 1024px)').matches) queueMegaClose();
+    });
+
+    document.addEventListener('click', (e) => {
+      const target = e.target as Node;
+      if (!megaMenu.contains(target) && !megaMenuBtn.contains(target)) {
+        closeMegaMenu();
+      }
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeMegaMenu();
+    });
+  }
+
+  // --- Mobile Menu ---
+  const mobileBtn = document.getElementById('mobile-menu-btn');
+  const mobileMenu = document.getElementById('mobile-menu');
+
+  function closeMobileMenu() {
+    if (!mobileMenu || !mobileBtn) return;
+    mobileMenu.classList.add('hidden');
+    mobileBtn.setAttribute('aria-expanded', 'false');
+    const hamburger = mobileBtn.querySelector('.hamburger-icon');
+    const close = mobileBtn.querySelector('.close-icon');
+    if (hamburger) hamburger.classList.remove('hidden');
+    if (close) close.classList.add('hidden');
+    document.body.style.overflow = '';
+  }
+
+  function openMobileMenu() {
+    if (!mobileMenu || !mobileBtn) return;
+    mobileMenu.classList.remove('hidden');
+    mobileBtn.setAttribute('aria-expanded', 'true');
+    const hamburger = mobileBtn.querySelector('.hamburger-icon');
+    const close = mobileBtn.querySelector('.close-icon');
+    if (hamburger) hamburger.classList.add('hidden');
+    if (close) close.classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+  }
+
+  if (mobileBtn && mobileMenu) {
+    mobileBtn.addEventListener('click', () => {
+      const isOpen = !mobileMenu.classList.contains('hidden');
+      isOpen ? closeMobileMenu() : openMobileMenu();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeMobileMenu();
+    });
+
+    mobileMenu.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => closeMobileMenu());
+    });
+  }
+
+  // --- Mobile Submenu Toggles ---
+  document.querySelectorAll('.mobile-submenu-toggle').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const submenu = btn.nextElementSibling as HTMLElement | null;
+      if (!submenu) return;
+
+      document.querySelectorAll('.mobile-submenu').forEach((other) => {
+        if (other !== submenu) other.classList.add('hidden');
+      });
+
+      document.querySelectorAll('.mobile-submenu-toggle').forEach((otherBtn) => {
+        if (otherBtn !== btn) {
+          otherBtn.setAttribute('aria-expanded', 'false');
+          const otherIcon = otherBtn.querySelector('svg');
+          if (otherIcon) otherIcon.classList.remove('rotate-45');
+        }
+      });
+
+      const isOpen = !submenu.classList.contains('hidden');
+      submenu.classList.toggle('hidden');
+      btn.setAttribute('aria-expanded', String(!isOpen));
+      const icon = btn.querySelector('svg');
+      if (icon) icon.classList.toggle('rotate-45', !isOpen);
+    });
+  });
+
+  // --- Cart badge from localStorage + live updates ---
+  const cartCountEl = document.getElementById('cart-count');
+
+  function updateCartBadge() {
+    if (!cartCountEl) return;
+    try {
+      const raw = window.localStorage.getItem('kg_cart');
+      const items = raw ? JSON.parse(raw) : [];
+      const count = Array.isArray(items) ? items.reduce((s: number, i: any) => s + (i.quantity || 0), 0) : 0;
+      cartCountEl.textContent = String(count);
+      cartCountEl.classList.toggle('hidden', count === 0);
+    } catch {
+      cartCountEl.textContent = '0';
+      cartCountEl.classList.add('hidden');
+    }
+  }
+
+  updateCartBadge();
+  window.addEventListener('kg:cart-updated', updateCartBadge);
+
+  // --- Cart Drawer ---
+  const cartToggleBtn = document.getElementById('cart-toggle-btn');
+  const cartDrawer = document.getElementById('cart-drawer');
+  const cartDrawerOverlay = document.getElementById('cart-drawer-overlay');
+  const cartDrawerCloseBtn = document.getElementById('cart-drawer-close');
+  const cartDrawerEmpty = document.getElementById('cart-drawer-empty');
+  const cartDrawerItems = document.getElementById('cart-drawer-items');
+  const cartDrawerFooter = document.getElementById('cart-drawer-footer');
+  const cartDrawerTotal = document.getElementById('cart-drawer-total');
+  const cartDrawerClear = document.getElementById('cart-drawer-clear');
+
+  function openCartDrawer() {
+    if (!cartDrawer || !cartDrawerOverlay) return;
+    cartDrawerOverlay.classList.remove('hidden');
+    requestAnimationFrame(() => {
+      cartDrawerOverlay.classList.remove('opacity-0');
+      cartDrawer.classList.remove('translate-x-full');
+    });
+    document.body.style.overflow = 'hidden';
+    renderCartDrawer();
+  }
+
+  function closeCartDrawer() {
+    if (!cartDrawer || !cartDrawerOverlay) return;
+    cartDrawer.classList.add('translate-x-full');
+    cartDrawerOverlay.classList.add('opacity-0');
+    setTimeout(() => cartDrawerOverlay.classList.add('hidden'), 300);
+    document.body.style.overflow = '';
+  }
+
+  function getCartItems(): any[] {
+    try {
+      const raw = localStorage.getItem('kg_cart');
+      return raw ? JSON.parse(raw) : [];
+    } catch { return []; }
+  }
+
+  function saveCartItems(items: any[]) {
+    localStorage.setItem('kg_cart', JSON.stringify(items));
+    const total = items.reduce((s: number, i: any) => s + (i.quantity || 0), 0);
+    localStorage.setItem('kg_cart_count', String(total));
+    window.dispatchEvent(new CustomEvent('kg:cart-updated', { detail: { count: total, items } }));
+  }
+
+  function formatPrice(val: number): string {
+    try {
+      const cur = JSON.parse(localStorage.getItem('kg_currency') || '{}');
+      const code = cur.code && ['EUR','CZK','PLN','SEK'].includes(cur.code) ? cur.code : 'EUR';
+      const rates: Record<string, {rate:number, locale:string}> = {
+        EUR: {rate:1, locale:'fr-FR'}, CZK: {rate:25.30, locale:'cs-CZ'},
+        PLN: {rate:4.28, locale:'pl-PL'}, SEK: {rate:11.20, locale:'sv-SE'}
+      };
+      const r = rates[code];
+      const converted = val * r.rate;
+      return new Intl.NumberFormat(r.locale, { style:'currency', currency:code, minimumFractionDigits:2, maximumFractionDigits:2 }).format(converted);
+    } catch {
+      return val.toFixed(2).replace('.', ',') + '\u00a0€';
+    }
+  }
+
+  function renderCartDrawer() {
+    const items = getCartItems();
+    const hasItems = items.length > 0;
+
+    if (cartDrawerEmpty) cartDrawerEmpty.classList.toggle('hidden', hasItems);
+    if (cartDrawerItems) cartDrawerItems.classList.toggle('hidden', !hasItems);
+    if (cartDrawerFooter) cartDrawerFooter.classList.toggle('hidden', !hasItems);
+
+    if (!hasItems || !cartDrawerItems) return;
+
+    const total = items.reduce((s: number, i: any) => s + parseFloat(i.price) * i.quantity, 0);
+    if (cartDrawerTotal) cartDrawerTotal.textContent = formatPrice(total);
+
+    cartDrawerItems.innerHTML = items.map((item: any, idx: number) => `
+      <div class="flex gap-3 bg-brand-gray-950 rounded-lg p-3" data-cart-idx="${idx}">
+        <img src="${item.image}" alt="" class="w-16 h-16 rounded-md object-cover bg-brand-gray-900 shrink-0" loading="lazy" />
+        <div class="flex-1 min-w-0">
+          <a href="/produit/${item.slug}/" class="text-brand-white text-sm font-bold leading-tight hover:text-brand-green transition-colors line-clamp-2">${item.name}</a>
+          ${item.variation ? `<span class="text-brand-gray-500 text-xs block mt-0.5">${item.variation}</span>` : ''}
+          <div class="flex items-center justify-between mt-2">
+            <div class="flex items-center gap-1">
+              <button type="button" class="cart-drawer-qty w-6 h-6 rounded bg-brand-gray-800 text-brand-white text-xs flex items-center justify-center hover:bg-brand-gray-700 transition-colors" data-action="dec" data-idx="${idx}">−</button>
+              <span class="text-brand-white text-xs w-6 text-center">${item.quantity}</span>
+              <button type="button" class="cart-drawer-qty w-6 h-6 rounded bg-brand-gray-800 text-brand-white text-xs flex items-center justify-center hover:bg-brand-gray-700 transition-colors" data-action="inc" data-idx="${idx}">+</button>
+            </div>
+            <span class="text-brand-white text-sm font-bold">${formatPrice(parseFloat(item.price) * item.quantity)}</span>
+          </div>
+        </div>
+        <button type="button" class="cart-drawer-remove shrink-0 self-start p-1 text-brand-gray-600 hover:text-red-400 transition-colors" data-idx="${idx}" aria-label="Supprimer">
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" /></svg>
+        </button>
+      </div>
+    `).join('');
+
+    // Wire quantity buttons
+    cartDrawerItems.querySelectorAll('.cart-drawer-qty').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const el = e.currentTarget as HTMLElement;
+        const idx = parseInt(el.dataset.idx || '0', 10);
+        const action = el.dataset.action;
+        const cart = getCartItems();
+        if (!cart[idx]) return;
+        if (action === 'inc') cart[idx].quantity++;
+        else if (action === 'dec') {
+          cart[idx].quantity--;
+          if (cart[idx].quantity <= 0) cart.splice(idx, 1);
+        }
+        saveCartItems(cart);
+        renderCartDrawer();
+      });
+    });
+
+    // Wire remove buttons
+    cartDrawerItems.querySelectorAll('.cart-drawer-remove').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const el = e.currentTarget as HTMLElement;
+        const idx = parseInt(el.dataset.idx || '0', 10);
+        const cart = getCartItems();
+        cart.splice(idx, 1);
+        saveCartItems(cart);
+        renderCartDrawer();
+      });
+    });
+  }
+
+  if (cartToggleBtn) {
+    cartToggleBtn.addEventListener('click', openCartDrawer);
+  }
+  if (cartDrawerCloseBtn) {
+    cartDrawerCloseBtn.addEventListener('click', closeCartDrawer);
+  }
+  if (cartDrawerOverlay) {
+    cartDrawerOverlay.addEventListener('click', closeCartDrawer);
+  }
+  if (cartDrawerClear) {
+    cartDrawerClear.addEventListener('click', () => {
+      saveCartItems([]);
+      renderCartDrawer();
+    });
+  }
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && cartDrawer && !cartDrawer.classList.contains('translate-x-full')) {
+      closeCartDrawer();
+    }
+  });
+
+  // Re-render drawer when cart updates from other components (e.g. add-to-cart buttons)
+  window.addEventListener('kg:cart-updated', () => {
+    if (cartDrawer && !cartDrawer.classList.contains('translate-x-full')) {
+      renderCartDrawer();
+    }
+  });
+
+  // Re-render drawer when currency changes
+  window.addEventListener('kg:currency-changed', () => {
+    if (cartDrawer && !cartDrawer.classList.contains('translate-x-full')) {
+      renderCartDrawer();
+    }
+  });
+</script>

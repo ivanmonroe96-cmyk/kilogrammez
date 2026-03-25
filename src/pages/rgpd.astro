@@ -1,0 +1,39 @@
+---
+import MarketingLayout from "@layouts/MarketingLayout.astro";
+import { buildMetadata } from "@lib/seo/metadata";
+import { staticPageSlugs } from "@lib/seo/focusKeywords";
+
+export const prerender = true;
+
+const metadata = buildMetadata({
+  title: "Politique de Confidentialité - RGPD",
+  description: "Politique de confidentialité et protection des données personnelles de Kilogrammes conformément au RGPD.",
+  path: `/${staticPageSlugs.privacy}/`,
+});
+---
+
+<MarketingLayout metadata={metadata}>
+  <section class="bg-brand-white">
+    <div class="container-site py-16 max-w-3xl mx-auto">
+    <h1 class="text-4xl font-bold text-brand-black mb-8 font-title uppercase">Politique de Confidentialité</h1>
+    <div class="prose-article">
+      <p>La présente politique de confidentialité décrit comment Kilogrammes collecte, utilise et protège vos données personnelles conformément au Règlement Général sur la Protection des Données (RGPD).</p>
+
+      <h2>Données collectées</h2>
+      <p>Nous collectons les données suivantes : nom, prénom, adresse email, adresse postale, numéro de téléphone et informations de commande. Ces données sont nécessaires au traitement de vos commandes et à la gestion de votre compte client.</p>
+
+      <h2>Utilisation des données</h2>
+      <p>Vos données sont utilisées pour traiter vos commandes, gérer votre compte, vous envoyer des communications commerciales (avec votre consentement) et améliorer nos services.</p>
+
+      <h2>Cookies</h2>
+      <p>Notre site utilise des cookies pour améliorer votre expérience de navigation, analyser le trafic et personnaliser le contenu. Vous pouvez gérer vos préférences de cookies à tout moment.</p>
+
+      <h2>Vos droits</h2>
+      <p>Vous disposez des droits d'accès, de rectification, d'effacement, de limitation, de portabilité et d'opposition concernant vos données. Pour exercer ces droits, contactez-nous via notre page de contact.</p>
+
+      <h2>Durée de conservation</h2>
+      <p>Vos données sont conservées pendant la durée nécessaire aux finalités pour lesquelles elles ont été collectées, conformément à la réglementation en vigueur.</p>
+    </div>
+    </div>
+  </section>
+</MarketingLayout>

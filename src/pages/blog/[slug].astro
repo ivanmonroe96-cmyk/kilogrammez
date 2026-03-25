@@ -1,0 +1,104 @@
+---
+/**
+ * Catch-all route for WordPress blog posts.
+ * Posts on kilogrammes.com sit at the root level (/:slug/).
+ * This [...slug] route catches them after other named routes are matched.
+ */
+import ArticleLayout from "@layouts/ArticleLayout.astro";
+import { buildMetadata } from "@lib/seo/metadata";
+import { articleSchema, breadcrumbSchema, buildJsonLd } from "@lib/seo/schema";
+import { getAllPosts, getFeaturedImage, stripHtml } from "@lib/api/wordpress";
+import { getBlogFocusKeyword, getBlogRouteAliases, getBlogRouteSlug } from "@lib/seo/focusKeywords";
+import type { BreadcrumbItem } from "@lib/seo/schema";
+
+export const prerender = true;
+
+export async function getStaticPaths() {
+  const posts = await getAllPosts().catch(() => []);
+  return posts.flatMap((post: any) => {
+    const canonicalSlug = getBlogRouteSlug(post);
+    return getBlogRouteAliases(post).map((routeSlug) => ({
+      params: { slug: routeSlug },
+      props: { post, canonicalSlug, focusKeyword: getBlogFocusKeyword(post) },
+    }));
+  });
+}
+
+const { post, canonicalSlug, focusKeyword } = Astro.props;
+
+const featuredImage = getFeaturedImage(post);
+
+const plainExcerpt = stripHtml(post.excerpt.rendered).slice(0, 160);
+
+const metadata = buildMetadata({
+  title: focusKeyword,
+  description: plainExcerpt,
+  path: `/blog/${canonicalSlug}/`,
+  ogImage: featuredImage || undefined,
+  ogType: "article",
+  article: {
+    publishedTime: post.date,
+    modifiedTime: post.modified,
+    author: "Équipe Kilogrammes",
+  },
+});
+
+const breadcrumbs: BreadcrumbItem[] = [
+  { name: "Blog", url: "/blog/" },
+  { name: post.title.rendered, url: `/blog/${canonicalSlug}/` },
+];
+
+const jsonLd = buildJsonLd([
+  breadcrumbSchema(breadcrumbs),
+  articleSchema({
+    title: post.title.rendered,
+    url: `/blog/${canonicalSlug}/`,
+    description: plainExcerpt,
+    image: featuredImage || undefined,
+    publishedTime: post.date,
+    modifiedTime: post.modified,
+    author: "Équipe Kilogrammes",
+  }),
+]);
+---
+
+<ArticleLayout metadata={metadata} jsonLd={jsonLd} breadcrumbs={breadcrumbs}>
+  <div class="bg-white rounded-lg p-6 lg:p-10">
+    <header class="mb-8">
+      <h1 class="text-3xl sm:text-4xl lg:text-5xl font-title font-bold text-brand-black uppercase leading-tight mb-4">
+        {post.title.rendered}
+      </h1>
+      <div class="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-brand-gray-400">
+        <time datetime={post.date}>
+          Publié le {new Date(post.date).toLocaleDateString("fr-FR", {
+            day: "numeric",
+            month: "long",
+            year: "numeric",
+          })}
+        </time>
+        <span>•</span>
+        <time datetime={post.modified}>
+          Mis à jour le {new Date(post.modified).toLocaleDateString("fr-FR", {
+            day: "numeric",
+            month: "long",
+            year: "numeric",
+          })}
+        </time>
+        <span>•</span>
+        <span>Revue éditoriale : Équipe Kilogrammes</span>
+      </div>
+    </header>
+
+    {featuredImage && (
+      <img
+        src={featuredImage}
+        alt={post.title.rendered}
+        width="960"
+        height="540"
+        class="w-full rounded-lg mb-10"
+      />
+    )}
+
+    <div class="text-brand-black/80 leading-relaxed [&_h2]:font-title [&_h2]:uppercase [&_h2]:text-2xl [&_h2]:font-bold [&_h2]:text-brand-black [&_h2]:mt-8 [&_h2]:mb-4 [&_h3]:font-title [&_h3]:uppercase [&_h3]:text-xl [&_h3]:font-bold [&_h3]:mt-6 [&_h3]:mb-3 [&_p]:mb-4 [&_a]:text-brand-black [&_a]:underline [&_a]:underline-offset-2 [&_img]:rounded-lg [&_img]:my-6 [&_img]:max-w-full [&_img]:h-auto" set:html={post.content.rendered} />
+  </div>
+</ArticleLayout>

@@ -1,0 +1,452 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import { buildMetadata } from "@lib/seo/metadata";
+import { staticPageSlugs } from "@lib/seo/focusKeywords";
+
+const metadata = buildMetadata({
+  title: "Commander - Finalisez Votre Commande CBD",
+  description: "Finalisez votre commande CBD Kilogrammes : choisissez votre livraison, vos options de paiement et confirmez votre panier.",
+  path: `/${staticPageSlugs.checkout}/`,
+  noindex: true,
+});
+---
+
+<BaseLayout metadata={metadata}>
+  <section class="bg-brand-white min-h-[60vh]">
+    <div class="max-w-[1440px] mx-auto px-6 lg:px-10 py-12 lg:py-16">
+      <a href={`/${staticPageSlugs.cart}/`} class="inline-flex items-center gap-2 text-sm text-brand-black/60 hover:text-brand-black transition-colors mb-6">
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+        Retour au panier
+      </a>
+
+      <h1 class="text-4xl font-bold text-brand-black mb-10 font-title uppercase">Commander</h1>
+
+      <!-- Empty state -->
+      <div id="checkout-empty">
+        <p class="text-brand-black/60 text-lg">Votre panier est vide. Ajoutez des produits avant de commander.</p>
+        <a href="/boutique-cbd/" class="inline-flex items-center gap-2 bg-brand-yellow text-brand-black font-bold uppercase tracking-wider text-sm py-3 px-8 rounded-lg hover:brightness-95 transition-all mt-6">
+          Parcourir la boutique
+        </a>
+      </div>
+
+      <!-- Checkout content -->
+      <div id="checkout-content" class="hidden">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+          <!-- LEFT: Forms -->
+          <div class="lg:col-span-2 space-y-8">
+
+            <!-- Step indicator -->
+            <div class="flex items-center gap-2 text-sm font-medium text-brand-black/50">
+              <span class="flex items-center gap-1.5"><span class="w-6 h-6 rounded-full bg-brand-black text-white text-xs flex items-center justify-center font-bold">1</span> Livraison</span>
+              <span class="w-8 h-px bg-brand-gray-200"></span>
+              <span class="flex items-center gap-1.5" id="step-2-label"><span class="w-6 h-6 rounded-full bg-brand-gray-200 text-brand-black/40 text-xs flex items-center justify-center font-bold">2</span> Paiement</span>
+              <span class="w-8 h-px bg-brand-gray-200"></span>
+              <span class="flex items-center gap-1.5" id="step-3-label"><span class="w-6 h-6 rounded-full bg-brand-gray-200 text-brand-black/40 text-xs flex items-center justify-center font-bold">3</span> Confirmation</span>
+            </div>
+
+            <!-- STEP 1: Delivery info -->
+            <div id="step-delivery" class="space-y-6">
+              <div class="rounded-2xl border border-brand-gray-200 bg-white p-6">
+                <h2 class="text-xl font-title font-bold uppercase text-brand-black mb-5">Informations de livraison</h2>
+                <form id="delivery-form" class="space-y-4" novalidate>
+                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                      <label for="first-name" class="block text-sm font-medium text-brand-black mb-1">Prénom *</label>
+                      <input type="text" id="first-name" name="firstName" required autocomplete="given-name" class="w-full rounded-lg border border-brand-gray-200 px-4 py-2.5 text-sm text-brand-black focus:border-brand-black focus:ring-1 focus:ring-brand-black outline-none transition" />
+                    </div>
+                    <div>
+                      <label for="last-name" class="block text-sm font-medium text-brand-black mb-1">Nom *</label>
+                      <input type="text" id="last-name" name="lastName" required autocomplete="family-name" class="w-full rounded-lg border border-brand-gray-200 px-4 py-2.5 text-sm text-brand-black focus:border-brand-black focus:ring-1 focus:ring-brand-black outline-none transition" />
+                    </div>
+                  </div>
+                  <div>
+                    <label for="email" class="block text-sm font-medium text-brand-black mb-1">Email *</label>
+                    <input type="email" id="email" name="email" required autocomplete="email" class="w-full rounded-lg border border-brand-gray-200 px-4 py-2.5 text-sm text-brand-black focus:border-brand-black focus:ring-1 focus:ring-brand-black outline-none transition" />
+                  </div>
+                  <div>
+                    <label for="phone" class="block text-sm font-medium text-brand-black mb-1">Téléphone</label>
+                    <input type="tel" id="phone" name="phone" autocomplete="tel" class="w-full rounded-lg border border-brand-gray-200 px-4 py-2.5 text-sm text-brand-black focus:border-brand-black focus:ring-1 focus:ring-brand-black outline-none transition" />
+                  </div>
+                  <div>
+                    <label for="address" class="block text-sm font-medium text-brand-black mb-1">Adresse *</label>
+                    <input type="text" id="address" name="address" required autocomplete="street-address" class="w-full rounded-lg border border-brand-gray-200 px-4 py-2.5 text-sm text-brand-black focus:border-brand-black focus:ring-1 focus:ring-brand-black outline-none transition" />
+                  </div>
+                  <div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                    <div>
+                      <label for="postal-code" class="block text-sm font-medium text-brand-black mb-1">Code postal *</label>
+                      <input type="text" id="postal-code" name="postalCode" required autocomplete="postal-code" class="w-full rounded-lg border border-brand-gray-200 px-4 py-2.5 text-sm text-brand-black focus:border-brand-black focus:ring-1 focus:ring-brand-black outline-none transition" />
+                    </div>
+                    <div>
+                      <label for="city" class="block text-sm font-medium text-brand-black mb-1">Ville *</label>
+                      <input type="text" id="city" name="city" required autocomplete="address-level2" class="w-full rounded-lg border border-brand-gray-200 px-4 py-2.5 text-sm text-brand-black focus:border-brand-black focus:ring-1 focus:ring-brand-black outline-none transition" />
+                    </div>
+                    <div class="col-span-2 sm:col-span-1">
+                      <label for="country" class="block text-sm font-medium text-brand-black mb-1">Pays *</label>
+                      <select id="country" name="country" required class="w-full rounded-lg border border-brand-gray-200 px-4 py-2.5 text-sm text-brand-black focus:border-brand-black focus:ring-1 focus:ring-brand-black outline-none transition bg-white">
+                        <option value="FR">France</option>
+                        <option value="BE">Belgique</option>
+                        <option value="CH">Suisse</option>
+                        <option value="LU">Luxembourg</option>
+                        <option value="MC">Monaco</option>
+                        <option value="IT">Italie</option>
+                      </select>
+                    </div>
+                  </div>
+                </form>
+              </div>
+
+              <!-- Delivery options -->
+              <div class="rounded-2xl border border-brand-gray-200 bg-white p-6">
+                <h2 class="text-xl font-title font-bold uppercase text-brand-black mb-5">Mode de livraison</h2>
+                <div class="space-y-3" id="delivery-options">
+                  <label class="flex items-center gap-4 p-4 rounded-xl border-2 border-brand-black bg-gray-50 cursor-pointer transition-colors delivery-option">
+                    <input type="radio" name="delivery" value="standard" checked class="w-4 h-4 accent-brand-black" />
+                    <div class="flex-1">
+                      <p class="font-semibold text-brand-black">Livraison Standard</p>
+                      <p class="text-sm text-brand-black/60">48-72h ouvrées — Colissimo suivi</p>
+                    </div>
+                    <span class="font-bold text-brand-black" id="shipping-standard">4,90 €</span>
+                  </label>
+                  <label class="flex items-center gap-4 p-4 rounded-xl border-2 border-brand-gray-200 bg-white cursor-pointer transition-colors delivery-option">
+                    <input type="radio" name="delivery" value="express" class="w-4 h-4 accent-brand-black" />
+                    <div class="flex-1">
+                      <p class="font-semibold text-brand-black">Livraison Express</p>
+                      <p class="text-sm text-brand-black/60">24h ouvrées — Chronopost</p>
+                    </div>
+                    <span class="font-bold text-brand-black">9,90 €</span>
+                  </label>
+                  <label class="flex items-center gap-4 p-4 rounded-xl border-2 border-brand-gray-200 bg-white cursor-pointer transition-colors delivery-option">
+                    <input type="radio" name="delivery" value="relay" class="w-4 h-4 accent-brand-black" />
+                    <div class="flex-1">
+                      <p class="font-semibold text-brand-black">Point Relais</p>
+                      <p class="text-sm text-brand-black/60">3-5 jours ouvrés — Mondial Relay</p>
+                    </div>
+                    <span class="font-bold text-brand-black">3,90 €</span>
+                  </label>
+                </div>
+                <p class="text-sm text-brand-green font-medium mt-4" id="free-shipping-note" style="display:none;">
+                  ✓ Livraison offerte à partir de 100€ d'achat !
+                </p>
+              </div>
+
+              <button type="button" id="btn-to-payment" class="w-full bg-brand-black text-white font-bold uppercase tracking-wider text-sm py-4 px-8 rounded-xl hover:bg-brand-gray-900 transition-colors">
+                Continuer vers le paiement
+              </button>
+            </div>
+
+            <!-- STEP 2: Payment -->
+            <div id="step-payment" class="hidden space-y-6">
+              <div class="rounded-2xl border border-brand-gray-200 bg-white p-6">
+                <h2 class="text-xl font-title font-bold uppercase text-brand-black mb-5">Mode de paiement</h2>
+                <div class="space-y-3" id="payment-options">
+                  <label class="flex items-center gap-4 p-4 rounded-xl border-2 border-brand-black bg-gray-50 cursor-pointer transition-colors payment-option">
+                    <input type="radio" name="payment" value="card" checked class="w-4 h-4 accent-brand-black" />
+                    <div class="flex-1">
+                      <p class="font-semibold text-brand-black">Carte Bancaire</p>
+                      <p class="text-sm text-brand-black/60">Visa, Mastercard, CB — Paiement sécurisé</p>
+                    </div>
+                    <div class="flex gap-1.5">
+                      <span class="w-8 h-5 rounded bg-blue-600 text-white text-[8px] font-bold flex items-center justify-center">VISA</span>
+                      <span class="w-8 h-5 rounded bg-red-500 text-white text-[8px] font-bold flex items-center justify-center">MC</span>
+                    </div>
+                  </label>
+                  <label class="flex items-center gap-4 p-4 rounded-xl border-2 border-brand-gray-200 bg-white cursor-pointer transition-colors payment-option">
+                    <input type="radio" name="payment" value="paypal" class="w-4 h-4 accent-brand-black" />
+                    <div class="flex-1">
+                      <p class="font-semibold text-brand-black">PayPal</p>
+                      <p class="text-sm text-brand-black/60">Paiement via votre compte PayPal</p>
+                    </div>
+                    <span class="text-sm font-bold text-[#003087]">Pay<span class="text-[#009cde]">Pal</span></span>
+                  </label>
+                  <label class="flex items-center gap-4 p-4 rounded-xl border-2 border-brand-gray-200 bg-white cursor-pointer transition-colors payment-option">
+                    <input type="radio" name="payment" value="crypto" class="w-4 h-4 accent-brand-black" />
+                    <div class="flex-1">
+                      <p class="font-semibold text-brand-black">Crypto-monnaie</p>
+                      <p class="text-sm text-brand-black/60">Bitcoin, Ethereum, USDT</p>
+                    </div>
+                    <span class="text-sm font-bold text-brand-black/50">₿</span>
+                  </label>
+                  <label class="flex items-center gap-4 p-4 rounded-xl border-2 border-brand-gray-200 bg-white cursor-pointer transition-colors payment-option">
+                    <input type="radio" name="payment" value="transfer" class="w-4 h-4 accent-brand-black" />
+                    <div class="flex-1">
+                      <p class="font-semibold text-brand-black">Virement Bancaire</p>
+                      <p class="text-sm text-brand-black/60">SEPA — Traitement sous 1-2 jours ouvrés</p>
+                    </div>
+                  </label>
+                </div>
+              </div>
+
+              <!-- Card form (shown only for card payment) -->
+              <div id="card-form-wrapper" class="rounded-2xl border border-brand-gray-200 bg-white p-6">
+                <h3 class="text-lg font-title font-bold uppercase text-brand-black mb-4">Détails de la carte</h3>
+                <div class="space-y-4">
+                  <div>
+                    <label for="card-number" class="block text-sm font-medium text-brand-black mb-1">Numéro de carte</label>
+                    <input type="text" id="card-number" placeholder="1234 5678 9012 3456" maxlength="19" autocomplete="cc-number" class="w-full rounded-lg border border-brand-gray-200 px-4 py-2.5 text-sm text-brand-black focus:border-brand-black focus:ring-1 focus:ring-brand-black outline-none transition font-mono" />
+                  </div>
+                  <div class="grid grid-cols-2 gap-4">
+                    <div>
+                      <label for="card-expiry" class="block text-sm font-medium text-brand-black mb-1">Date d'expiration</label>
+                      <input type="text" id="card-expiry" placeholder="MM/AA" maxlength="5" autocomplete="cc-exp" class="w-full rounded-lg border border-brand-gray-200 px-4 py-2.5 text-sm text-brand-black focus:border-brand-black focus:ring-1 focus:ring-brand-black outline-none transition" />
+                    </div>
+                    <div>
+                      <label for="card-cvc" class="block text-sm font-medium text-brand-black mb-1">CVC</label>
+                      <input type="text" id="card-cvc" placeholder="123" maxlength="4" autocomplete="cc-csc" class="w-full rounded-lg border border-brand-gray-200 px-4 py-2.5 text-sm text-brand-black focus:border-brand-black focus:ring-1 focus:ring-brand-black outline-none transition" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="flex gap-3">
+                <button type="button" id="btn-back-delivery" class="border border-brand-black text-brand-black font-bold uppercase tracking-wider text-sm py-4 px-8 rounded-xl hover:bg-brand-black hover:text-white transition-colors">
+                  Retour
+                </button>
+                <button type="button" id="btn-confirm-order" class="flex-1 bg-brand-yellow text-brand-black font-bold uppercase tracking-wider text-sm py-4 px-8 rounded-xl hover:brightness-95 transition-all">
+                  Confirmer la commande
+                </button>
+              </div>
+            </div>
+
+            <!-- STEP 3: Confirmation -->
+            <div id="step-confirmation" class="hidden">
+              <div class="rounded-2xl border border-brand-green/30 bg-brand-green/5 p-8 text-center">
+                <div class="mx-auto mb-4 w-16 h-16 rounded-full bg-brand-green/20 flex items-center justify-center">
+                  <svg class="w-8 h-8 text-brand-green" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                </div>
+                <h2 class="text-2xl font-title font-bold uppercase text-brand-black">Commande confirmée !</h2>
+                <p class="text-brand-black/60 mt-2">Merci pour votre commande. Un email de confirmation a été envoyé.</p>
+                <p class="text-sm text-brand-black/40 mt-1">Numéro de commande : <span class="font-mono font-bold text-brand-black" id="order-number">—</span></p>
+                <div class="mt-6 flex flex-col sm:flex-row gap-3 justify-center">
+                  <a href="/boutique-cbd/" class="inline-flex items-center justify-center rounded-xl bg-brand-black px-6 py-3 text-sm font-bold uppercase tracking-wider text-white hover:bg-brand-gray-900 transition-colors">
+                    Continuer vos achats
+                  </a>
+                  <a href="/" class="inline-flex items-center justify-center rounded-xl border border-brand-black px-6 py-3 text-sm font-bold uppercase tracking-wider text-brand-black hover:bg-brand-black hover:text-white transition-colors">
+                    Retour à l'accueil
+                  </a>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- RIGHT: Order summary -->
+          <div class="lg:col-span-1" id="order-summary-wrapper">
+            <div class="sticky top-24 rounded-2xl border border-brand-gray-200 bg-gray-50 p-6">
+              <h2 class="text-lg font-title font-bold uppercase text-brand-black mb-4">Récapitulatif</h2>
+              <div class="space-y-3" id="summary-items"></div>
+              <div class="mt-4 pt-4 border-t border-brand-gray-200 space-y-2">
+                <div class="flex justify-between text-sm text-brand-black/70">
+                  <span>Sous-total</span>
+                  <span id="summary-subtotal">0,00 €</span>
+                </div>
+                <div class="flex justify-between text-sm text-brand-black/70">
+                  <span>Livraison</span>
+                  <span id="summary-shipping">4,90 €</span>
+                </div>
+                <div class="flex justify-between text-base font-bold text-brand-black pt-2 border-t border-brand-gray-200">
+                  <span>Total</span>
+                  <span id="summary-total">0,00 €</span>
+                </div>
+              </div>
+              <p class="mt-4 text-xs text-brand-black/40 leading-relaxed">En confirmant votre commande, vous acceptez nos <a href="/conditions-generales-de-ventes/" class="underline hover:text-brand-black">CGV</a> et notre <a href="/rgpd/" class="underline hover:text-brand-black">politique de confidentialité</a>.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  import { getCart, clearCart, getCartTotal } from "@lib/cart";
+  import type { CartItem } from "@lib/cart";
+  import { formatPrice } from "@lib/currency";
+
+  const shippingPrices: Record<string, number> = { standard: 4.90, express: 9.90, relay: 3.90 };
+  let selectedShipping = "standard";
+
+  function getSubtotal(): number {
+    return getCartTotal();
+  }
+
+  function isFreeShipping(): boolean {
+    return getSubtotal() >= 100;
+  }
+
+  function getShippingCost(): number {
+    return isFreeShipping() ? 0 : (shippingPrices[selectedShipping] || 4.90);
+  }
+
+  function renderSummary() {
+    const cart = getCart();
+    const summaryItems = document.getElementById("summary-items");
+    const subtotalEl = document.getElementById("summary-subtotal");
+    const shippingEl = document.getElementById("summary-shipping");
+    const totalEl = document.getElementById("summary-total");
+    const freeNote = document.getElementById("free-shipping-note");
+    const stdLabel = document.getElementById("shipping-standard");
+
+    if (summaryItems) {
+      summaryItems.innerHTML = cart.map((item: CartItem) => `
+        <div class="flex items-center gap-3">
+          <div class="w-12 h-12 rounded-lg overflow-hidden bg-white border border-gray-100 shrink-0">
+            ${item.image
+              ? `<img src="${item.image}" alt="${item.name}" class="w-full h-full object-cover" loading="lazy" />`
+              : `<div class="w-full h-full flex items-center justify-center text-gray-300 text-sm">📦</div>`
+            }
+          </div>
+          <div class="flex-1 min-w-0">
+            <p class="text-sm font-medium text-brand-black truncate">${item.name}</p>
+            ${item.variation ? `<p class="text-xs text-brand-black/50">${item.variation}</p>` : ""}
+            <p class="text-xs text-brand-black/50">Qté : ${item.quantity}</p>
+          </div>
+          <span class="text-sm font-semibold text-brand-black shrink-0">${formatPrice(parseFloat(item.price) * item.quantity)}</span>
+        </div>
+      `).join("");
+    }
+
+    const subtotal = getSubtotal();
+    const shipping = getShippingCost();
+    const total = subtotal + shipping;
+
+    if (subtotalEl) subtotalEl.textContent = formatPrice(subtotal);
+    if (shippingEl) shippingEl.textContent = isFreeShipping() ? "Offerte" : formatPrice(shipping);
+    if (totalEl) totalEl.textContent = formatPrice(total);
+    if (freeNote) freeNote.style.display = isFreeShipping() ? "block" : "none";
+    if (stdLabel && isFreeShipping()) stdLabel.textContent = "Offerte";
+  }
+
+  function setupDeliveryOptions() {
+    const options = document.querySelectorAll<HTMLLabelElement>(".delivery-option");
+    options.forEach((label) => {
+      const radio = label.querySelector<HTMLInputElement>("input[type=radio]");
+      if (!radio) return;
+      radio.addEventListener("change", () => {
+        options.forEach((l) => {
+          l.classList.remove("border-brand-black", "bg-gray-50");
+          l.classList.add("border-brand-gray-200", "bg-white");
+        });
+        label.classList.remove("border-brand-gray-200", "bg-white");
+        label.classList.add("border-brand-black", "bg-gray-50");
+        selectedShipping = radio.value;
+        renderSummary();
+      });
+    });
+  }
+
+  function setupPaymentOptions() {
+    const options = document.querySelectorAll<HTMLLabelElement>(".payment-option");
+    const cardForm = document.getElementById("card-form-wrapper");
+    options.forEach((label) => {
+      const radio = label.querySelector<HTMLInputElement>("input[type=radio]");
+      if (!radio) return;
+      radio.addEventListener("change", () => {
+        options.forEach((l) => {
+          l.classList.remove("border-brand-black", "bg-gray-50");
+          l.classList.add("border-brand-gray-200", "bg-white");
+        });
+        label.classList.remove("border-brand-gray-200", "bg-white");
+        label.classList.add("border-brand-black", "bg-gray-50");
+        if (cardForm) cardForm.style.display = radio.value === "card" ? "block" : "none";
+      });
+    });
+  }
+
+  function validateDeliveryForm(): boolean {
+    const form = document.getElementById("delivery-form") as HTMLFormElement | null;
+    if (!form) return false;
+    const requiredFields = form.querySelectorAll<HTMLInputElement | HTMLSelectElement>("[required]");
+    let valid = true;
+    requiredFields.forEach((field) => {
+      if (!field.value.trim()) {
+        field.classList.add("border-red-400");
+        valid = false;
+      } else {
+        field.classList.remove("border-red-400");
+      }
+    });
+    // Basic email validation
+    const emailField = form.querySelector<HTMLInputElement>("#email");
+    if (emailField && emailField.value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailField.value)) {
+      emailField.classList.add("border-red-400");
+      valid = false;
+    }
+    return valid;
+  }
+
+  function goToStep(step: number) {
+    const stepDelivery = document.getElementById("step-delivery");
+    const stepPayment = document.getElementById("step-payment");
+    const stepConfirmation = document.getElementById("step-confirmation");
+    const summaryWrapper = document.getElementById("order-summary-wrapper");
+    const step2Label = document.getElementById("step-2-label");
+    const step3Label = document.getElementById("step-3-label");
+
+    if (stepDelivery) stepDelivery.classList.toggle("hidden", step !== 1);
+    if (stepPayment) stepPayment.classList.toggle("hidden", step !== 2);
+    if (stepConfirmation) stepConfirmation.classList.toggle("hidden", step !== 3);
+    if (summaryWrapper) summaryWrapper.classList.toggle("hidden", step === 3);
+
+    // Update step indicators
+    if (step >= 2 && step2Label) {
+      step2Label.innerHTML = `<span class="w-6 h-6 rounded-full bg-brand-black text-white text-xs flex items-center justify-center font-bold">2</span> Paiement`;
+    }
+    if (step >= 3 && step3Label) {
+      step3Label.innerHTML = `<span class="w-6 h-6 rounded-full bg-brand-green text-brand-black text-xs flex items-center justify-center font-bold">3</span> Confirmation`;
+    }
+
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  function initCheckout() {
+    const cart = getCart();
+    const emptyEl = document.getElementById("checkout-empty");
+    const contentEl = document.getElementById("checkout-content");
+
+    if (!emptyEl || !contentEl) return;
+
+    if (cart.length === 0) {
+      emptyEl.classList.remove("hidden");
+      contentEl.classList.add("hidden");
+      return;
+    }
+
+    emptyEl.classList.add("hidden");
+    contentEl.classList.remove("hidden");
+
+    renderSummary();
+    setupDeliveryOptions();
+    setupPaymentOptions();
+
+    // Step navigation
+    const btnToPayment = document.getElementById("btn-to-payment");
+    const btnBackDelivery = document.getElementById("btn-back-delivery");
+    const btnConfirm = document.getElementById("btn-confirm-order");
+
+    btnToPayment?.addEventListener("click", () => {
+      if (validateDeliveryForm()) {
+        goToStep(2);
+      }
+    });
+
+    btnBackDelivery?.addEventListener("click", () => {
+      goToStep(1);
+    });
+
+    btnConfirm?.addEventListener("click", () => {
+      // Generate pseudo order number
+      const orderNum = `KG-${Date.now().toString(36).toUpperCase()}`;
+      const orderNumEl = document.getElementById("order-number");
+      if (orderNumEl) orderNumEl.textContent = orderNum;
+
+      clearCart();
+      goToStep(3);
+    });
+  }
+
+  initCheckout();
+  document.addEventListener("astro:page-load", initCheckout);
+</script>

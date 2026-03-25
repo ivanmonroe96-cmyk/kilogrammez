@@ -1,0 +1,48 @@
+---
+interface Props {
+  currentPage: number;
+  totalPages: number;
+  baseUrl: string;
+}
+
+const { currentPage, totalPages, baseUrl } = Astro.props;
+
+function pageUrl(page: number): string {
+  if (page === 1) return baseUrl;
+  return `${baseUrl}${baseUrl.endsWith("/") ? "" : "/"}page/${page}/`;
+}
+
+const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
+---
+
+{totalPages > 1 && (
+  <nav aria-label="Pagination" class="flex flex-wrap items-center justify-center gap-2 mt-12">
+    {currentPage > 1 && (
+      <a href={pageUrl(currentPage - 1)} class="btn-secondary text-xs" aria-label="Page précédente">
+        ← Précédent
+      </a>
+    )}
+
+    {pages.map((p) => (
+      <a
+        href={pageUrl(p)}
+        class:list={[
+          "w-9 h-9 flex items-center justify-center rounded-full text-sm font-medium transition-colors",
+          p === currentPage
+            ? "bg-brand-green text-brand-black"
+            : "text-brand-gray-400 hover:text-brand-white hover:bg-brand-gray-800",
+        ]}
+        aria-current={p === currentPage ? "page" : undefined}
+        aria-label={`Page ${p}`}
+      >
+        {p}
+      </a>
+    ))}
+
+    {currentPage < totalPages && (
+      <a href={pageUrl(currentPage + 1)} class="btn-secondary text-xs" aria-label="Page suivante">
+        Suivant →
+      </a>
+    )}
+  </nav>
+)}

@@ -1,0 +1,52 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import { buildMetadata } from "@lib/seo/metadata";
+import { staticPageSlugs } from "@lib/seo/focusKeywords";
+
+const metadata = buildMetadata({
+  title: "Mon Compte",
+  description: "Gérez votre compte Kilogrammes : commandes, adresses et informations personnelles.",
+  path: `/${staticPageSlugs.account}/`,
+  noindex: true,
+});
+---
+
+<BaseLayout metadata={metadata}>
+  <section class="bg-brand-white">
+    <div class="container-site py-16 min-h-[50vh]">
+    <h1 class="text-4xl font-bold text-brand-black mb-8 font-title uppercase">Mon Compte</h1>
+
+    <div id="account-content">
+      <p class="text-brand-black/60 mb-6">
+        Connectez-vous pour accéder à votre compte et consulter vos commandes.
+      </p>
+
+      <form class="max-w-md space-y-4">
+        <div>
+          <label for="login-email" class="block text-sm font-medium text-brand-black mb-2">Email</label>
+          <input
+            type="email"
+            id="login-email"
+            name="email"
+            required
+            class="w-full px-4 py-3 bg-white border border-brand-gray-300 rounded-xl text-brand-black placeholder-brand-gray-400 focus:border-brand-black focus:ring-1 focus:ring-brand-black outline-none transition"
+            placeholder="votre@email.com"
+          />
+        </div>
+        <div>
+          <label for="login-password" class="block text-sm font-medium text-brand-black mb-2">Mot de passe</label>
+          <input
+            type="password"
+            id="login-password"
+            name="password"
+            required
+            class="w-full px-4 py-3 bg-white border border-brand-gray-300 rounded-xl text-brand-black placeholder-brand-gray-400 focus:border-brand-black focus:ring-1 focus:ring-brand-black outline-none transition"
+            placeholder="••••••••"
+          />
+        </div>
+        <button type="submit" class="btn-primary w-full">Se connecter</button>
+      </form>
+    </div>
+    </div>
+  </section>
+</BaseLayout>

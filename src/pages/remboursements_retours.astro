@@ -1,0 +1,42 @@
+---
+import MarketingLayout from "@layouts/MarketingLayout.astro";
+import { buildMetadata } from "@lib/seo/metadata";
+import { staticPageSlugs } from "@lib/seo/focusKeywords";
+
+export const prerender = true;
+
+const metadata = buildMetadata({
+  title: "Remboursements & Retours",
+  description: "Politique de remboursement et retours Kilogrammes : conditions, délais et procédure de retour pour vos achats CBD.",
+  path: `/${staticPageSlugs.returns}/`,
+});
+---
+
+<MarketingLayout metadata={metadata}>
+  <section class="bg-brand-white">
+    <div class="container-site py-16 max-w-3xl mx-auto">
+    <h1 class="text-4xl font-bold text-brand-black mb-8 font-title uppercase">Remboursements & Retours</h1>
+    <div class="prose-article">
+      <h2>Droit de rétractation</h2>
+      <p>Conformément à la législation en vigueur, vous disposez d'un délai de 14 jours à compter de la réception de votre commande pour exercer votre droit de rétractation, sans avoir à justifier de motifs.</p>
+
+      <h2>Conditions de retour</h2>
+      <p>Les produits retournés doivent être dans leur état d'origine, non ouverts et dans leur emballage d'origine. Les frais de retour sont à la charge du client.</p>
+
+      <h2>Procédure</h2>
+      <ol>
+        <li>Contactez notre service client via la page Contact</li>
+        <li>Indiquez votre numéro de commande et le motif du retour</li>
+        <li>Recevez les instructions de retour par email</li>
+        <li>Envoyez le colis dans les 14 jours suivants</li>
+      </ol>
+
+      <h2>Remboursement</h2>
+      <p>Le remboursement est effectué dans un délai de 14 jours maximum après réception et vérification du produit retourné, via le même moyen de paiement utilisé lors de l'achat.</p>
+
+      <h2>Produits défectueux</h2>
+      <p>En cas de produit défectueux ou non conforme, contactez-nous immédiatement. Les frais de retour seront pris en charge par Kilogrammes.</p>
+    </div>
+    </div>
+  </section>
+</MarketingLayout>

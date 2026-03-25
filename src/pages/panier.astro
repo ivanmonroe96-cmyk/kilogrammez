@@ -1,0 +1,166 @@
+---
+/**
+ * Panier – client-side rendered cart from localStorage.
+ */
+import BaseLayout from "@layouts/BaseLayout.astro";
+import { buildMetadata } from "@lib/seo/metadata";
+import { staticPageSlugs } from "@lib/seo/focusKeywords";
+
+const metadata = buildMetadata({
+  title: "Panier",
+  description: "Votre panier Kilogrammes.",
+  path: `/${staticPageSlugs.cart}/`,
+  noindex: true,
+});
+---
+
+<BaseLayout metadata={metadata}>
+  <section class="bg-brand-white">
+    <div class="max-w-[1440px] mx-auto px-6 lg:px-10 py-12 lg:py-16 min-h-[50vh]">
+      <h1 class="text-4xl font-bold text-brand-black mb-8 font-title uppercase">Votre Panier</h1>
+
+      {/* Empty state (shown by default, hidden by JS when cart has items) */}
+      <div id="cart-empty">
+        <p class="text-brand-black/60 text-lg">Votre panier est vide.</p>
+        <a href="/boutique-cbd/" class="inline-flex items-center gap-2 bg-brand-yellow text-brand-black font-bold uppercase tracking-wider text-sm py-3 px-8 rounded-lg hover:brightness-95 transition-all mt-6">
+          Continuer vos achats
+        </a>
+      </div>
+
+      {/* Cart items (hidden by default, shown by JS) */}
+      <div id="cart-items" class="hidden">
+        <div class="space-y-4" id="cart-list"></div>
+
+        {/* Cart summary */}
+        <div class="mt-8 border-t border-gray-200 pt-6">
+          <div class="flex items-center justify-between text-brand-black mb-2">
+            <span class="text-lg font-medium">Total</span>
+            <span class="text-2xl font-bold" id="cart-total">0,00 €</span>
+          </div>
+          <p class="text-sm text-brand-gray-400 mb-6">Livraison offerte à partir de 100€</p>
+
+          <div class="mb-6 rounded-2xl border border-brand-gray-200 bg-gray-50 p-5">
+            <div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+              <div>
+                <p class="text-sm font-semibold uppercase tracking-wider text-brand-black">Passer à la commande</p>
+                <p class="mt-1 text-sm text-brand-black/65">Choisissez votre livraison, votre paiement et confirmez votre panier sans quitter le tunnel d'achat.</p>
+              </div>
+              <a href={`/${staticPageSlugs.checkout}/`} class="inline-flex items-center justify-center rounded-full bg-brand-black px-6 py-3 text-sm font-bold uppercase tracking-wider text-white transition-colors hover:bg-brand-gray-900">
+                Commander
+              </a>
+            </div>
+          </div>
+
+          <div class="flex flex-col sm:flex-row gap-3">
+            <a href="/boutique-cbd/" class="text-center border border-brand-black text-brand-black font-bold uppercase tracking-wider text-sm py-3 px-8 rounded-lg hover:bg-brand-black hover:text-white transition-colors">
+              Continuer vos achats
+            </a>
+            <a href={`/${staticPageSlugs.checkout}/`} class="text-center bg-brand-yellow text-brand-black font-bold uppercase tracking-wider text-sm py-3 px-8 rounded-lg hover:brightness-95 transition-all">
+              Finaliser la commande
+            </a>
+            <button id="clear-cart-btn" type="button" class="text-center border border-red-400 text-red-500 font-bold uppercase tracking-wider text-sm py-3 px-8 rounded-lg hover:bg-red-500 hover:text-white transition-colors">
+              Vider le panier
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  import { getCart, updateQuantity, removeFromCart, clearCart, getCartTotal } from "@lib/cart";
+  import type { CartItem } from "@lib/cart";
+  import { formatPrice } from "@lib/currency";
+
+  function renderCart() {
+    const cart = getCart();
+    const emptyEl = document.getElementById("cart-empty");
+    const itemsEl = document.getElementById("cart-items");
+    const listEl = document.getElementById("cart-list");
+    const totalEl = document.getElementById("cart-total");
+
+    if (!emptyEl || !itemsEl || !listEl || !totalEl) return;
+
+    if (cart.length === 0) {
+      emptyEl.classList.remove("hidden");
+      itemsEl.classList.add("hidden");
+      return;
+    }
+
+    emptyEl.classList.add("hidden");
+    itemsEl.classList.remove("hidden");
+
+    listEl.innerHTML = cart.map((item: CartItem) => `
+      <div class="flex items-center gap-4 p-4 bg-gray-50 rounded-lg border border-gray-100" data-cart-item="${item.slug}-${item.variation || ''}">
+        <div class="w-20 h-20 rounded-lg overflow-hidden bg-white border border-gray-100 shrink-0">
+          ${item.image
+            ? `<img src="${item.image}" alt="${item.name}" class="w-full h-full object-cover" loading="lazy" />`
+            : `<div class="w-full h-full flex items-center justify-center text-gray-300 text-2xl">📦</div>`
+          }
+        </div>
+        <div class="flex-1 min-w-0">
+          <a href="/produit/${item.slug}/" class="font-title font-bold text-brand-black uppercase text-lg block truncate hover:underline">${item.name}</a>
+          ${item.variation ? `<p class="text-sm text-brand-gray-400">${item.variation}</p>` : ""}
+          <p class="text-brand-black font-semibold mt-1">${formatPrice(parseFloat(item.price) * item.quantity)}</p>
+        </div>
+        <div class="flex items-center gap-1 shrink-0">
+          <button type="button" class="cart-qty-btn w-8 h-8 rounded-lg border border-gray-300 flex items-center justify-center text-brand-black hover:bg-gray-200 transition-colors" data-action="decrease" data-product-id="${item.productId}" data-variation="${item.variation || ""}">−</button>
+          <span class="w-8 text-center text-sm font-medium text-brand-black">${item.quantity}</span>
+          <button type="button" class="cart-qty-btn w-8 h-8 rounded-lg border border-gray-300 flex items-center justify-center text-brand-black hover:bg-gray-200 transition-colors" data-action="increase" data-product-id="${item.productId}" data-variation="${item.variation || ""}">+</button>
+        </div>
+        <button type="button" class="cart-remove-btn shrink-0 p-2 text-red-400 hover:text-red-600 transition-colors" data-product-id="${item.productId}" data-variation="${item.variation || ""}" aria-label="Supprimer ${item.name}">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+    `).join("");
+
+    totalEl.textContent = formatPrice(getCartTotal());
+
+    // Bind quantity buttons
+    listEl.querySelectorAll<HTMLButtonElement>(".cart-qty-btn").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const id = parseInt(btn.dataset.productId || "0", 10);
+        const variation = btn.dataset.variation || undefined;
+        const action = btn.dataset.action;
+        const currentItem = getCart().find((c) => c.productId === id && (c.variation || "") === (variation || ""));
+        if (!currentItem) return;
+
+        const newQty = action === "increase" ? currentItem.quantity + 1 : currentItem.quantity - 1;
+        updateQuantity(id, variation, newQty);
+        renderCart();
+      });
+    });
+
+    // Bind remove buttons
+    listEl.querySelectorAll<HTMLButtonElement>(".cart-remove-btn").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const id = parseInt(btn.dataset.productId || "0", 10);
+        const variation = btn.dataset.variation || undefined;
+        removeFromCart(id, variation);
+        renderCart();
+      });
+    });
+  }
+
+  function initCartPage() {
+    renderCart();
+
+    const clearBtn = document.getElementById("clear-cart-btn");
+    if (clearBtn) {
+      clearBtn.addEventListener("click", () => {
+        clearCart();
+        renderCart();
+      });
+    }
+
+    // Re-render if cart changes from another tab
+    window.addEventListener("kg:cart-updated", () => renderCart());
+
+    // Re-render when currency changes
+    window.addEventListener("kg:currency-changed", () => renderCart());
+  }
+
+  initCartPage();
+  document.addEventListener("astro:page-load", initCartPage);
+</script>

@@ -1,0 +1,97 @@
+---
+import ShopLayout from "@layouts/ShopLayout.astro";
+import ProductGrid from "@components/product/ProductGrid.astro";
+import { buildMetadata } from "@lib/seo/metadata";
+import { breadcrumbSchema, collectionPageSchema, buildJsonLd } from "@lib/seo/schema";
+import { getProductCategories, getProductsByCategory } from "@lib/api/woocommerce";
+import { getCategoryFocusKeyword, getCategoryRouteAliases, getCategoryRouteSlug } from "@lib/seo/focusKeywords";
+import type { BreadcrumbItem } from "@lib/seo/schema";
+
+export const prerender = true;
+
+export async function getStaticPaths() {
+  const categories = await getProductCategories().catch(() => []);
+  return categories.flatMap((category: any) => {
+    const canonicalSlug = getCategoryRouteSlug(category);
+    return getCategoryRouteAliases(category).map((routeSlug) => ({
+      params: { slug: routeSlug },
+      props: { category, canonicalSlug, focusKeyword: getCategoryFocusKeyword(category) },
+    }));
+  });
+}
+
+const { category, canonicalSlug, focusKeyword } = Astro.props;
+
+const products = await getProductsByCategory(category.id).catch(() => []);
+
+const categoryFallbackImages: Record<string, string> = {
+  "fleurs-cbd": "/images/categories/fleurs-cbd.jpg",
+  "resine-cbd-hash-cbg-pollen": "/images/categories/hash.png",
+  "equivalent-thc": "/images/categories/simili-thc.jpg",
+  "extracts-cbd": "/images/categories/extracts.jpg",
+  "trim-cbd": "/images/categories/trim.jpg",
+  "popcorns-cbd": "/images/categories/popcorns.jpg",
+  "edibles-cbd": "/images/categories/edibles.jpg",
+  "cosmetique-cbd": "/images/categories/cosmetiques.jpg",
+  "accessoires-cbd": "/images/categories/accessoires.jpg",
+  "huiles-cbd": "/images/categories/huiles.jpg",
+  "champignons": "/images/categories/champignons.png",
+  "bons-plans": "/images/categories/bons-plans.jpg",
+  "pack-cbd": "/images/categories/packs.jpg",
+  "cbd-promo": "/images/categories/promotions.jpg",
+};
+
+const categoryImage = category.image?.src || categoryFallbackImages[category.slug] || null;
+
+const metadata = buildMetadata({
+  title: focusKeyword,
+  description:
+    category.description
+      ? category.description.replace(/<[^>]*>/g, "").slice(0, 160)
+      : `Découvrez nos ${category.name} CBD de qualité premium. Livraison rapide en France.`,
+  path: `/categorie-produit/${canonicalSlug}/`,
+  ogImage: categoryImage || undefined,
+});
+
+const breadcrumbs: BreadcrumbItem[] = [
+  { name: "Boutique CBD", url: "/boutique-cbd/" },
+  { name: category.name, url: `/categorie-produit/${canonicalSlug}/` },
+];
+
+const jsonLd = buildJsonLd([
+  breadcrumbSchema(breadcrumbs),
+  collectionPageSchema({
+    name: category.name,
+    url: `/categorie-produit/${canonicalSlug}/`,
+    description: category.description?.replace(/<[^>]*>/g, "").slice(0, 200) || `Produits ${category.name} CBD de qualité premium par Kilogrammes.`,
+    image: category.image?.src,
+    numberOfItems: products.length || undefined,
+  }),
+]);
+---
+
+<ShopLayout metadata={metadata} jsonLd={jsonLd} breadcrumbs={breadcrumbs}>
+  {/* Dark hero section with category name + description */}
+  <section class="relative bg-brand-black py-12 lg:py-16 overflow-hidden">
+    {categoryImage && (
+      <img src={categoryImage} alt="" class="absolute inset-0 w-full h-full object-cover opacity-20" loading="eager" />
+    )}
+    <div class="relative max-w-[1440px] mx-auto px-6 lg:px-10">
+      <h1 class="text-4xl sm:text-5xl lg:text-7xl font-title font-bold text-white uppercase">{category.name}</h1>
+      {category.description && (
+        <div class="text-white/80 max-w-3xl mt-4 text-base lg:text-lg" set:html={category.description} />
+      )}
+    </div>
+  </section>
+
+  {/* White product grid section */}
+  <section class="bg-white py-10 lg:py-16">
+    <div class="max-w-[1440px] mx-auto px-6 lg:px-10">
+      {products.length > 0 ? (
+        <ProductGrid products={products} />
+      ) : (
+        <p class="text-brand-gray-400 py-8">Aucun produit dans cette catégorie pour le moment.</p>
+      )}
+    </div>
+  </section>
+</ShopLayout>
