@@ -1,0 +1,383 @@
+[
+  {
+    "id": 700,
+    "name": "Abonnements",
+    "slug": "abonnements",
+    "description": "<strong>Plongez dans un colis spécial chaque mois</strong> avec nos abonnements Kilogrammes. Choisissez entre nos formules séduisantes : <strong>Buds Lover</strong>, <strong>Hash Lover</strong> ou carrément <strong>Buds &amp; Hash Lover</strong>. Chacune disponible en deux tailles — Small ou Large — pour coller parfaitement à vos besoins et envies. C&#8217;est simple, abonnez-vous et Kilogrammes se charge de vous livrer votre dose de bonheur mensuelle, sans effort et avec une touche de surprise.",
+    "count": 3,
+    "image": null,
+    "parent": 0
+  },
+  {
+    "id": 27,
+    "name": "Accessoires",
+    "slug": "accessoires-cbd",
+    "description": "<span style=\"color: #ffffff\">Le bon matos fait toute la différence. Plateaux, feuilles, grinders, briquets : que ce soit pour rouler, stocker, vaporiser, ou juste représenter : on a ce qu’il vous faut ! De l’utile, du quali : soyez pro, roulez en Kilo !</span>",
+    "count": 38,
+    "image": {
+      "src": "/imported/kilogrammes/wp-content/uploads/2022/12/PACK_ACCESSOIRES_WEED.jpg",
+      "alt": ""
+    },
+    "parent": 0
+  },
+  {
+    "id": 694,
+    "name": "Accessories – OLD",
+    "slug": "accessories",
+    "description": "Consuming the best CBD &amp; CBG products is one thing, but to get the most out of them, what could be more logical than equipping yourself with the best accessories? Sharp grinders, oversized sheets, trays for organized rollers, etc.: be a pro, roll Kilo!",
+    "count": 2,
+    "image": null,
+    "parent": 0
+  },
+  {
+    "id": 712,
+    "name": "Best Sellers",
+    "slug": "best-sellers",
+    "description": "",
+    "count": 4,
+    "image": null,
+    "parent": 0
+  },
+  {
+    "id": 619,
+    "name": "Bons Plans",
+    "slug": "bons-plans",
+    "description": "<span style=\"color: #ffffff\">Ici, on a rassemblé les meilleurs deals du moment : des pépites à prix mini, sans compromis sur la qualité. Fleurs, résines, edibles ou packs malins&#8230; de quoi se faire plaisir sans flinguer son budget. Le bon plan, c’est quand c’est Kilo et que ça coûte moins cher.</span>",
+    "count": 6,
+    "image": {
+      "src": "/imported/kilogrammes/wp-content/uploads/2023/04/PACK_POPCORN_80G_1000PX.jpg",
+      "alt": "Pack small buds cbd"
+    },
+    "parent": 0
+  },
+  {
+    "id": 594,
+    "name": "Caryophyllène",
+    "slug": "caryophyllene",
+    "description": "Le caryophyllène est un des terpènes les plus facilement identifiables : ses arômes boisés, poivrés et épicés font de ce terpène un incontournable dans le monde du cannabis. On retrouve également le caryophyllène dans des végétaux aux arômes caractéristiques comme le poivre noir, le clou de girofle ou encore la cannelle. De nombreuses analyses ont prouvé que le caryophyllène était un excellent anti-inflammatoire.",
+    "count": 4,
+    "image": {
+      "src": "/imported/kilogrammes/wp-content/uploads/2024/02/TERPS_ICON_2024_BOISE.svg",
+      "alt": ""
+    },
+    "parent": 20
+  },
+  {
+    "id": 745,
+    "name": "Champignons",
+    "slug": "champignons",
+    "description": "<span style=\"color: #ffffff\">On ne choisit rien au hasard. Notre sélection de champignons est pensée pour les esprits curieux et les amateurs de pièces rares. À manier avec respect, toujours en pleine conscience.</span>",
+    "count": 1,
+    "image": null,
+    "parent": 0
+  },
+  {
+    "id": 26,
+    "name": "Cosmétiques CBD",
+    "slug": "cosmetique-cbd",
+    "description": "<span style=\"color: #ffffff\">Nanogram, c’est notre gamme bien-être à base de chanvre biologique. Huiles, crèmes, baumes : des soins naturels enrichis en CBD pour prendre soin de vous au quotidien. Formulés avec précision, testés et approuvés par celles et ceux qui veulent que ça marche.</span>",
+    "count": 5,
+    "image": {
+      "src": "/imported/kilogrammes/wp-content/uploads/2022/12/NANO_CLEANSER.jpg",
+      "alt": ""
+    },
+    "parent": 0
+  },
+  {
+    "id": 25,
+    "name": "Edibles CBD/THC",
+    "slug": "edibles-cbd",
+    "description": "<span style=\"color: #ffffff\">Discrets, précis, efficaces : nos edibles vous offrent une autre façon de consommer du cannabis légal. Que ce soit en version CBD ou THC, chaque bouchée est prête à l’emploi. Zéro combustion, zéro hasard : juste le bon dosage, au bon moment.</span>",
+    "count": 4,
+    "image": null,
+    "parent": 0
+  },
+  {
+    "id": 662,
+    "name": "Équivalents au THC",
+    "slug": "equivalent-thc",
+    "description": "Bienvenue dans l’univers des néo-cannabinoïdes. THX, 10-OH, CBG9, H4CBD, 10-HPO… chaque molécule a sa vibe, ses effets, sa spécificité. Euphorie, détente ou montée hybride : les sensations sont là, et elles sont 100% légales. À tester avec précaution !",
+    "count": 22,
+    "image": null,
+    "parent": 0
+  },
+  {
+    "id": 660,
+    "name": "Extracts CBD",
+    "slug": "extracts-cbd",
+    "description": "Nos extracts sont l’essence même du travail bien fait. Trichomes, terpènes, concentration maximale : ici, tout est extrait avec soin pour vous offrir une expérience pure et puissante. Le genre de produit qu’on garde pour les grandes occasions&#8230; ou les grosses sessions.",
+    "count": 12,
+    "image": null,
+    "parent": 0
+  },
+  {
+    "id": 24,
+    "name": "FA",
+    "slug": "trim-cbd",
+    "description": "Chez Kilogrammes, même les restes sont précieux. Notre célèbre Trim&#8217;N&#8217;Shake regroupe les chutes de manucure de nos meilleures fleurs : mêmes profils terpéniques, même puissance, juste plus accessibles. Parfait pour les infusions, les mix, les petits budgets et plus-que-parfait pour remplacer le tabac !",
+    "count": 1,
+    "image": {
+      "src": "/imported/kilogrammes/wp-content/uploads/2022/12/TRIM_CBD.jpg",
+      "alt": "Trim CBD"
+    },
+    "parent": 0
+  },
+  {
+    "id": 22,
+    "name": "Fleurs CBD Greenhouse",
+    "slug": "fleurs-cbd-greenhouse",
+    "description": "Élevées sous serre et soumises aux cycles naturels du soleil, nos fleurs greenhouse CBD &amp; CBG sont bichonnées comme leurs cousines indoor : engrais naturels, récolte et manucure manuelles pour des terpènes et des taux réels.\r\n\r\n<strong>Du mal à vous décider ? Essayez notre filtre par terpène dominant :</strong>",
+    "count": 4,
+    "image": {
+      "src": "/imported/kilogrammes/wp-content/uploads/2022/12/LEMON_HAZE.jpg",
+      "alt": "Fleur CBD Lemon Haze"
+    },
+    "parent": 20
+  },
+  {
+    "id": 346,
+    "name": "Fleurs CBD Indoor",
+    "slug": "fleurs-cbd-indoor",
+    "description": "Élevées sous LED, nos fleurs indoor CBD &amp; CBG sont (naturellement) bourrées de cannabinoïdes et de trichomes résineux. Leur long curing font d&#8217;elles de véritables bombes terpéniques : avec elles, l&#8217;aventure commence dès l&#8217;ouverture du bag.\r\n\r\n<strong>Du mal à vous décider ? Essayez notre filtre par terpène dominant :</strong>",
+    "count": 21,
+    "image": {
+      "src": "/imported/kilogrammes/wp-content/uploads/2022/12/SHERBLATO_CBD.jpg",
+      "alt": ""
+    },
+    "parent": 20
+  },
+  {
+    "id": 20,
+    "name": "Fleurs de CBD",
+    "slug": "fleurs-cbd",
+    "description": "Chez Kilogrammes, chaque <strong>fleur de CBD</strong> est le résultat d’un travail minutieux et passionné. Pas de terpènes ajoutés, pas de photos trompeuses, pas de storytelling creux : ici, on vous parle vrai. Des variétés en éditions limitées, des profils uniques, une qualité rare que vous ne retrouverez nulle part ailleurs.",
+    "count": 49,
+    "image": {
+      "src": "/imported/kilogrammes/wp-content/uploads/2022/12/REAPER_EYE_CBD.jpg",
+      "alt": ""
+    },
+    "parent": 0
+  },
+  {
+    "id": 695,
+    "name": "Good Plans",
+    "slug": "good-plans",
+    "description": "We&#8217;ve rounded up the best value for money on the site to help you find the best Kilogrammesque nuggets, always with your wallet in mind. You&#8217;ll also find packs that are a great way to save money without compromising quality!",
+    "count": 4,
+    "image": null,
+    "parent": 0
+  },
+  {
+    "id": 627,
+    "name": "Gros volumes",
+    "slug": "gros-volumes",
+    "description": "250g, 500g ou même encore 1 kg : c&#8217;est ici que vous pourrez acheter vos produits Kilogrammes préférés en gros volumes et profitez de prix plus qu&#8217;avantageux ! Bref : toujours plus&#8230; pour encore moins !",
+    "count": 5,
+    "image": null,
+    "parent": 0
+  },
+  {
+    "id": 21,
+    "name": "Grower's choice",
+    "slug": "growers-choice",
+    "description": "La fierté de la marque, ni plus ni moins. Toutes ces génétiques ont eu droit à la mention d&#8217;honneur décernée par nos growers. Les fleurs CBD &amp; CBG Grower&#8217;s Choice sont ce que vous trouverez de meilleur ici et surtout pas ailleurs, exclusivité oblige.\r\n\r\n<strong>Du mal à vous décider ? Essayez notre filtre par terpène dominant :</strong>",
+    "count": 4,
+    "image": {
+      "src": "/imported/kilogrammes/wp-content/uploads/2022/12/GREEN_CRACK_CBD.jpg",
+      "alt": ""
+    },
+    "parent": 20
+  },
+  {
+    "id": 23,
+    "name": "Hash",
+    "slug": "resine-cbd-hash-cbg-pollen",
+    "description": "Nos résines sont faites maison, à partir de nos propres fleurs, par des hash makers de haut vol. Trichomes filtrés, textures parfaites, puissance maîtrisée : du hash pur et bien pressé, comme il se faisait avant… mais en mieux. Rien d’industriel ici, juste des créations brutes et exclusives.",
+    "count": 29,
+    "image": {
+      "src": "/imported/kilogrammes/wp-content/uploads/2022/11/Rosift.png",
+      "alt": "Hash CBD Rosift CBG"
+    },
+    "parent": 0
+  },
+  {
+    "id": 600,
+    "name": "Huiles CBD",
+    "slug": "huiles-cbd",
+    "description": "<span style=\"color: #ffffff\">L’huile de CBD est l’alliée idéale pour une prise régulière, en cure comme au quotidien. Son atout ? Une biodisponibilité optimale et une efficacité remarquable. Chez Kilogrammes, on pense aussi à vos compagnons à quatre pattes : nos huiles sont également disponibles pour chiens et chats.</span>",
+    "count": 3,
+    "image": {
+      "src": "/imported/kilogrammes/wp-content/uploads/2022/12/Huile-cbd-full-spectrum-scaled-1.jpg",
+      "alt": ""
+    },
+    "parent": 0
+  },
+  {
+    "id": 595,
+    "name": "Humulène",
+    "slug": "humulene",
+    "description": "L&#8217;humulène est la réponse à la question du &#8220;pourquoi ma bière sent la weed ?&#8221;. Réponse : le houblon &amp; le cannabis ont ce terpène en commun. L&#8217;humulène a un profil terpénique &#8220;caractériel&#8221; : houblonné, terreux, boisé, légèrement épicé. Présent dans d&#8217;autres végétaux que la cannabis et le houblon, on retrouve l&#8217;humulène dans le poivre noir ou encore le ginseng. Des études prêtent à l&#8217;humulène des vertus anti-inflammatoires et antibactériennes.",
+    "count": 5,
+    "image": {
+      "src": "/imported/kilogrammes/wp-content/uploads/2024/02/TERPS_ICON_2024_HOUBLONNE.svg",
+      "alt": ""
+    },
+    "parent": 20
+  },
+  {
+    "id": 596,
+    "name": "Limonène",
+    "slug": "limonene",
+    "description": "Le limonène est incontestablement le terpène le plus populaire auprès des consommateurs de cannabis : son odeur si caractéristique est immédiatement associée à celle du citron, et plus particulièrement à celle de son zeste. On lui trouve également des ressemblances olfactives avec l&#8217;orange, le citron vert ou encore le pamplemousse. Des études ont déterminé que le limonène aurait des effets positifs sur l&#8217;anxiété et le stress.",
+    "count": 1,
+    "image": {
+      "src": "/imported/kilogrammes/wp-content/uploads/2024/02/TERPS_ICON_2024_CITRONNE.svg",
+      "alt": ""
+    },
+    "parent": 20
+  },
+  {
+    "id": 597,
+    "name": "Linalol",
+    "slug": "linalol",
+    "description": "Le linalol est un terpène dont l&#8217;odeur est avant-tout décrite comme florale : en effet, on retrouve le linalol dans de nombreuses fleurs et plantes odorantes, et tout particulièrement dans la lavande. On trouve également au linalol des notes olfactives sucrées, épicées ou encore herbacées. Suite à de nombreuses études, on prête au linalol des effets positifs sur l&#8217;anxiété mais également des effets sédatifs et calmants.",
+    "count": 3,
+    "image": {
+      "src": "/imported/kilogrammes/wp-content/uploads/2024/02/TERPS_ICON_2024_FLORAL.svg",
+      "alt": ""
+    },
+    "parent": 20
+  },
+  {
+    "id": 28,
+    "name": "Merch",
+    "slug": "merch-kilogrammes",
+    "description": "Arborez fièrement et sans complexe votre penchant pour les produits CBD &amp; CBG de qualité avec notre merch Kilogrammes.",
+    "count": 1,
+    "image": null,
+    "parent": 0
+  },
+  {
+    "id": 16,
+    "name": "Non classé",
+    "slug": "non-classe",
+    "description": "",
+    "count": 15,
+    "image": null,
+    "parent": 0
+  },
+  {
+    "id": 726,
+    "name": "Nouveautés",
+    "slug": "nouveautes",
+    "description": "",
+    "count": 4,
+    "image": null,
+    "parent": 0
+  },
+  {
+    "id": 768,
+    "name": "Offres du moment",
+    "slug": "bogo",
+    "description": "Pour un produit acheté, un produit offert",
+    "count": 4,
+    "image": null,
+    "parent": 0
+  },
+  {
+    "id": 621,
+    "name": "Packs",
+    "slug": "pack-cbd",
+    "description": "Pas de secret : achetez plus et payez moins en commandant un pack CBD.",
+    "count": 4,
+    "image": {
+      "src": "/imported/kilogrammes/wp-content/uploads/2023/04/PACK_BUDS_LOVER_48G_1000PX.jpg",
+      "alt": "Pack CBD 48G"
+    },
+    "parent": 619
+  },
+  {
+    "id": 602,
+    "name": "Phytol",
+    "slug": "phytol",
+    "description": "Le phytol est un terpène particulier, le genre de terpène qu&#8217;on aime ou qu&#8217;on déteste : son odeur et son goût se rapprochent d&#8217;une sensation crémeuse, terreuse, florale voire vanillées dans certains cas. On retrouve le phytol dans d&#8217;autres plantes que le cannabis, notamment dans le thé vert. Des analyses ont conclu que le phytol serait d&#8217;une aide considérable contre l&#8217;insomnie.",
+    "count": 2,
+    "image": {
+      "src": "/imported/kilogrammes/wp-content/uploads/2024/02/TERPS_ICON_2024_CREMEUX.svg",
+      "alt": ""
+    },
+    "parent": 20
+  },
+  {
+    "id": 599,
+    "name": "Pinène",
+    "slug": "pinene",
+    "description": "Le pinène est un terpène très courant dans le monde du cannabis : son odeur si caractéristique de pin fait qu&#8217;on ne se trompe que très rarement lorsqu&#8217;il s&#8217;agit de l&#8217;identifier. Présent dans d&#8217;autres plantes que les conifères, on retrouve le pinène dans le romarin ou encore dans le basilic. Des scientifiques rapportent que le pinène aurait des effets positifs sur la douleur ou encore l&#8217;anxiété.",
+    "count": 5,
+    "image": {
+      "src": "/imported/kilogrammes/wp-content/uploads/2024/02/TERPS_ICON_2024_RESINEUX.svg",
+      "alt": ""
+    },
+    "parent": 20
+  },
+  {
+    "id": 661,
+    "name": "Popcorns",
+    "slug": "popcorns-cbd",
+    "description": "<span style=\"color: #ffffff\">Découvrez nos fameux Popcorns : de petites fleurs, mais un max de plaisir à petit prix. Idéales pour explorer sans se ruiner, elles conservent toute la richesse aromatique de nos variétés. Des pépites compactes, parfaites pour varier les plaisirs sans jamais baisser en qualité.</span>",
+    "count": 3,
+    "image": null,
+    "parent": 0
+  },
+  {
+    "id": 620,
+    "name": "Promotions",
+    "slug": "cbd-promo",
+    "description": "Soldes, drops spécifiques ou encore ventes flash : vous trouverez dans cette catégorie toutes les promos disponibles sur le shop. De quoi se retrouver avec un panier bien gonflé sans taper dans les économies.",
+    "count": 1,
+    "image": {
+      "src": "/imported/kilogrammes/wp-content/uploads/2023/04/PACK_BUDS_LOVER_14G_1000PX.jpg",
+      "alt": "Pack CBD"
+    },
+    "parent": 619
+  },
+  {
+    "id": 728,
+    "name": "SHARE",
+    "slug": "share",
+    "description": "",
+    "count": 1,
+    "image": null,
+    "parent": 0
+  },
+  {
+    "id": 723,
+    "name": "Summer Sales ’25",
+    "slug": "sales",
+    "description": "<strong>Du 22 juin au 26 juillet, c’est la grosse vague des Summer Sales sur le shop avec des réductions allant jusqu’à -60% !</strong> Des prix fracassés pour l’été, des stocks à écouler et des pépites à choper pendant qu’il en reste. Faudrait être zinzin pour ne pas en profiter et risquer de partir en vacances sans sa conso&#8230;",
+    "count": 7,
+    "image": null,
+    "parent": 0
+  },
+  {
+    "id": 601,
+    "name": "Terpinolène",
+    "slug": "terpinolene",
+    "description": "Le terpinolène est un terpène que notre nez confond souvent avec le limonène : son profil olfactif comprend bel et bien des notes d&#8217;agrumes mais auxquelles viennent se mêler d&#8217;autres notes florales, herbacées et même piniques. Terpène au profil très complexe, on le retrouve dans le lilas, dans le cumin ou encore dans la noix de muscade. Des études ont déterminé que le terpinolène aurait des effets calmants et qu&#8217;il aurait aussi des propriétés antifongiques et antibactériennes.",
+    "count": 2,
+    "image": {
+      "src": "/imported/kilogrammes/wp-content/uploads/2024/02/TERPS_ICON_2024_AGRUME.svg",
+      "alt": ""
+    },
+    "parent": 20
+  },
+  {
+    "id": 777,
+    "name": "Winter Sales",
+    "slug": "winter-sales",
+    "description": "",
+    "count": 9,
+    "image": null,
+    "parent": 0
+  }
+]

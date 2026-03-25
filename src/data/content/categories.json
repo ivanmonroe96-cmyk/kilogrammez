@@ -1,0 +1,146 @@
+[
+  {
+    "id": 731,
+    "slug": "420-friendly-signification-cannabis",
+    "name": "420 friendly",
+    "description": "",
+    "count": 47,
+    "parent": 0
+  },
+  {
+    "id": 613,
+    "slug": "actualites-cbd",
+    "name": "Actualités CBD",
+    "description": "",
+    "count": 142,
+    "parent": 0
+  },
+  {
+    "id": 733,
+    "slug": "amnesia-haze",
+    "name": "Amnesia haze",
+    "description": "",
+    "count": 31,
+    "parent": 611
+  },
+  {
+    "id": 609,
+    "slug": "tips-et-conseils",
+    "name": "Astuces et Conseils",
+    "description": "",
+    "count": 93,
+    "parent": 0
+  },
+  {
+    "id": 607,
+    "slug": "autres",
+    "name": "Autres",
+    "description": "",
+    "count": 56,
+    "parent": 0
+  },
+  {
+    "id": 730,
+    "slug": "cbd-shop-france",
+    "name": "CBD Shop France",
+    "description": "",
+    "count": 13,
+    "parent": 0
+  },
+  {
+    "id": 608,
+    "slug": "en-savoir-plus-sur-le-cbd",
+    "name": "En savoir plus sur le CBD",
+    "description": "",
+    "count": 111,
+    "parent": 0
+  },
+  {
+    "id": 737,
+    "slug": "hash-cbd",
+    "name": "Hash cbd",
+    "description": "",
+    "count": 4,
+    "parent": 0
+  },
+  {
+    "id": 735,
+    "slug": "huiles-cbd-cannabidiol",
+    "name": "Huile CBD",
+    "description": "",
+    "count": 14,
+    "parent": 0
+  },
+  {
+    "id": 748,
+    "slug": "meilleur-cbd",
+    "name": "Le Meilleur CBD",
+    "description": "",
+    "count": 15,
+    "parent": 0
+  },
+  {
+    "id": 738,
+    "slug": "lemon-haze",
+    "name": "Lemon haze",
+    "description": "",
+    "count": 4,
+    "parent": 611
+  },
+  {
+    "id": 739,
+    "slug": "mango-kush",
+    "name": "Mango Kush",
+    "description": "",
+    "count": 6,
+    "parent": 611
+  },
+  {
+    "id": 1,
+    "slug": "non-classifiee",
+    "name": "Non classifié(e)",
+    "description": "",
+    "count": 3,
+    "parent": 0
+  },
+  {
+    "id": 763,
+    "slug": "orange-bud",
+    "name": "Orange Bud",
+    "description": "",
+    "count": 2,
+    "parent": 611
+  },
+  {
+    "id": 734,
+    "slug": "purple-haze",
+    "name": "Purple haze",
+    "description": "",
+    "count": 4,
+    "parent": 611
+  },
+  {
+    "id": 612,
+    "slug": "recettes",
+    "name": "Recettes",
+    "description": "",
+    "count": 86,
+    "parent": 0
+  },
+  {
+    "id": 610,
+    "slug": "sante-et-cbd",
+    "name": "Santé et CBD",
+    "description": "",
+    "count": 77,
+    "parent": 0
+  },
+  {
+    "id": 611,
+    "slug": "varietes-et-culture-cbd",
+    "name": "Variétés et culture CBD",
+    "description": "",
+    "count": 64,
+    "parent": 0
+  }
+]

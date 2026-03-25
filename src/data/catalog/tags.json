@@ -1,0 +1,65 @@
+[
+  {
+    "id": 722,
+    "name": "-10%",
+    "slug": "10",
+    "description": "",
+    "count": 5
+  },
+  {
+    "id": 721,
+    "name": "-20%",
+    "slug": "20",
+    "description": "",
+    "count": 3
+  },
+  {
+    "id": 720,
+    "name": "-30%",
+    "slug": "30",
+    "description": "",
+    "count": 2
+  },
+  {
+    "id": 718,
+    "name": "-50%",
+    "slug": "50",
+    "description": "",
+    "count": 4
+  },
+  {
+    "id": 618,
+    "name": "excludepack",
+    "slug": "excludepack",
+    "description": "",
+    "count": 7
+  },
+  {
+    "id": 49,
+    "name": "Fleurs",
+    "slug": "fleurs",
+    "description": "",
+    "count": 2
+  },
+  {
+    "id": 448,
+    "name": "grinder",
+    "slug": "grinder",
+    "description": "",
+    "count": 1
+  },
+  {
+    "id": 719,
+    "name": "summer sales",
+    "slug": "summer-sales",
+    "description": "",
+    "count": 14
+  },
+  {
+    "id": 636,
+    "name": "vaporisateur",
+    "slug": "vaporisateur",
+    "description": "",
+    "count": 3
+  }
+]
