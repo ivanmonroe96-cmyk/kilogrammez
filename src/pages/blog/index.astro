@@ -2,7 +2,7 @@
 import MarketingLayout from "@layouts/MarketingLayout.astro";
 import BlogCard from "@components/blog/BlogCard.astro";
 import { buildMetadata } from "@lib/seo/metadata";
-import { breadcrumbSchema, buildJsonLd } from "@lib/seo/schema";
+import { breadcrumbSchema, collectionPageSchema, buildJsonLd } from "@lib/seo/schema";
 import { getPosts, getFeaturedImage, stripHtml } from "@lib/api/wordpress";
 import { getBlogRouteSlug } from "@lib/seo/focusKeywords";
 
@@ -15,11 +15,17 @@ const metadata = buildMetadata({
   path: "/blog/",
 });
 
+const posts = await getPosts(1, 12).catch(() => []);
+
 const jsonLd = buildJsonLd([
   breadcrumbSchema([{ name: "Blog", url: "/blog/" }]),
+  collectionPageSchema({
+    name: "Blog CBD Kilogrammes",
+    url: "/blog/",
+    description: "Guides CBD, comparatifs produits, contenus réglementaires et articles éditoriaux Kilogrammes.",
+    numberOfItems: posts.length || undefined,
+  }),
 ]);
-
-const posts = await getPosts(1, 12).catch(() => []);
 
 const postsWithImages = posts.map((post: any) => {
   const image = getFeaturedImage(post);

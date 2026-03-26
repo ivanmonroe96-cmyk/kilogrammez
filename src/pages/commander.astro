@@ -5,7 +5,7 @@ import { staticPageSlugs } from "@lib/seo/focusKeywords";
 
 const metadata = buildMetadata({
   title: "Commander - Finalisez Votre Commande CBD",
-  description: "Finalisez votre commande CBD Kilogrammes : choisissez votre livraison, vos options de paiement et confirmez votre panier.",
+  description: "Finalisez votre commande CBD Kilogrammes : choisissez votre livraison, confirmez votre paiement en crypto-monnaie et validez votre panier.",
   path: `/${staticPageSlugs.checkout}/`,
   noindex: true,
 });
@@ -139,62 +139,23 @@ const metadata = buildMetadata({
             <div id="step-payment" class="hidden space-y-6">
               <div class="rounded-2xl border border-brand-gray-200 bg-white p-6">
                 <h2 class="text-xl font-title font-bold uppercase text-brand-black mb-5">Mode de paiement</h2>
+                <div class="mb-4 rounded-2xl border border-brand-yellow bg-brand-yellow/20 p-4 text-sm leading-relaxed text-brand-black">
+                  <p class="font-semibold uppercase tracking-[0.14em]">Paiement crypto uniquement</p>
+                  <p class="mt-1 text-brand-black/70">Les commandes sont confirmées uniquement apres reception du paiement en crypto-monnaie. Aucune carte bancaire, aucun compte PayPal et aucun virement bancaire ne sont acceptes.</p>
+                </div>
                 <div class="space-y-3" id="payment-options">
                   <label class="flex flex-col items-start gap-3 p-4 rounded-xl border-2 border-brand-black bg-gray-50 cursor-pointer transition-colors sm:flex-row sm:items-center sm:gap-4 payment-option">
-                    <input type="radio" name="payment" value="card" checked class="w-4 h-4 accent-brand-black" />
-                    <div class="flex-1">
-                      <p class="font-semibold text-brand-black">Carte Bancaire</p>
-                      <p class="text-sm text-brand-black/60">Visa, Mastercard, CB — Paiement sécurisé</p>
-                    </div>
-                    <div class="flex gap-1.5">
-                      <span class="w-8 h-5 rounded bg-blue-600 text-white text-[8px] font-bold flex items-center justify-center">VISA</span>
-                      <span class="w-8 h-5 rounded bg-red-500 text-white text-[8px] font-bold flex items-center justify-center">MC</span>
-                    </div>
-                  </label>
-                  <label class="flex flex-col items-start gap-3 p-4 rounded-xl border-2 border-brand-gray-200 bg-white cursor-pointer transition-colors sm:flex-row sm:items-center sm:gap-4 payment-option">
-                    <input type="radio" name="payment" value="paypal" class="w-4 h-4 accent-brand-black" />
-                    <div class="flex-1">
-                      <p class="font-semibold text-brand-black">PayPal</p>
-                      <p class="text-sm text-brand-black/60">Paiement via votre compte PayPal</p>
-                    </div>
-                    <span class="text-sm font-bold text-[#003087]">Pay<span class="text-[#009cde]">Pal</span></span>
-                  </label>
-                  <label class="flex flex-col items-start gap-3 p-4 rounded-xl border-2 border-brand-gray-200 bg-white cursor-pointer transition-colors sm:flex-row sm:items-center sm:gap-4 payment-option">
-                    <input type="radio" name="payment" value="crypto" class="w-4 h-4 accent-brand-black" />
+                    <input type="radio" name="payment" value="crypto" checked class="w-4 h-4 accent-brand-black" />
                     <div class="flex-1">
                       <p class="font-semibold text-brand-black">Crypto-monnaie</p>
-                      <p class="text-sm text-brand-black/60">Bitcoin, Ethereum, USDT</p>
+                      <p class="text-sm text-brand-black/60">Bitcoin, Ethereum, USDT et autres reseaux pris en charge a la confirmation</p>
                     </div>
-                    <span class="text-sm font-bold text-brand-black/50">₿</span>
-                  </label>
-                  <label class="flex flex-col items-start gap-3 p-4 rounded-xl border-2 border-brand-gray-200 bg-white cursor-pointer transition-colors sm:flex-row sm:items-center sm:gap-4 payment-option">
-                    <input type="radio" name="payment" value="transfer" class="w-4 h-4 accent-brand-black" />
-                    <div class="flex-1">
-                      <p class="font-semibold text-brand-black">Virement Bancaire</p>
-                      <p class="text-sm text-brand-black/60">SEPA — Traitement sous 1-2 jours ouvrés</p>
+                    <div class="flex gap-1.5">
+                      <span class="rounded bg-brand-black px-2 py-1 text-[10px] font-bold uppercase tracking-wide text-white">BTC</span>
+                      <span class="rounded bg-brand-black px-2 py-1 text-[10px] font-bold uppercase tracking-wide text-white">ETH</span>
+                      <span class="rounded bg-brand-black px-2 py-1 text-[10px] font-bold uppercase tracking-wide text-white">USDT</span>
                     </div>
                   </label>
-                </div>
-              </div>
-
-              <!-- Card form (shown only for card payment) -->
-              <div id="card-form-wrapper" class="rounded-2xl border border-brand-gray-200 bg-white p-6">
-                <h3 class="text-lg font-title font-bold uppercase text-brand-black mb-4">Détails de la carte</h3>
-                <div class="space-y-4">
-                  <div>
-                    <label for="card-number" class="block text-sm font-medium text-brand-black mb-1">Numéro de carte</label>
-                    <input type="text" id="card-number" placeholder="1234 5678 9012 3456" maxlength="19" autocomplete="cc-number" class="w-full rounded-lg border border-brand-gray-200 px-4 py-2.5 text-sm text-brand-black focus:border-brand-black focus:ring-1 focus:ring-brand-black outline-none transition font-mono" />
-                  </div>
-                  <div class="grid grid-cols-2 gap-4">
-                    <div>
-                      <label for="card-expiry" class="block text-sm font-medium text-brand-black mb-1">Date d'expiration</label>
-                      <input type="text" id="card-expiry" placeholder="MM/AA" maxlength="5" autocomplete="cc-exp" class="w-full rounded-lg border border-brand-gray-200 px-4 py-2.5 text-sm text-brand-black focus:border-brand-black focus:ring-1 focus:ring-brand-black outline-none transition" />
-                    </div>
-                    <div>
-                      <label for="card-cvc" class="block text-sm font-medium text-brand-black mb-1">CVC</label>
-                      <input type="text" id="card-cvc" placeholder="123" maxlength="4" autocomplete="cc-csc" class="w-full rounded-lg border border-brand-gray-200 px-4 py-2.5 text-sm text-brand-black focus:border-brand-black focus:ring-1 focus:ring-brand-black outline-none transition" />
-                    </div>
-                  </div>
                 </div>
               </div>
 
@@ -388,7 +349,6 @@ const metadata = buildMetadata({
 
   function setupPaymentOptions() {
     const options = document.querySelectorAll<HTMLLabelElement>(".payment-option");
-    const cardForm = document.getElementById("card-form-wrapper");
     options.forEach((label) => {
       const radio = label.querySelector<HTMLInputElement>("input[type=radio]");
       if (!radio) return;
@@ -399,7 +359,6 @@ const metadata = buildMetadata({
         });
         label.classList.remove("border-brand-gray-200", "bg-white");
         label.classList.add("border-brand-black", "bg-gray-50");
-        if (cardForm) cardForm.style.display = radio.value === "card" ? "block" : "none";
       });
     });
   }
@@ -426,58 +385,8 @@ const metadata = buildMetadata({
     return valid;
   }
 
-  function formatCardNumber(value: string): string {
-    return value.replace(/\D/g, "").slice(0, 16).replace(/(.{4})/g, "$1 ").trim();
-  }
-
-  function formatExpiry(value: string): string {
-    const digits = value.replace(/\D/g, "").slice(0, 4);
-    if (digits.length < 3) return digits;
-    return `${digits.slice(0, 2)}/${digits.slice(2)}`;
-  }
-
   function validatePaymentForm(): boolean {
-    const selectedPayment = document.querySelector<HTMLInputElement>('input[name="payment"]:checked')?.value;
-    if (selectedPayment !== "card") return true;
-
-    const numberField = document.getElementById("card-number") as HTMLInputElement | null;
-    const expiryField = document.getElementById("card-expiry") as HTMLInputElement | null;
-    const cvcField = document.getElementById("card-cvc") as HTMLInputElement | null;
-
-    let valid = true;
-
-    if (numberField) {
-      const digits = numberField.value.replace(/\D/g, "");
-      if (digits.length < 13 || digits.length > 16) {
-        numberField.classList.add("border-red-400");
-        valid = false;
-      } else {
-        numberField.classList.remove("border-red-400");
-      }
-    }
-
-    if (expiryField) {
-      const match = expiryField.value.match(/^(\d{2})\/(\d{2})$/);
-      const month = match ? parseInt(match[1], 10) : 0;
-      if (!match || month < 1 || month > 12) {
-        expiryField.classList.add("border-red-400");
-        valid = false;
-      } else {
-        expiryField.classList.remove("border-red-400");
-      }
-    }
-
-    if (cvcField) {
-      const digits = cvcField.value.replace(/\D/g, "");
-      if (digits.length < 3 || digits.length > 4) {
-        cvcField.classList.add("border-red-400");
-        valid = false;
-      } else {
-        cvcField.classList.remove("border-red-400");
-      }
-    }
-
-    return valid;
+    return Boolean(document.querySelector<HTMLInputElement>('input[name="payment"]:checked'));
   }
 
   function goToStep(step: number) {
@@ -534,25 +443,6 @@ const metadata = buildMetadata({
     renderSummary();
     setupDeliveryOptions();
     setupPaymentOptions();
-
-    const cardNumber = document.getElementById("card-number") as HTMLInputElement | null;
-    const cardExpiry = document.getElementById("card-expiry") as HTMLInputElement | null;
-    const cardCvc = document.getElementById("card-cvc") as HTMLInputElement | null;
-
-    cardNumber?.addEventListener("input", () => {
-      cardNumber.value = formatCardNumber(cardNumber.value);
-      cardNumber.classList.remove("border-red-400");
-    });
-
-    cardExpiry?.addEventListener("input", () => {
-      cardExpiry.value = formatExpiry(cardExpiry.value);
-      cardExpiry.classList.remove("border-red-400");
-    });
-
-    cardCvc?.addEventListener("input", () => {
-      cardCvc.value = cardCvc.value.replace(/\D/g, "").slice(0, 4);
-      cardCvc.classList.remove("border-red-400");
-    });
 
     // Step navigation
     const btnToPayment = document.getElementById("btn-to-payment");

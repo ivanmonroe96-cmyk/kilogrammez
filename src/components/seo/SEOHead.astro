@@ -21,7 +21,9 @@ const { metadata } = Astro.props;
 <!-- Language & geo targeting -->
 <meta property="og:locale" content="fr_FR" />
 <meta name="language" content="French" />
-<link rel="alternate" hreflang="fr" href={metadata.canonical} />
+{metadata.canonical && <link rel="alternate" hreflang="fr-FR" href={metadata.canonical} />}
+{metadata.canonical && <link rel="alternate" hreflang="fr" href={metadata.canonical} />}
+{metadata.canonical && <link rel="alternate" hreflang="x-default" href={metadata.canonical} />}
 
 <!-- Open Graph -->
 <meta property="og:type" content={metadata.ogType ?? "website"} />
@@ -30,6 +32,7 @@ const { metadata } = Astro.props;
 <meta property="og:site_name" content="Kilogrammes" />
 {metadata.canonical && <meta property="og:url" content={metadata.canonical} />}
 {metadata.ogImage && <meta property="og:image" content={metadata.ogImage} />}
+{metadata.ogImage && <meta property="og:image:alt" content={metadata.title} />}
 {metadata.ogImage && <meta property="og:image:width" content="1200" />}
 {metadata.ogImage && <meta property="og:image:height" content="630" />}
 
@@ -38,6 +41,7 @@ const { metadata } = Astro.props;
 <meta name="twitter:title" content={metadata.title} />
 <meta name="twitter:description" content={metadata.description} />
 {metadata.ogImage && <meta name="twitter:image" content={metadata.ogImage} />}
+{metadata.ogImage && <meta name="twitter:image:alt" content={metadata.title} />}
 
 <!-- Article-specific -->
 {metadata.article?.publishedTime && (
@@ -46,3 +50,4 @@ const { metadata } = Astro.props;
 {metadata.article?.modifiedTime && (
   <meta property="article:modified_time" content={metadata.article.modifiedTime} />
 )}
+{metadata.article?.author && <meta property="article:author" content={metadata.article.author} />}

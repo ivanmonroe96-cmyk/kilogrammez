@@ -35,7 +35,7 @@ export function organizationSchema() {
       "@type": "ContactPoint",
       contactType: "customer service",
       availableLanguage: ["French", "English"],
-      url: `${SITE_URL}/contact/`,
+      url: `${SITE_URL}/contact-service-client-cbd/`,
     },
   };
 }
@@ -48,11 +48,6 @@ export function websiteSchema() {
     name: SITE_NAME,
     publisher: { "@id": `${SITE_URL}/#organization` },
     inLanguage: "fr-FR",
-    potentialAction: {
-      "@type": "SearchAction",
-      target: `${SITE_URL}/?s={search_term_string}`,
-      "query-input": "required name=search_term_string",
-    },
   };
 }
 
@@ -80,6 +75,7 @@ export function articleSchema(opts: {
   return {
     "@type": "Article",
     headline: opts.title,
+    mainEntityOfPage: opts.url.startsWith("http") ? opts.url : `${SITE_URL}${opts.url}`,
     url: opts.url.startsWith("http") ? opts.url : `${SITE_URL}${opts.url}`,
     description: opts.description,
     ...(opts.image && { image: opts.image }),
@@ -113,12 +109,21 @@ export function productSchema(opts: {
     description: opts.description,
     ...(opts.image && { image: opts.image }),
     ...(opts.sku && { sku: opts.sku }),
+    brand: {
+      "@type": "Brand",
+      name: SITE_NAME,
+    },
     offers: {
       "@type": "Offer",
       price: opts.price,
       priceCurrency: opts.currency ?? "EUR",
       availability: `https://schema.org/${opts.availability ?? "InStock"}`,
       url: opts.url.startsWith("http") ? opts.url : `${SITE_URL}${opts.url}`,
+      seller: {
+        "@type": "Organization",
+        name: SITE_NAME,
+      },
+      itemCondition: "https://schema.org/NewCondition",
     },
   };
 

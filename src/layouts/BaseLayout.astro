@@ -5,6 +5,7 @@ import Footer from "@components/layout/Footer.astro";
 import CookieConsent from "@components/ui/CookieConsent.astro";
 import CurrencySwitcher from "@components/ui/CurrencySwitcher.astro";
 import type { SiteMetadata } from "@lib/seo/metadata";
+import { buildJsonLd, organizationSchema, websiteSchema } from "@lib/seo/schema";
 import { staticPageSlugs } from "@lib/seo/focusKeywords";
 import "@styles/global.css";
 
@@ -15,6 +16,7 @@ interface Props {
 }
 
 const { metadata, jsonLd, bodyClass } = Astro.props;
+const globalJsonLd = buildJsonLd([organizationSchema(), websiteSchema()]);
 ---
 
 <!doctype html>
@@ -25,6 +27,8 @@ const { metadata, jsonLd, bodyClass } = Astro.props;
     <meta name="theme-color" content="#2D2926" />
 
     <SEOHead metadata={metadata} />
+
+  <script is:inline type="application/ld+json" set:html={globalJsonLd} />
 
     {jsonLd && <script is:inline type="application/ld+json" set:html={jsonLd} />}
 

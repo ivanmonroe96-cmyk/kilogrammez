@@ -112,21 +112,20 @@ const shopCategories = shopItem && "children" in shopItem ? shopItem.children : 
       </button>
     </div>
   </div>
-</header>
 
-<!-- Marquee Announcement Bar -->
-<div class="marquee-bar border border-brand-white border-t-0 rounded-[8px] mx-3 sm:mx-4 lg:mx-10 overflow-hidden bg-brand-black">
-  <div class="marquee-track flex items-center whitespace-nowrap py-2 text-sm text-brand-white font-mdio uppercase tracking-wider">
-    {[...Array(12)].map(() => (
-      <span class="inline-flex items-center gap-4 mx-4 shrink-0">
-        <svg class="w-4 h-4 text-brand-yellow shrink-0" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
-        </svg>
-        <span>Livraison offerte à partir de 100€&nbsp;!</span>
-      </span>
-    ))}
+  <div class="border-t border-brand-gray-800 bg-brand-yellow text-brand-black">
+    <div class="max-w-[1440px] mx-auto px-3 sm:px-4 lg:px-10 py-3">
+      <div class="flex flex-col items-center justify-center gap-1 text-center">
+        <p class="text-[13px] sm:text-[14px] lg:text-[15px] font-bold uppercase tracking-[0.18em] leading-tight">
+          Paiement 100% crypto uniquement
+        </p>
+        <p class="text-[11px] sm:text-xs lg:text-[13px] font-semibold uppercase tracking-[0.14em] leading-tight text-brand-black/80">
+          Aucune carte bancaire, aucun paiement PayPal ou espèces
+        </p>
+      </div>
+    </div>
   </div>
-</div>
+</header>
 
 <!-- Mega Menu (Shop) -->
 <div
@@ -296,42 +295,19 @@ const shopCategories = shopItem && "children" in shopItem ? shopItem.children : 
 </aside>
 
 <style>
-  @keyframes marquee-scroll {
-    0% {
-      transform: translateX(0);
-    }
-    100% {
-      transform: translateX(-50%);
-    }
-  }
-  .marquee-track {
-    animation: marquee-scroll 30s linear infinite;
-    width: max-content;
-  }
-  .marquee-bar:hover .marquee-track {
-    animation-play-state: paused;
-  }
-
   @media (min-width: 1024px) {
     .mainHeader.is-condensed > div {
       height: 92px;
-    }
-
-    .mainHeader.is-condensed + .marquee-bar {
-      margin-top: 0;
     }
   }
 </style>
 
 <script>
   const siteHeader = document.getElementById('site-header');
-  const marqueeBar = document.querySelector<HTMLElement>('.marquee-bar');
 
   function syncHeaderOffsets() {
     const headerHeight = siteHeader?.offsetHeight ?? 0;
-    const marqueeHeight = marqueeBar?.offsetHeight ?? 0;
-    const totalOffset = headerHeight + marqueeHeight;
-    document.documentElement.style.setProperty('--header-offset', `${totalOffset}px`);
+    document.documentElement.style.setProperty('--header-offset', `${headerHeight}px`);
   }
 
   function syncHeaderState() {

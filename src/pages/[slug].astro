@@ -2,7 +2,7 @@
 import MarketingLayout from "@layouts/MarketingLayout.astro";
 import { buildMetadata } from "@lib/seo/metadata";
 import { breadcrumbSchema, faqSchema, buildJsonLd } from "@lib/seo/schema";
-import { getKeywordLandingSlugs, getKeywordTopic, shouldNoindexKeywordLanding } from "@lib/seo/focusKeywords";
+import { allFocusKeywords, getKeywordLandingSlugs, getKeywordTopic, shouldNoindexKeywordLanding, slugifyKeyword } from "@lib/seo/focusKeywords";
 
 export const prerender = true;
 
@@ -50,6 +50,39 @@ export async function getStaticPaths() {
 const { keyword } = Astro.props;
 const topic = getKeywordTopic(keyword);
 const noindex = shouldNoindexKeywordLanding(keyword);
+const keywordLandingSlugs = getKeywordLandingSlugs([
+  "404",
+  "affiliation",
+  "blog",
+  "boutique-cbd",
+  "commander",
+  "conditions-generales-de-ventes",
+  "conditions-generales-vente-cbd",
+  "contact",
+  "contact-service-client-cbd",
+  "finaliser-commande-cbd",
+  "franchise-cbd",
+  "grossiste-cbd",
+  "grossiste-cbd-france",
+  "index",
+  "kilogramme-shop",
+  "livraison-cbd-europe",
+  "mon-compte",
+  "mon-compte-kilogrammes",
+  "panier",
+  "panier-cbd",
+  "politique-confidentialite-rgpd",
+  "processus-editorial",
+  "processus-editorial-cbd",
+  "programme-affiliation-cbd",
+  "qualite-securite-cbd",
+  "remboursements-retours-cbd",
+  "remboursements_retours",
+  "rgpd",
+  "safety",
+  "support",
+  "support-cbd",
+]);
 
 const topicContent = {
   legal: {
@@ -99,6 +132,57 @@ const topicContent = {
   },
 } as const;
 
+const recommendedLinks = {
+  legal: [
+    { label: "Qualité & sécurité", href: "/qualite-securite-cbd/" },
+    { label: "Livraison CBD Europe", href: "/livraison-cbd-europe/" },
+    { label: "Support CBD", href: "/support-cbd/" },
+    { label: "Guides du blog", href: "/blog/" },
+  ],
+  recipe: [
+    { label: "Boutique CBD", href: "/boutique-cbd/" },
+    { label: "Support CBD", href: "/support-cbd/" },
+    { label: "Qualité & sécurité", href: "/qualite-securite-cbd/" },
+    { label: "Voir les fleurs CBD", href: "/categorie-produit/fleurs-cbd/" },
+  ],
+  strain: [
+    { label: "Voir les fleurs CBD", href: "/categorie-produit/fleurs-cbd/" },
+    { label: "Voir les résines CBD", href: "/categorie-produit/resine-cbd/" },
+    { label: "Boutique CBD", href: "/boutique-cbd/" },
+    { label: "Guides du blog", href: "/blog/" },
+  ],
+  shop: [
+    { label: "Entrer dans la boutique", href: "/boutique-cbd/" },
+    { label: "Livraison CBD Europe", href: "/livraison-cbd-europe/" },
+    { label: "Support CBD", href: "/support-cbd/" },
+    { label: "Grossiste CBD", href: "/grossiste-cbd-france/" },
+  ],
+  general: [
+    { label: "Boutique CBD", href: "/boutique-cbd/" },
+    { label: "Guides du blog", href: "/blog/" },
+    { label: "Support CBD", href: "/support-cbd/" },
+    { label: "Contact", href: "/contact-service-client-cbd/" },
+  ],
+} as const;
+
+const topicHeadings = {
+  legal: "Pages à vérifier avant décision",
+  recipe: "Pages utiles à la place d'un tutoriel",
+  strain: "Parcours recommandé pour ce profil",
+  shop: "Parcours recommandé pour acheter",
+  general: "Pages utiles à consulter",
+} as const;
+
+const relatedKeywordLinks = allFocusKeywords
+  .filter((candidate) => candidate !== keyword)
+  .filter((candidate) => getKeywordTopic(candidate) === topic)
+  .filter((candidate) => keywordLandingSlugs.some((entry) => entry.keyword === candidate || entry.slug === slugifyKeyword(candidate)))
+  .slice(0, 8)
+  .map((candidate) => ({
+    label: candidate,
+    href: `/${slugifyKeyword(candidate)}/`,
+  }));
+
 const metadata = buildMetadata({
   title: keyword,
   description: `Page Kilogrammes sur ${keyword} : repères éditoriaux, liens utiles et orientation vers nos catégories et guides CBD.`.slice(0, 160),
@@ -147,14 +231,39 @@ const jsonLd = buildJsonLd([
         </ul>
 
         <div class="mt-10 rounded-[28px] border border-brand-gray-200 bg-gray-50 p-6 lg:p-8">
-          <h3 class="text-xl font-title font-bold uppercase text-brand-black">Pages utiles à consulter</h3>
+          <h3 class="text-xl font-title font-bold uppercase text-brand-black">{topicHeadings[topic]}</h3>
           <div class="mt-5 flex flex-wrap gap-3 text-sm">
-            <a href="/boutique-cbd/" class="inline-flex items-center rounded-full bg-brand-black px-4 py-2 text-white transition-colors hover:bg-brand-gray-900">Voir la boutique CBD</a>
-            <a href="/support-cbd/" class="inline-flex items-center rounded-full border border-brand-gray-300 px-4 py-2 text-brand-black transition-colors hover:border-brand-black">Support CBD</a>
-            <a href="/qualite-securite-cbd/" class="inline-flex items-center rounded-full border border-brand-gray-300 px-4 py-2 text-brand-black transition-colors hover:border-brand-black">Qualité & sécurité</a>
-            <a href="/blog/" class="inline-flex items-center rounded-full border border-brand-gray-300 px-4 py-2 text-brand-black transition-colors hover:border-brand-black">Guides du blog</a>
+            {recommendedLinks[topic].map((link, index) => (
+              <a
+                href={link.href}
+                class:list={[
+                  "inline-flex items-center rounded-full px-4 py-2 transition-colors",
+                  index === 0
+                    ? "bg-brand-black text-white hover:bg-brand-gray-900"
+                    : "border border-brand-gray-300 text-brand-black hover:border-brand-black",
+                ]}
+              >
+                {link.label}
+              </a>
+            ))}
           </div>
         </div>
+
+        {relatedKeywordLinks.length > 0 && (
+          <div class="mt-10 rounded-[28px] border border-brand-gray-200 bg-brand-white p-6 lg:p-8 shadow-[0_20px_60px_rgba(45,41,38,0.04)]">
+            <h3 class="text-xl font-title font-bold uppercase text-brand-black">Recherches proches sur le site</h3>
+            <p class="mt-3 text-sm leading-relaxed text-brand-black/70">
+              Si cette requête correspond presque à votre intention, ces pages de correspondance sémantique renvoient vers des catégories ou contenus voisins.
+            </p>
+            <div class="mt-5 flex flex-wrap gap-3 text-sm">
+              {relatedKeywordLinks.map((link) => (
+                <a href={link.href} class="inline-flex items-center rounded-full border border-brand-gray-300 px-4 py-2 text-brand-black transition-colors hover:border-brand-black hover:bg-gray-50">
+                  {link.label}
+                </a>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
 
       <aside class="rounded-[28px] border border-brand-gray-200 bg-brand-white p-6 shadow-[0_20px_60px_rgba(45,41,38,0.06)]">

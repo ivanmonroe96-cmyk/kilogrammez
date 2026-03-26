@@ -3,7 +3,7 @@ import MarketingLayout from "@layouts/MarketingLayout.astro";
 import ProductCard from "@components/product/ProductCard.astro";
 import BlogCard from "@components/blog/BlogCard.astro";
 import { buildMetadata } from "@lib/seo/metadata";
-import { buildJsonLd, organizationSchema, websiteSchema, faqSchema } from "@lib/seo/schema";
+import { buildJsonLd, faqSchema } from "@lib/seo/schema";
 import { getProducts, getProductCategories, getProductsByCategory } from "@lib/api/woocommerce";
 import { getPosts, getFeaturedImage, stripHtml } from "@lib/api/wordpress";
 import { getBlogRouteSlug, getCategoryUrl, getDeliveryUrl, getProductRouteSlug, homepagePrimaryKeyword } from "@lib/seo/focusKeywords";
@@ -23,7 +23,7 @@ const homeFaq = [
   { question: "Qu'est-ce que le simili-THC ?", answer: "Les produits simili-THC (ou équivalents THC) sont des cannabinoïdes légaux comme le THCv, H4CBD ou THCP qui procurent des effets similaires au THC traditionnel, tout en restant dans le cadre de la loi européenne avec un taux de THC inférieur à 0,3%." },
 ];
 
-const jsonLd = buildJsonLd([organizationSchema(), websiteSchema(), faqSchema(homeFaq)]);
+const jsonLd = buildJsonLd([faqSchema(homeFaq)]);
 
 // Fetch data in parallel
 const [featuredProducts, categories, latestPosts] = await Promise.all([
