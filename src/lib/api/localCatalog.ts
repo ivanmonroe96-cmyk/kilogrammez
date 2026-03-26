@@ -1,4 +1,5 @@
 import { readFile } from "node:fs/promises";
+import { resolve } from "node:path";
 
 export interface WCProduct {
   id: number;
@@ -76,14 +77,14 @@ export interface LocalCatalogData {
   commentsByPostId: Record<string, WPComment[]>;
 }
 
-const CATALOG_DIR = new URL("../../data/catalog/", import.meta.url);
+const CATALOG_DIR = resolve(process.cwd(), "src/data/catalog");
 
 let catalogPromise: Promise<LocalCatalogData> | null = null;
 
 async function readCatalogFile<T>(fileName: string, fallback: T): Promise<T> {
   try {
-    const fileUrl = new URL(fileName, CATALOG_DIR);
-    const content = await readFile(fileUrl, "utf8");
+    const filePath = resolve(CATALOG_DIR, fileName);
+    const content = await readFile(filePath, "utf8");
     return JSON.parse(content) as T;
   } catch (error) {
     if ((error as NodeJS.ErrnoException).code === "ENOENT") {
